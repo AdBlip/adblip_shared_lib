@@ -15,8 +15,8 @@ class BoardSubscription {
   final BoardSubscriptionStatus boardSubscriptionStatus;
   final Timestamp startDate;
   final Timestamp endDate;
-  final Timestamp dailyStartTime;
-  final Timestamp dailyEndTime;
+  final Timestamp startTime;
+  final Timestamp endTime;
   final double totalCost;
   final String totalCostUnit;
   final Ad ad;
@@ -28,8 +28,8 @@ class BoardSubscription {
     required this.boardSubscriptionStatus,
     required this.startDate,
     required this.endDate,
-    required this.dailyStartTime,
-    required this.dailyEndTime,
+    required this.startTime,
+    required this.endTime,
     required this.totalCost,
     required this.totalCostUnit,
     required this.ad,
@@ -43,8 +43,8 @@ class BoardSubscription {
     BoardSubscriptionStatus? boardSubscriptionStatus,
     Timestamp? startDate,
     Timestamp? endDate,
-    Timestamp? dailyStartTime,
-    Timestamp? dailyEndTime,
+    Timestamp? startTime,
+    Timestamp? endTime,
     double? totalCost,
     String? totalCostUnit,
     Ad? ad,
@@ -58,8 +58,8 @@ class BoardSubscription {
           boardSubscriptionStatus ?? this.boardSubscriptionStatus,
       startDate: startDate ?? this.startDate,
       endDate: endDate ?? this.endDate,
-      dailyStartTime: dailyStartTime ?? this.dailyStartTime,
-      dailyEndTime: dailyEndTime ?? this.dailyEndTime,
+      startTime: startTime ?? this.startTime,
+      endTime: endTime ?? this.endTime,
       totalCost: totalCost ?? this.totalCost,
       totalCostUnit: totalCostUnit ?? this.totalCostUnit,
       ad: ad ?? this.ad,
@@ -75,8 +75,8 @@ class BoardSubscription {
       'boardSubscriptionStatus': boardSubscriptionStatus.index,
       'startDate': startDate,
       'endDate': endDate,
-      'dailyStartTime': dailyStartTime,
-      'dailyEndTime': dailyEndTime,
+      'startTime': startTime,
+      'endTime': endTime,
       'totalCost': totalCost,
       'totalCostUnit': totalCostUnit,
       'ad': ad.toMap(),
@@ -93,8 +93,8 @@ class BoardSubscription {
           BoardSubscriptionStatus.values[map['boardSubscriptionStatus']],
       startDate: map['startDate'],
       endDate: map['endDate'],
-      dailyStartTime: map['dailyStartTime'],
-      dailyEndTime: map['dailyEndTime'],
+      startTime: map['startTime'],
+      endTime: map['endTime'],
       totalCost: map['totalCost'] as double,
       totalCostUnit: map['totalCostUnit'] as String,
       ad: Ad.fromMap(map['ad'] as Map<String, dynamic>),
@@ -108,7 +108,7 @@ class BoardSubscription {
 
   @override
   String toString() {
-    return 'BoardSubscription(id: $id, boardId: $boardId, vendorCompanyId: $vendorCompanyId, customerId: $customerId, boardSubscriptionStatus: $boardSubscriptionStatus, startDate: $startDate, endDate: $endDate, dailyStartTime: $dailyStartTime, dailyEndTime: $dailyEndTime, totalCost: $totalCost, totalCostUnit: $totalCostUnit, ad: $ad)';
+    return 'BoardSubscription(id: $id, boardId: $boardId, vendorCompanyId: $vendorCompanyId, customerId: $customerId, boardSubscriptionStatus: $boardSubscriptionStatus, startDate: $startDate, endDate: $endDate, startTime: $startTime, endTime: $endTime, totalCost: $totalCost, totalCostUnit: $totalCostUnit, ad: $ad)';
   }
 
   @override
@@ -122,8 +122,8 @@ class BoardSubscription {
         other.boardSubscriptionStatus == boardSubscriptionStatus &&
         other.startDate == startDate &&
         other.endDate == endDate &&
-        other.dailyStartTime == dailyStartTime &&
-        other.dailyEndTime == dailyEndTime &&
+        other.startTime == startTime &&
+        other.endTime == endTime &&
         other.totalCost == totalCost &&
         other.totalCostUnit == totalCostUnit &&
         other.ad == ad;
@@ -138,8 +138,8 @@ class BoardSubscription {
         boardSubscriptionStatus.hashCode ^
         startDate.hashCode ^
         endDate.hashCode ^
-        dailyStartTime.hashCode ^
-        dailyEndTime.hashCode ^
+        startTime.hashCode ^
+        endTime.hashCode ^
         totalCost.hashCode ^
         totalCostUnit.hashCode ^
         ad.hashCode;

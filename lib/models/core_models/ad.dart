@@ -1,30 +1,24 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
+import 'package:adblip_shared_lib/models/helper_models/uploaded_file_data.dart';
+
 class Ad {
-  final String adLink;
+  final UploadedFileData adData;
 
   Ad({
-    required this.adLink,
+    required this.adData,
   });
-
-  Ad copyWith({
-    String? adLink,
-  }) {
-    return Ad(
-      adLink: adLink ?? this.adLink,
-    );
-  }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'adLink': adLink,
+      'adData': adData,
     };
   }
 
   factory Ad.fromMap(Map<String, dynamic> map) {
     return Ad(
-      adLink: map['adLink'] as String,
+      adData: UploadedFileData.fromMap((map['adData'])),
     );
   }
 
@@ -34,15 +28,15 @@ class Ad {
       Ad.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
-  String toString() => 'Ad(adLink: $adLink)';
+  String toString() => 'Ad(adData: $adData)';
 
   @override
   bool operator ==(covariant Ad other) {
     if (identical(this, other)) return true;
 
-    return other.adLink == adLink;
+    return other.adData == adData;
   }
 
   @override
-  int get hashCode => adLink.hashCode;
+  int get hashCode => adData.hashCode;
 }
