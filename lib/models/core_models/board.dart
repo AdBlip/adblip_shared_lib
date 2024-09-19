@@ -5,7 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-import '../helper_models/image_data.dart';
+import '../helper_models/uploaded_file_data.dart';
 import 'address.dart';
 
 class BoardType {
@@ -41,7 +41,7 @@ class Board {
   int? maxMediaUploadSizeInMb;
   String title;
   String description;
-  List<ImageData>? imagesData;
+  List<UploadedFileData>? imagesData;
   int widthInCm;
   int heightInCm;
   bool isDigitalAd;
@@ -109,7 +109,7 @@ class Board {
     int? maxMediaUploadSizeInMb,
     String? title,
     String? description,
-    List<ImageData>? imagesData,
+    List<UploadedFileData>? imagesData,
     int? widthInCm,
     int? heightInCm,
     bool? isDigitalAd,
@@ -206,9 +206,9 @@ class Board {
             : null,
         title: map['title'] as String,
         description: map['description'] as String,
-        imagesData: List<ImageData>.from((map['imagesData'] != null
+        imagesData: List<UploadedFileData>.from((map['imagesData'] != null
             ? (map["imagesData"] as List<dynamic>)
-                .map((e) => ImageData.fromMap(e))
+                .map((e) => UploadedFileData.fromMap(e))
                 .toList()
             : [])),
         widthInCm: map['widthInCm'] as int,
@@ -344,9 +344,9 @@ class Board {
       id: map['id'] as String,
       title: map['title'] as String,
       description: map['description'] as String,
-      imagesData: List<ImageData>.from((map['imagesData'] != null
+      imagesData: List<UploadedFileData>.from((map['imagesData'] != null
           ? (map["imagesData"] as List<dynamic>)
-              .map((e) => ImageData.fromMap(e))
+              .map((e) => UploadedFileData.fromMap(e))
               .toList()
           : [])),
       widthInCm: map['widthInCm'] as int,

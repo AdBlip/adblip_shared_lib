@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:collection/collection.dart';
 
-import '../helper_models/image_data.dart';
+import '../helper_models/uploaded_file_data.dart';
 
 
 // ignore_for_file: public_member_api_docs, sort_constructors_first
@@ -15,9 +15,9 @@ class AppUser {
   String companyOperatingCountry;
   String companyOperatingAdministrativeAreaLevel1;
   DateTime joinDate;
-  ImageData companyBusinessActivityLicenseImageLink;
-  ImageData companyCommercialRegisterImageLink;
-  ImageData logoImageLink;
+  UploadedFileData companyBusinessActivityLicenseImageLink;
+  UploadedFileData companyCommercialRegisterImageLink;
+  UploadedFileData logoImageLink;
   String preferredLanguage;
   List<String> favouriteBoardsIds;
   List<String> recentSearchedPlaceIds;
@@ -70,13 +70,13 @@ class AppUser {
       companyOperatingAdministrativeAreaLevel1:
           map['companyOperatingAdministrativeAreaLevel1'] as String,
       joinDate: DateTime.fromMillisecondsSinceEpoch(map['joinDate'] as int),
-      companyBusinessActivityLicenseImageLink: ImageData.fromMap(
+      companyBusinessActivityLicenseImageLink: UploadedFileData.fromMap(
           map['companyBusinessActivityLicenseImageLink']
               as Map<String, dynamic>),
-      companyCommercialRegisterImageLink: ImageData.fromMap(
+      companyCommercialRegisterImageLink: UploadedFileData.fromMap(
           map['companyCommercialRegisterImageLink'] as Map<String, dynamic>),
       logoImageLink:
-          ImageData.fromMap(map['logoImageLink'] as Map<String, dynamic>),
+          UploadedFileData.fromMap(map['logoImageLink'] as Map<String, dynamic>),
       preferredLanguage: map['preferredLanguage'] as String,
       favouriteBoardsIds:
           List<String>.from((map['favouriteBoardsIds'] as List<dynamic>)),
