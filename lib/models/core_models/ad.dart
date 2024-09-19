@@ -12,7 +12,7 @@ class Ad {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'adData': adData,
+      'adData': adData.toMap(),
     };
   }
 
