@@ -5,62 +5,65 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'ad.dart';
 
-enum BoardSubscriptionStatus { pendingApproval, active, complete }
+enum BookingState { pending, approved, rejected, canceled }
 
-class BoardSubscription {
+class Booking {
   final String id;
   final String boardId;
   final String vendorCompanyId;
   final String customerId;
-  final BoardSubscriptionStatus boardSubscriptionStatus;
+  final BookingState bookingState;
   final Timestamp startDate;
   final Timestamp endDate;
   final Timestamp startTime;
   final Timestamp endTime;
-  final double totalCost;
+  final double totalPrice;
+  final bool hasPaid;
   final String totalCostUnit;
   final Ad ad;
-  BoardSubscription({
+  Booking({
     required this.id,
     required this.boardId,
     required this.vendorCompanyId,
     required this.customerId,
-    required this.boardSubscriptionStatus,
+    required this.bookingState,
     required this.startDate,
     required this.endDate,
     required this.startTime,
     required this.endTime,
-    required this.totalCost,
+    required this.totalPrice,
+    required this.hasPaid,
     required this.totalCostUnit,
     required this.ad,
   });
 
-  BoardSubscription copyWith({
+  Booking copyWith({
     String? id,
     String? boardId,
     String? vendorCompanyId,
     String? customerId,
-    BoardSubscriptionStatus? boardSubscriptionStatus,
+    BookingState? bookingState,
     Timestamp? startDate,
     Timestamp? endDate,
     Timestamp? startTime,
     Timestamp? endTime,
-    double? totalCost,
+    double? totalPrice,
+    bool? hasPaid,
     String? totalCostUnit,
     Ad? ad,
   }) {
-    return BoardSubscription(
+    return Booking(
       id: id ?? this.id,
       boardId: boardId ?? this.boardId,
       vendorCompanyId: vendorCompanyId ?? this.vendorCompanyId,
       customerId: customerId ?? this.customerId,
-      boardSubscriptionStatus:
-          boardSubscriptionStatus ?? this.boardSubscriptionStatus,
+      bookingState: bookingState ?? this.bookingState,
       startDate: startDate ?? this.startDate,
       endDate: endDate ?? this.endDate,
       startTime: startTime ?? this.startTime,
       endTime: endTime ?? this.endTime,
-      totalCost: totalCost ?? this.totalCost,
+      totalPrice: totalPrice ?? this.totalPrice,
+      hasPaid: hasPaid ?? this.hasPaid,
       totalCostUnit: totalCostUnit ?? this.totalCostUnit,
       ad: ad ?? this.ad,
     );
@@ -72,30 +75,31 @@ class BoardSubscription {
       'boardId': boardId,
       'vendorCompanyId': vendorCompanyId,
       'customerId': customerId,
-      'boardSubscriptionStatus': boardSubscriptionStatus.index,
+      'bookingState': bookingState.index,
       'startDate': startDate,
       'endDate': endDate,
       'startTime': startTime,
       'endTime': endTime,
-      'totalCost': totalCost,
+      'totalPrice': totalPrice,
+      'hasPaid': hasPaid,
       'totalCostUnit': totalCostUnit,
       'ad': ad.toMap(),
     };
   }
 
-  factory BoardSubscription.fromMap(Map<String, dynamic> map) {
-    return BoardSubscription(
+  factory Booking.fromMap(Map<String, dynamic> map) {
+    return Booking(
       id: map['id'] as String,
       boardId: map['boardId'] as String,
       vendorCompanyId: map['vendorCompanyId'] as String,
       customerId: map['customerId'] as String,
-      boardSubscriptionStatus:
-          BoardSubscriptionStatus.values[map['boardSubscriptionStatus']],
-      startDate: map['startDate'],
-      endDate: map['endDate'],
-      startTime: map['startTime'],
-      endTime: map['endTime'],
-      totalCost: map['totalCost'] as double,
+      bookingState: BookingState.values[map['bookingState'] as int],
+      startDate: (map['startDate'] as Timestamp),
+      endDate: (map['endDate'] as Timestamp),
+      startTime: (map['startTime'] as Timestamp),
+      endTime: (map['endTime'] as Timestamp),
+      totalPrice: map['totalPrice'] as double,
+      hasPaid: map['hasPaid'] as bool,
       totalCostUnit: map['totalCostUnit'] as String,
       ad: Ad.fromMap(map['ad'] as Map<String, dynamic>),
     );
@@ -103,28 +107,29 @@ class BoardSubscription {
 
   String toJson() => json.encode(toMap());
 
-  factory BoardSubscription.fromJson(String source) =>
-      BoardSubscription.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory Booking.fromJson(String source) =>
+      Booking.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
-    return 'BoardSubscription(id: $id, boardId: $boardId, vendorCompanyId: $vendorCompanyId, customerId: $customerId, boardSubscriptionStatus: $boardSubscriptionStatus, startDate: $startDate, endDate: $endDate, startTime: $startTime, endTime: $endTime, totalCost: $totalCost, totalCostUnit: $totalCostUnit, ad: $ad)';
+    return 'Booking(id: $id, boardId: $boardId, vendorCompanyId: $vendorCompanyId, customerId: $customerId, bookingState: $bookingState, startDate: $startDate, endDate: $endDate, startTime: $startTime, endTime: $endTime, totalPrice: $totalPrice, hasPaid: $hasPaid, totalCostUnit: $totalCostUnit, ad: $ad)';
   }
 
   @override
-  bool operator ==(covariant BoardSubscription other) {
+  bool operator ==(covariant Booking other) {
     if (identical(this, other)) return true;
 
     return other.id == id &&
         other.boardId == boardId &&
         other.vendorCompanyId == vendorCompanyId &&
         other.customerId == customerId &&
-        other.boardSubscriptionStatus == boardSubscriptionStatus &&
+        other.bookingState == bookingState &&
         other.startDate == startDate &&
         other.endDate == endDate &&
         other.startTime == startTime &&
         other.endTime == endTime &&
-        other.totalCost == totalCost &&
+        other.totalPrice == totalPrice &&
+        other.hasPaid == hasPaid &&
         other.totalCostUnit == totalCostUnit &&
         other.ad == ad;
   }
@@ -135,12 +140,13 @@ class BoardSubscription {
         boardId.hashCode ^
         vendorCompanyId.hashCode ^
         customerId.hashCode ^
-        boardSubscriptionStatus.hashCode ^
+        bookingState.hashCode ^
         startDate.hashCode ^
         endDate.hashCode ^
         startTime.hashCode ^
         endTime.hashCode ^
-        totalCost.hashCode ^
+        totalPrice.hashCode ^
+        hasPaid.hashCode ^
         totalCostUnit.hashCode ^
         ad.hashCode;
   }
