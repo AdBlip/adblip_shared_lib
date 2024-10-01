@@ -6,4 +6,5 @@ class FirestoreCollectionNames {
   static const String boardsInActionCollection = "boardsInAction";
   static const String boardsLocationsCollecion = "boards_locations";
   static const String searchedPlacesCollection = "searched_places";
+  static const String faqCollection = "faq";
 }
