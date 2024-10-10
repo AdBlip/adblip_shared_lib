@@ -2,7 +2,6 @@
 import 'dart:convert';
 
 class Address {
-  final String? placeId;
   final String? street;
   final String? locality;
   final String? country;
@@ -14,7 +13,6 @@ class Address {
   final String? administrativeAreaLevel3;
   final String? formattedAddress;
   Address({
-    required this.placeId,
     this.street,
     this.formattedAddress,
     this.locality,
@@ -29,7 +27,6 @@ class Address {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      "placeId": placeId,
       'street': street,
       'locality': locality,
       'country': country,
@@ -48,7 +45,6 @@ class Address {
       formattedAddress: map['formattedAddress'] != null
           ? map["formattedAddress"] as String
           : null,
-      placeId: map['placeId'] != null ? map["placeId"] as String : null,
       street: map['street'] != null ? map['street'] as String : null,
       locality: map['locality'] != null ? map['locality'] as String : null,
       country: map['country'] != null ? map['country'] as String : null,
