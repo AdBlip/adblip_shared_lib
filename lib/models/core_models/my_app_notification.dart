@@ -3,14 +3,14 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Notification {
+class MyAppNotification {
   final String id; 
   final String title; 
   final String body; 
   final String imageUrl; // Associated booking ID (if applicable)
   final Timestamp creationTime; // When the notification was created
   final bool isRead; // Flag to indicate if the notification has been read
-  Notification({
+  MyAppNotification({
     required this.id,
     required this.title,
     required this.body,
@@ -19,7 +19,7 @@ class Notification {
     required this.isRead,
   });
 
-  Notification copyWith({
+  MyAppNotification copyWith({
     String? id,
     String? title,
     String? body,
@@ -27,7 +27,7 @@ class Notification {
     Timestamp? creationTime,
     bool? isRead,
   }) {
-    return Notification(
+    return MyAppNotification(
       id: id ?? this.id,
       title: title ?? this.title,
       body: body ?? this.body,
@@ -48,8 +48,8 @@ class Notification {
     };
   }
 
-  factory Notification.fromMap(Map<String, dynamic> map) {
-    return Notification(
+  factory MyAppNotification.fromMap(Map<String, dynamic> map) {
+    return MyAppNotification(
       id: map['id'] as String,
       title: map['title'] as String,
       body: map['body'] as String,
@@ -61,15 +61,15 @@ class Notification {
 
   String toJson() => json.encode(toMap());
 
-  factory Notification.fromJson(String source) => Notification.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory MyAppNotification.fromJson(String source) => MyAppNotification.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
-    return 'Notification(id: $id, title: $title, body: $body, imageUrl: $imageUrl, creationTime: $creationTime, isRead: $isRead)';
+    return 'MyAppNotification(id: $id, title: $title, body: $body, imageUrl: $imageUrl, creationTime: $creationTime, isRead: $isRead)';
   }
 
   @override
-  bool operator ==(covariant Notification other) {
+  bool operator ==(covariant MyAppNotification other) {
     if (identical(this, other)) return true;
   
     return 
