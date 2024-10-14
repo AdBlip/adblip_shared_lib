@@ -4,7 +4,6 @@ import 'package:collection/collection.dart';
 
 import '../helper_models/uploaded_file_data.dart';
 
-
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 class AppUser {
   String id;
@@ -21,6 +20,7 @@ class AppUser {
   String preferredLanguage;
   List<String> favouriteBoardsIds;
   List<String> recentSearchedPlaceIds;
+  String? fcmToken;
   AppUser(
       {required this.id,
       required this.companyName,
@@ -35,7 +35,8 @@ class AppUser {
       required this.logoImageLink,
       required this.preferredLanguage,
       required this.favouriteBoardsIds,
-      required this.recentSearchedPlaceIds});
+      required this.recentSearchedPlaceIds,
+      required this.fcmToken});
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
@@ -56,33 +57,34 @@ class AppUser {
       'preferredLanguage': preferredLanguage,
       'favouriteBoardsIds': favouriteBoardsIds,
       "recentSearchedPlaceIds": recentSearchedPlaceIds,
+      "fcmToken": fcmToken,
     };
   }
 
   factory AppUser.fromMap(Map<String, dynamic> map) {
     return AppUser(
-      id: map['id'] as String,
-      companyName: map['companyName'] as String,
-      companyEmail: map['companyEmail'] as String,
-      companyBaseCountry: map['companyBaseCountry'] as String,
-      companyPhoneNumber: map['companyPhoneNumber'] as String,
-      companyOperatingCountry: map['companyOperatingCountry'] as String,
-      companyOperatingAdministrativeAreaLevel1:
-          map['companyOperatingAdministrativeAreaLevel1'] as String,
-      joinDate: DateTime.fromMillisecondsSinceEpoch(map['joinDate'] as int),
-      companyBusinessActivityLicenseImageLink: UploadedFileData.fromMap(
-          map['companyBusinessActivityLicenseImageLink']
-              as Map<String, dynamic>),
-      companyCommercialRegisterImageLink: UploadedFileData.fromMap(
-          map['companyCommercialRegisterImageLink'] as Map<String, dynamic>),
-      logoImageLink:
-          UploadedFileData.fromMap(map['logoImageLink'] as Map<String, dynamic>),
-      preferredLanguage: map['preferredLanguage'] as String,
-      favouriteBoardsIds:
-          List<String>.from((map['favouriteBoardsIds'] as List<dynamic>)),
-      recentSearchedPlaceIds:
-          List<String>.from((map['recentSearchedPlaceIds'] as List<dynamic>)),
-    );
+        id: map['id'] as String,
+        companyName: map['companyName'] as String,
+        companyEmail: map['companyEmail'] as String,
+        companyBaseCountry: map['companyBaseCountry'] as String,
+        companyPhoneNumber: map['companyPhoneNumber'] as String,
+        companyOperatingCountry: map['companyOperatingCountry'] as String,
+        companyOperatingAdministrativeAreaLevel1:
+            map['companyOperatingAdministrativeAreaLevel1'] as String,
+        joinDate: DateTime.fromMillisecondsSinceEpoch(map['joinDate'] as int),
+        companyBusinessActivityLicenseImageLink: UploadedFileData.fromMap(
+            map['companyBusinessActivityLicenseImageLink']
+                as Map<String, dynamic>),
+        companyCommercialRegisterImageLink: UploadedFileData.fromMap(
+            map['companyCommercialRegisterImageLink'] as Map<String, dynamic>),
+        logoImageLink: UploadedFileData.fromMap(
+            map['logoImageLink'] as Map<String, dynamic>),
+        preferredLanguage: map['preferredLanguage'] as String,
+        favouriteBoardsIds:
+            List<String>.from((map['favouriteBoardsIds'] as List<dynamic>)),
+        recentSearchedPlaceIds:
+            List<String>.from((map['recentSearchedPlaceIds'] as List<dynamic>)),
+        fcmToken: map['fcmToken'] as String?);
   }
 
   String toJson() => json.encode(toMap());
