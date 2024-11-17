@@ -3,33 +3,33 @@ import 'dart:convert';
 
 class AppCountry {
   final String code;
-  final String countryName;
+  final String name;
   AppCountry({
     required this.code,
-    required this.countryName,
+    required this.name,
   });
 
   AppCountry copyWith({
     String? code,
-    String? countryName,
+    String? name,
   }) {
     return AppCountry(
       code: code ?? this.code,
-      countryName: countryName ?? this.countryName,
+      name: name ?? this.name,
     );
   }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'code': code,
-      'countryName': countryName,
+      'name': name,
     };
   }
 
   factory AppCountry.fromMap(Map<String, dynamic> map) {
     return AppCountry(
       code: map['code'] as String,
-      countryName: map['countryName'] as String,
+      name: map['name'] as String,
     );
   }
 
@@ -38,7 +38,7 @@ class AppCountry {
   factory AppCountry.fromJson(String source) => AppCountry.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
-  String toString() => 'AppCountry(code: $code, countryName: $countryName)';
+  String toString() => 'AppCountry(code: $code, name: $name)';
 
   @override
   bool operator ==(covariant AppCountry other) {
@@ -46,9 +46,9 @@ class AppCountry {
   
     return 
       other.code == code &&
-      other.countryName == countryName;
+      other.name == name;
   }
 
   @override
-  int get hashCode => code.hashCode ^ countryName.hashCode;
+  int get hashCode => code.hashCode ^ name.hashCode;
 }
