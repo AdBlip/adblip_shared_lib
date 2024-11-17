@@ -9,7 +9,7 @@ class AppUser {
   String id;
   String companyName;
   String companyEmail;
-  String companyBaseCountry;
+  String companyBaseCountryCode;
   String companyPhoneNumber;
   String companyOperatingCountry;
   String companyOperatingAdministrativeAreaLevel1;
@@ -25,7 +25,7 @@ class AppUser {
       {required this.id,
       required this.companyName,
       required this.companyEmail,
-      required this.companyBaseCountry,
+      required this.companyBaseCountryCode,
       required this.companyPhoneNumber,
       required this.companyOperatingCountry,
       required this.companyOperatingAdministrativeAreaLevel1,
@@ -43,7 +43,7 @@ class AppUser {
       'id': id,
       'companyName': companyName,
       'companyEmail': companyEmail,
-      'companyBaseCountry': companyBaseCountry,
+      'companyBaseCountryCode': companyBaseCountryCode,
       'companyPhoneNumber': companyPhoneNumber,
       'companyOperatingCountry': companyOperatingCountry,
       'companyOperatingAdministrativeAreaLevel1':
@@ -66,7 +66,7 @@ class AppUser {
         id: map['id'] as String,
         companyName: map['companyName'] as String,
         companyEmail: map['companyEmail'] as String,
-        companyBaseCountry: map['companyBaseCountry'] as String,
+        companyBaseCountryCode: map['companyBaseCountryCode'] as String,
         companyPhoneNumber: map['companyPhoneNumber'] as String,
         companyOperatingCountry: map['companyOperatingCountry'] as String,
         companyOperatingAdministrativeAreaLevel1:
@@ -94,7 +94,7 @@ class AppUser {
 
   @override
   String toString() {
-    return 'AppUser(id: $id, companyName: $companyName, companyEmail: $companyEmail, companyBaseCountry: $companyBaseCountry, companyPhoneNumber: $companyPhoneNumber, companyOperatingCountry: $companyOperatingCountry, companyOperatingAdministrativeAreaLevel1: $companyOperatingAdministrativeAreaLevel1, joinDate: $joinDate, companyBusinessActivityLicenseImageLink: $companyBusinessActivityLicenseImageLink, companyCommercialRegisterImageLink: $companyCommercialRegisterImageLink, logoImageLink: $logoImageLink, preferredLanguage: $preferredLanguage, favouriteBoardsIds: $favouriteBoardsIds)';
+    return 'AppUser(id: $id, companyName: $companyName, companyEmail: $companyEmail, companyBaseCountryCode: $companyBaseCountryCode, companyPhoneNumber: $companyPhoneNumber, companyOperatingCountry: $companyOperatingCountry, companyOperatingAdministrativeAreaLevel1: $companyOperatingAdministrativeAreaLevel1, joinDate: $joinDate, companyBusinessActivityLicenseImageLink: $companyBusinessActivityLicenseImageLink, companyCommercialRegisterImageLink: $companyCommercialRegisterImageLink, logoImageLink: $logoImageLink, preferredLanguage: $preferredLanguage, favouriteBoardsIds: $favouriteBoardsIds)';
   }
 
   @override
@@ -105,7 +105,7 @@ class AppUser {
     return other.id == id &&
         other.companyName == companyName &&
         other.companyEmail == companyEmail &&
-        other.companyBaseCountry == companyBaseCountry &&
+        other.companyBaseCountryCode == companyBaseCountryCode &&
         other.companyPhoneNumber == companyPhoneNumber &&
         other.companyOperatingCountry == companyOperatingCountry &&
         other.companyOperatingAdministrativeAreaLevel1 ==
@@ -125,7 +125,7 @@ class AppUser {
     return id.hashCode ^
         companyName.hashCode ^
         companyEmail.hashCode ^
-        companyBaseCountry.hashCode ^
+        companyBaseCountryCode.hashCode ^
         companyPhoneNumber.hashCode ^
         companyOperatingCountry.hashCode ^
         companyOperatingAdministrativeAreaLevel1.hashCode ^
