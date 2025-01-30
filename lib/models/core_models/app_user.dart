@@ -12,11 +12,11 @@ class AppUser {
   String companyBaseCountryCode;
   String companyPhoneNumber;
   String companyOperatingCountry;
-  String companyOperatingAdministrativeAreaLevel1;
   DateTime joinDate;
-  UploadedFileData companyBusinessActivityLicenseImageLink;
-  UploadedFileData companyCommercialRegisterImageLink;
-  UploadedFileData logoImageLink;
+  UploadedFileData? representativeNationalID;
+  UploadedFileData? companyBusinessActivityLicenseImageLink;
+  UploadedFileData? companyCommercialRegisterImageLink;
+  UploadedFileData? logoImageLink;
   String preferredLanguage;
   List<String> favouriteBoardsIds;
   List<String> recentSearchedPlaceIds;
@@ -28,8 +28,8 @@ class AppUser {
       required this.companyBaseCountryCode,
       required this.companyPhoneNumber,
       required this.companyOperatingCountry,
-      required this.companyOperatingAdministrativeAreaLevel1,
       required this.joinDate,
+      required this.representativeNationalID,
       required this.companyBusinessActivityLicenseImageLink,
       required this.companyCommercialRegisterImageLink,
       required this.logoImageLink,
@@ -46,14 +46,13 @@ class AppUser {
       'companyBaseCountryCode': companyBaseCountryCode,
       'companyPhoneNumber': companyPhoneNumber,
       'companyOperatingCountry': companyOperatingCountry,
-      'companyOperatingAdministrativeAreaLevel1':
-          companyOperatingAdministrativeAreaLevel1,
       'joinDate': joinDate.millisecondsSinceEpoch,
+      'representativeNationalID': representativeNationalID?.toMap(),
       'companyBusinessActivityLicenseImageLink':
-          companyBusinessActivityLicenseImageLink.toMap(),
+          companyBusinessActivityLicenseImageLink?.toMap(),
       'companyCommercialRegisterImageLink':
-          companyCommercialRegisterImageLink.toMap(),
-      'logoImageLink': logoImageLink.toMap(),
+          companyCommercialRegisterImageLink?.toMap(),
+      'logoImageLink': logoImageLink?.toMap(),
       'preferredLanguage': preferredLanguage,
       'favouriteBoardsIds': favouriteBoardsIds,
       "recentSearchedPlaceIds": recentSearchedPlaceIds,
@@ -63,28 +62,29 @@ class AppUser {
 
   factory AppUser.fromMap(Map<String, dynamic> map) {
     return AppUser(
-        id: map['id'] as String,
-        companyName: map['companyName'] as String,
-        companyEmail: map['companyEmail'] as String,
-        companyBaseCountryCode: map['companyBaseCountryCode'] as String,
-        companyPhoneNumber: map['companyPhoneNumber'] as String,
-        companyOperatingCountry: map['companyOperatingCountry'] as String,
-        companyOperatingAdministrativeAreaLevel1:
-            map['companyOperatingAdministrativeAreaLevel1'] as String,
-        joinDate: DateTime.fromMillisecondsSinceEpoch(map['joinDate'] as int),
-        companyBusinessActivityLicenseImageLink: UploadedFileData.fromMap(
-            map['companyBusinessActivityLicenseImageLink']
-                as Map<String, dynamic>),
-        companyCommercialRegisterImageLink: UploadedFileData.fromMap(
-            map['companyCommercialRegisterImageLink'] as Map<String, dynamic>),
-        logoImageLink: UploadedFileData.fromMap(
-            map['logoImageLink'] as Map<String, dynamic>),
-        preferredLanguage: map['preferredLanguage'] as String,
-        favouriteBoardsIds:
-            List<String>.from((map['favouriteBoardsIds'] as List<dynamic>)),
-        recentSearchedPlaceIds:
-            List<String>.from((map['recentSearchedPlaceIds'] as List<dynamic>)),
-        fcmToken: map['fcmToken'] as String?);
+      id: map['id'] as String,
+      companyName: map['companyName'] as String,
+      companyEmail: map['companyEmail'] as String,
+      companyBaseCountryCode: map['companyBaseCountryCode'] as String,
+      companyPhoneNumber: map['companyPhoneNumber'] as String,
+      companyOperatingCountry: map['companyOperatingCountry'] as String,
+      joinDate: DateTime.fromMillisecondsSinceEpoch(map['joinDate'] as int),
+      companyBusinessActivityLicenseImageLink: UploadedFileData.fromMap(
+          map['companyBusinessActivityLicenseImageLink']
+              as Map<String, dynamic>),
+      representativeNationalID: UploadedFileData.fromMap(
+          map['representativeNationalID'] as Map<String, dynamic>),
+      companyCommercialRegisterImageLink: UploadedFileData.fromMap(
+          map['companyCommercialRegisterImageLink'] as Map<String, dynamic>),
+      logoImageLink: UploadedFileData.fromMap(
+          map['logoImageLink'] as Map<String, dynamic>),
+      preferredLanguage: map['preferredLanguage'] as String,
+      favouriteBoardsIds:
+          List<String>.from((map['favouriteBoardsIds'] as List<dynamic>)),
+      recentSearchedPlaceIds:
+          List<String>.from((map['recentSearchedPlaceIds'] as List<dynamic>)),
+      fcmToken: map['fcmToken'] as String?,
+    );
   }
 
   String toJson() => json.encode(toMap());
@@ -94,7 +94,7 @@ class AppUser {
 
   @override
   String toString() {
-    return 'AppUser(id: $id, companyName: $companyName, companyEmail: $companyEmail, companyBaseCountryCode: $companyBaseCountryCode, companyPhoneNumber: $companyPhoneNumber, companyOperatingCountry: $companyOperatingCountry, companyOperatingAdministrativeAreaLevel1: $companyOperatingAdministrativeAreaLevel1, joinDate: $joinDate, companyBusinessActivityLicenseImageLink: $companyBusinessActivityLicenseImageLink, companyCommercialRegisterImageLink: $companyCommercialRegisterImageLink, logoImageLink: $logoImageLink, preferredLanguage: $preferredLanguage, favouriteBoardsIds: $favouriteBoardsIds)';
+    return 'AppUser(id: $id, companyName: $companyName, companyEmail: $companyEmail, companyBaseCountryCode: $companyBaseCountryCode, companyPhoneNumber: $companyPhoneNumber, companyOperatingCountry: $companyOperatingCountry, joinDate: $joinDate, companyBusinessActivityLicenseImageLink: $companyBusinessActivityLicenseImageLink, companyCommercialRegisterImageLink: $companyCommercialRegisterImageLink, logoImageLink: $logoImageLink, preferredLanguage: $preferredLanguage, favouriteBoardsIds: $favouriteBoardsIds)';
   }
 
   @override
@@ -108,8 +108,6 @@ class AppUser {
         other.companyBaseCountryCode == companyBaseCountryCode &&
         other.companyPhoneNumber == companyPhoneNumber &&
         other.companyOperatingCountry == companyOperatingCountry &&
-        other.companyOperatingAdministrativeAreaLevel1 ==
-            companyOperatingAdministrativeAreaLevel1 &&
         other.joinDate == joinDate &&
         other.companyBusinessActivityLicenseImageLink ==
             companyBusinessActivityLicenseImageLink &&
@@ -128,7 +126,6 @@ class AppUser {
         companyBaseCountryCode.hashCode ^
         companyPhoneNumber.hashCode ^
         companyOperatingCountry.hashCode ^
-        companyOperatingAdministrativeAreaLevel1.hashCode ^
         joinDate.hashCode ^
         companyBusinessActivityLicenseImageLink.hashCode ^
         companyCommercialRegisterImageLink.hashCode ^
