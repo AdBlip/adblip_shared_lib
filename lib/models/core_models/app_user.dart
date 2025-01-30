@@ -69,15 +69,27 @@ class AppUser {
       companyPhoneNumber: map['companyPhoneNumber'] as String,
       companyOperatingCountry: map['companyOperatingCountry'] as String,
       joinDate: DateTime.fromMillisecondsSinceEpoch(map['joinDate'] as int),
-      companyBusinessActivityLicenseImageLink: UploadedFileData.fromMap(
-          map['companyBusinessActivityLicenseImageLink']
-              as Map<String, dynamic>),
-      representativeNationalID: UploadedFileData.fromMap(
-          map['representativeNationalID'] as Map<String, dynamic>),
-      companyCommercialRegisterImageLink: UploadedFileData.fromMap(
-          map['companyCommercialRegisterImageLink'] as Map<String, dynamic>),
-      logoImageLink: UploadedFileData.fromMap(
-          map['logoImageLink'] as Map<String, dynamic>),
+      companyBusinessActivityLicenseImageLink:
+          //there's a possiblity for it to be null
+          map['companyBusinessActivityLicenseImageLink'] == null
+              ? null
+              : UploadedFileData.fromMap(
+                  map['companyBusinessActivityLicenseImageLink']
+                      as Map<String, dynamic>),
+      representativeNationalID: map['representativeNationalID'] == null
+          ? null
+          : UploadedFileData.fromMap(
+              map['representativeNationalID'] as Map<String, dynamic>),
+      companyCommercialRegisterImageLink:
+          map['companyCommercialRegisterImageLink'] == null
+              ? null
+              : UploadedFileData.fromMap(
+                  map['companyCommercialRegisterImageLink']
+                      as Map<String, dynamic>),
+      logoImageLink: map['logoImageLink'] == null
+          ? null
+          : UploadedFileData.fromMap(
+              map['logoImageLink'] as Map<String, dynamic>),
       preferredLanguage: map['preferredLanguage'] as String,
       favouriteBoardsIds:
           List<String>.from((map['favouriteBoardsIds'] as List<dynamic>)),
