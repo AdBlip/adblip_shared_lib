@@ -40,6 +40,8 @@ class FAQ {
     return <String, dynamic>{
       'questionTextInEnglish': questionTextInEnglish,
       'answerTextInEnglish': answerTextInEnglish,
+      "questionTextInArabic": questionTextInArabic,
+      "answerTextInArabic": answerTextInArabic,
       'order': order,
       "id": id
     };
