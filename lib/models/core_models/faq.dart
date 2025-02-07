@@ -3,34 +3,43 @@ import 'dart:convert';
 
 class FAQ {
   final String id;
-  final String questionText;
-  final String answerText;
+  final String questionTextInEnglish;
+  final String answerTextInEnglish;
+  final String questionTextInArabic;
+  final String answerTextInArabic;
   final int order;
   FAQ({
     required this.id,
-    required this.questionText,
-    required this.answerText,
+    required this.questionTextInEnglish,
+    required this.answerTextInEnglish,
     required this.order,
+    required this.questionTextInArabic,
+    required this.answerTextInArabic,
   });
 
   FAQ copyWith({
     String? id,
-    String? questionText,
-    String? answerText,
+    String? questionTextInEnglish,
+    String? answerTextInEnglish,
     int? order,
+    String? questionTextInArabic,
+    String? answerTextInArabic,
   }) {
     return FAQ(
       id: id ?? this.id,
-      questionText: questionText ?? this.questionText,
-      answerText: answerText ?? this.answerText,
+      questionTextInEnglish:
+          questionTextInEnglish ?? this.questionTextInEnglish,
+      answerTextInEnglish: answerTextInEnglish ?? this.answerTextInEnglish,
       order: order ?? this.order,
+      questionTextInArabic: questionTextInArabic ?? this.questionTextInArabic,
+      answerTextInArabic: answerTextInArabic ?? this.answerTextInArabic,
     );
   }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'questionText': questionText,
-      'answerText': answerText,
+      'questionTextInEnglish': questionTextInEnglish,
+      'answerTextInEnglish': answerTextInEnglish,
       'order': order,
       "id": id
     };
@@ -38,10 +47,12 @@ class FAQ {
 
   factory FAQ.fromMap(Map<String, dynamic> map) {
     return FAQ(
-        questionText: map['questionText'] as String,
-        answerText: map['answerText'] as String,
+        questionTextInEnglish: map['questionTextInEnglish'] as String,
+        answerTextInEnglish: map['answerTextInEnglish'] as String,
         order: map['order'] as int,
-        id: map["id"] as String);
+        id: map["id"] as String,
+        questionTextInArabic: map['questionTextInArabic'] as String,
+        answerTextInArabic: map['answerTextInArabic'] as String);
   }
 
   String toJson() => json.encode(toMap());
@@ -51,18 +62,20 @@ class FAQ {
 
   @override
   String toString() =>
-      'FAQ(questionText: $questionText, answerText: $answerText, order: $order)';
+      'FAQ(questionTextInEnglish: $questionTextInEnglish, answerTextInEnglish: $answerTextInEnglish, order: $order)';
 
   @override
   bool operator ==(covariant FAQ other) {
     if (identical(this, other)) return true;
 
-    return other.questionText == questionText &&
-        other.answerText == answerText &&
+    return other.questionTextInEnglish == questionTextInEnglish &&
+        other.answerTextInEnglish == answerTextInEnglish &&
         other.order == order;
   }
 
   @override
   int get hashCode =>
-      questionText.hashCode ^ answerText.hashCode ^ order.hashCode;
+      questionTextInEnglish.hashCode ^
+      answerTextInEnglish.hashCode ^
+      order.hashCode;
 }
