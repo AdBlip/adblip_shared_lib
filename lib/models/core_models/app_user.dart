@@ -17,7 +17,6 @@ class AppUser {
   UploadedFileData? companyBusinessActivityLicenseImageLink;
   UploadedFileData? companyCommercialRegisterImageLink;
   UploadedFileData? logoImageLink;
-  String preferredLanguage;
   List<String> favouriteBoardsIds;
   List<String> recentSearchedPlaceIds;
   String? fcmToken;
@@ -33,7 +32,6 @@ class AppUser {
       required this.companyBusinessActivityLicenseImageLink,
       required this.companyCommercialRegisterImageLink,
       required this.logoImageLink,
-      required this.preferredLanguage,
       required this.favouriteBoardsIds,
       required this.recentSearchedPlaceIds,
       required this.fcmToken});
@@ -53,7 +51,6 @@ class AppUser {
       'companyCommercialRegisterImageLink':
           companyCommercialRegisterImageLink?.toMap(),
       'logoImageLink': logoImageLink?.toMap(),
-      'preferredLanguage': preferredLanguage,
       'favouriteBoardsIds': favouriteBoardsIds,
       "recentSearchedPlaceIds": recentSearchedPlaceIds,
       "fcmToken": fcmToken,
@@ -90,7 +87,6 @@ class AppUser {
           ? null
           : UploadedFileData.fromMap(
               map['logoImageLink'] as Map<String, dynamic>),
-      preferredLanguage: map['preferredLanguage'] as String,
       favouriteBoardsIds:
           List<String>.from((map['favouriteBoardsIds'] as List<dynamic>)),
       recentSearchedPlaceIds:
@@ -106,7 +102,7 @@ class AppUser {
 
   @override
   String toString() {
-    return 'AppUser(id: $id, companyName: $companyName, companyEmail: $companyEmail, companyBaseCountryCode: $companyBaseCountryCode, companyPhoneNumber: $companyPhoneNumber, companyOperatingCountry: $companyOperatingCountry, joinDate: $joinDate, companyBusinessActivityLicenseImageLink: $companyBusinessActivityLicenseImageLink, companyCommercialRegisterImageLink: $companyCommercialRegisterImageLink, logoImageLink: $logoImageLink, preferredLanguage: $preferredLanguage, favouriteBoardsIds: $favouriteBoardsIds)';
+    return 'AppUser(id: $id, companyName: $companyName, companyEmail: $companyEmail, companyBaseCountryCode: $companyBaseCountryCode, companyPhoneNumber: $companyPhoneNumber, companyOperatingCountry: $companyOperatingCountry, joinDate: $joinDate, companyBusinessActivityLicenseImageLink: $companyBusinessActivityLicenseImageLink, companyCommercialRegisterImageLink: $companyCommercialRegisterImageLink, logoImageLink: $logoImageLink, favouriteBoardsIds: $favouriteBoardsIds)';
   }
 
   @override
@@ -126,7 +122,6 @@ class AppUser {
         other.companyCommercialRegisterImageLink ==
             companyCommercialRegisterImageLink &&
         other.logoImageLink == logoImageLink &&
-        other.preferredLanguage == preferredLanguage &&
         listEquals(other.favouriteBoardsIds, favouriteBoardsIds);
   }
 
@@ -142,7 +137,6 @@ class AppUser {
         companyBusinessActivityLicenseImageLink.hashCode ^
         companyCommercialRegisterImageLink.hashCode ^
         logoImageLink.hashCode ^
-        preferredLanguage.hashCode ^
         favouriteBoardsIds.hashCode;
   }
 }
