@@ -1,37 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
-
+import 'package:adblip_shared_lib/models/enums/sorting_type.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/foundation.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-
 import '../helper_models/uploaded_file_data.dart';
 import 'address.dart';
-
-class BoardType {
-  String id;
-  String name;
-
-  BoardType({required this.id, required this.name});
-
-  BoardType copyWith({String? id, String? name}) {
-    return BoardType(id: id ?? this.id, name: name ?? this.name);
-  }
-
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'id': id,
-      'name': name,
-    };
-  }
-
-  factory BoardType.fromMap(Map<String, dynamic> map) {
-    return BoardType(
-      id: map['id'] as String,
-      name: map['name'] as String,
-    );
-  }
-}
 
 class Board {
   String id;
@@ -48,13 +21,13 @@ class Board {
   double priceAfterDiscount;
   double priceBeforeDiscount;
   String priceUnit;
-
+  SortingType sortingType;
+  FormatType formatType;
+  SizeType sizeType;
   int preparationDays; //default is 1 working day (Sunday to Thursday)
-
   LatLng latLng;
   Address address;
   Timestamp timeOfCreation;
-  BoardType boardType;
   //edit
   Map<int, int>? rating;
   double? weightedRating;
@@ -71,36 +44,37 @@ class Board {
   int numOfViews;
 
   String ratio;
-  Board({
-    required this.id,
-    required this.boardIdByCompany,
-    required this.ownerCompanyId,
-    this.maxMediaUploadSizeInMb,
-    required this.title,
-    required this.description,
-    this.imagesData,
-    required this.boardType,
-    this.weightedRating,
-    required this.widthInCm,
-    required this.heightInCm,
-    required this.isDigitalAd,
-    required this.priceAfterDiscount,
-    required this.priceBeforeDiscount,
-    required this.priceUnit,
-    required this.preparationDays,
-    required this.latLng,
-    required this.address,
-    required this.bookedThisManyTimes,
-    required this.timeOfCreation,
-    this.rating,
-    required this.minimumRentDuration,
-    this.maximumRentDuration,
-    required this.timeUnit,
-    required this.resolutionInPixels,
-    required this.totalDurationOfRenting,
-    required this.ratio,
-    required this.numOfViews,
-  });
+  Board(
+      {required this.id,
+      required this.boardIdByCompany,
+      required this.ownerCompanyId,
+      this.maxMediaUploadSizeInMb,
+      required this.title,
+      required this.description,
+      this.imagesData,
+      this.weightedRating,
+      required this.widthInCm,
+      required this.heightInCm,
+      required this.isDigitalAd,
+      required this.priceAfterDiscount,
+      required this.priceBeforeDiscount,
+      required this.priceUnit,
+      required this.preparationDays,
+      required this.latLng,
+      required this.address,
+      required this.bookedThisManyTimes,
+      required this.timeOfCreation,
+      this.rating,
+      required this.minimumRentDuration,
+      this.maximumRentDuration,
+      required this.timeUnit,
+      required this.resolutionInPixels,
+      required this.totalDurationOfRenting,
+      required this.ratio,
+      required this.numOfViews,
+      required this.formatType,
+      required this.sizeType,
+      required this.sortingType});
 
   Board copyWith({
     String? id,
@@ -128,6 +102,9 @@ class Board {
     int? resolutionInPixels,
     int? totalDurationOfRenting,
     String? ratio,
+    FormatType? formatType,
+    SortingType? sortingType,
+    SizeType? sizeType,
   }) {
     return Board(
       id: id ?? this.id,
@@ -157,9 +134,11 @@ class Board {
       totalDurationOfRenting:
           totalDurationOfRenting ?? this.totalDurationOfRenting,
       ratio: ratio ?? this.ratio,
-      boardType: boardType ?? this.boardType,
-      weightedRating: weightedRating ?? weightedRating,
-      numOfViews: numOfViews ?? numOfViews,
+      weightedRating: weightedRating ?? this.weightedRating,
+      numOfViews: numOfViews ?? this.numOfViews,
+      sortingType: sortingType ?? this.sortingType,
+      formatType: formatType ?? this.formatType,
+      sizeType: sizeType ?? this.sizeType,
     );
   }
 
@@ -190,55 +169,60 @@ class Board {
       'resolutionInPixels': resolutionInPixels,
       'totalDurationOfRenting': totalDurationOfRenting,
       'ratio': ratio,
-      'boardType': boardType.toMap(),
       'weightedRating': weightedRating,
       'numOfViews': numOfViews,
+      'sortingType': sortingType.index,
+      'formatType': formatType.index,
+      'sizeType': sizeType.index,
     };
   }
 
   factory Board.fromMap(Map<String, dynamic> map) {
     return Board(
-        id: map['id'] as String,
-        boardIdByCompany: map['boardIdByCompany'] as String,
-        ownerCompanyId: map['ownerCompanyId'] as String,
-        maxMediaUploadSizeInMb: map['maxMediaUploadSizeInMb'] != null
-            ? map['maxMediaUploadSizeInMb'] as int
-            : null,
-        title: map['title'] as String,
-        description: map['description'] as String,
-        imagesData: List<UploadedFileData>.from((map['imagesData'] != null
-            ? (map["imagesData"] as List<dynamic>)
-                .map((e) => UploadedFileData.fromMap(e))
-                .toList()
-            : [])),
-        widthInCm: map['widthInCm'] as int,
-        heightInCm: map['heightInCm'] as int,
-        isDigitalAd: map['isDigitalAd'] as bool,
-        priceAfterDiscount: (map['priceAfterDiscount'] as num).toDouble(),
-        priceBeforeDiscount: (map['priceBeforeDiscount'] as num).toDouble(),
-        priceUnit: map['priceUnit'] as String,
-        preparationDays: map['preparationDays'] as int,
-        latLng: LatLng.fromJson(map['latLng'] as Object?)!,
-        address: Address.fromMap(map['address']),
-        bookedThisManyTimes: map['bookedThisManyTimes'] as int,
-        timeOfCreation: map['timeOfCreation'],
-        rating: map["rating"] != null
-            ? Map<int, int>.from(map["rating"]
-                ?.map((key, value) => MapEntry(int.parse(key), value)))
-            : null,
-        minimumRentDuration: map['minimumRentDuration'] as int,
-        maximumRentDuration: map['maximumRentDuration'] != null
-            ? map['maximumRentDuration'] as int
-            : null,
-        timeUnit: map['timeUnit'] as String,
-        resolutionInPixels: map['resolutionInPixels'] as int,
-        totalDurationOfRenting: map['totalDurationOfRenting'] as int,
-        ratio: map['ratio'] as String,
-        boardType: BoardType.fromMap(map['boardType'] as Map<String, dynamic>),
-        weightedRating: map['weightedRating'] != null
-            ? (map['weightedRating'] as num).toDouble()
-            : null,
-        numOfViews: map['numOfViews'] as int);
+      id: map['id'] as String,
+      boardIdByCompany: map['boardIdByCompany'] as String,
+      ownerCompanyId: map['ownerCompanyId'] as String,
+      maxMediaUploadSizeInMb: map['maxMediaUploadSizeInMb'] != null
+          ? map['maxMediaUploadSizeInMb'] as int
+          : null,
+      title: map['title'] as String,
+      description: map['description'] as String,
+      imagesData: List<UploadedFileData>.from((map['imagesData'] != null
+          ? (map["imagesData"] as List<dynamic>)
+              .map((e) => UploadedFileData.fromMap(e))
+              .toList()
+          : [])),
+      widthInCm: map['widthInCm'] as int,
+      heightInCm: map['heightInCm'] as int,
+      isDigitalAd: map['isDigitalAd'] as bool,
+      priceAfterDiscount: (map['priceAfterDiscount'] as num).toDouble(),
+      priceBeforeDiscount: (map['priceBeforeDiscount'] as num).toDouble(),
+      priceUnit: map['priceUnit'] as String,
+      preparationDays: map['preparationDays'] as int,
+      latLng: LatLng.fromJson(map['latLng'] as Object?)!,
+      address: Address.fromMap(map['address']),
+      bookedThisManyTimes: map['bookedThisManyTimes'] as int,
+      timeOfCreation: map['timeOfCreation'],
+      rating: map["rating"] != null
+          ? Map<int, int>.from(map["rating"]
+              ?.map((key, value) => MapEntry(int.parse(key), value)))
+          : null,
+      minimumRentDuration: map['minimumRentDuration'] as int,
+      maximumRentDuration: map['maximumRentDuration'] != null
+          ? map['maximumRentDuration'] as int
+          : null,
+      timeUnit: map['timeUnit'] as String,
+      resolutionInPixels: map['resolutionInPixels'] as int,
+      totalDurationOfRenting: map['totalDurationOfRenting'] as int,
+      ratio: map['ratio'] as String,
+      weightedRating: map['weightedRating'] != null
+          ? (map['weightedRating'] as num).toDouble()
+          : null,
+      numOfViews: map['numOfViews'] as int,
+      sizeType: SizeType.values[map['sizeType'] as int],
+      formatType: FormatType.values[map['formatType'] as int],
+      sortingType: SortingType.values[map['sortingType'] as int],
+    );
   }
 
   String toJson() => json.encode(toMap());
@@ -261,7 +245,6 @@ class Board {
         other.maxMediaUploadSizeInMb == maxMediaUploadSizeInMb &&
         other.title == title &&
         other.description == description &&
-        listEquals(other.imagesData, imagesData) &&
         other.widthInCm == widthInCm &&
         other.heightInCm == heightInCm &&
         other.isDigitalAd == isDigitalAd &&
@@ -273,7 +256,6 @@ class Board {
         other.address == address &&
         other.bookedThisManyTimes == bookedThisManyTimes &&
         other.timeOfCreation == timeOfCreation &&
-        mapEquals(other.rating, rating) &&
         other.minimumRentDuration == minimumRentDuration &&
         other.maximumRentDuration == maximumRentDuration &&
         other.timeUnit == timeUnit &&
@@ -311,65 +293,3 @@ class Board {
         ratio.hashCode;
   }
 }
-
-/*
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'id': id,
-      'title': title,
-      'description': description,
-      'imagesData': imagesData?.map((x) => x.toMap()).toList(),
-      'widthInCm': widthInCm,
-      'heightInCm': heightInCm,
-      'isDigitalAd': isDigitalAd,
-      'rating': rating,
-      'dailyCostInDollars': dailyCostInDollars,
-      'preparationDays': preparationDays,
-      'minimumDaysToSubscribe': minimumDaysToSubscribe,
-      'maximumDaysToSubscribe': maximumDaysToSubscribe,
-      'latLng': latLng.toJson(),
-      'address': address.toMap(),
-      'bookedThisManyTimes': bookedThisManyTimes,
-      'boardIdByCompany': boardIdByCompany,
-      'ownerCompanyId': ownerCompanyId,
-      'resolutionInPixels': resolutionInPixels,
-      'maxMediaUploadSizeInMb': maxMediaUploadSizeInMb,
-      'timeOfCreation': timeOfCreation,
-      'boardType': boardType.toMap(),
-    };
-  }
-
-  factory Board.fromMap(Map<String, dynamic> map) {
-    return Board(
-      id: map['id'] as String,
-      title: map['title'] as String,
-      description: map['description'] as String,
-      imagesData: List<UploadedFileData>.from((map['imagesData'] != null
-          ? (map["imagesData"] as List<dynamic>)
-              .map((e) => UploadedFileData.fromMap(e))
-              .toList()
-          : [])),
-      widthInCm: map['widthInCm'] as int,
-      heightInCm: map['heightInCm'] as int,
-      isDigitalAd: map['isDigitalAd'] as bool,
-      dailyCostInDollars: map['dailyCostInDollars'] as double,
-      preparationDays: map['preparationDays'] as int,
-      minimumDaysToSubscribe: map['minimumDaysToSubscribe'] as int,
-      maximumDaysToSubscribe: map['minimumDaysToSubscribe'] as int?,
-      latLng: LatLng.fromJson(map['latLng'] as Object?)!,
-      address: Address.fromMap(map['address']),
-      bookedThisManyTimes: map['bookedThisManyTimes'] as int,
-      ownerCompanyId: map['ownerCompanyId'] as String,
-      boardIdByCompany: map['boardIdByCompany'] as String,
-      resolutionInPixels: map['resolutionInPixels'] as int,
-      maxMediaUploadSizeInMb: map['maxMediaUploadSizeInMb'] as int?,
-      timeOfCreation: map['timeOfCreation'],
-      boardType: BoardType.fromMap(map['boardType'] as Map<String, dynamic>),
-      rating: null,
-    );
-  }
-
-
-
-
- */
