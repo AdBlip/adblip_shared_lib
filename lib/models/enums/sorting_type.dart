@@ -18,52 +18,56 @@ enum SizeType {
   wallScapes
 }
 
-const Map<SortingType, String> sortingTypeArabic = {
-  SortingType.sortedByPriceLowToHigh: "الترتيب حسب السعر: من الأقل إلى الأعلى",
-  SortingType.sortedByPriceHighToLow: "الترتيب حسب السعر: من الأعلى إلى الأقل",
-  SortingType.sortedByRateHighToLow: "الترتيب حسب التقييم: من الأعلى إلى الأقل",
-  SortingType.sortedByRateLowToHigh: "الترتيب حسب التقييم: من الأقل إلى الأعلى",
+Map<int, String> sortingTypeArabic = {
+  SortingType.sortedByPriceLowToHigh.index:
+      "الترتيب حسب السعر: من الأقل إلى الأعلى",
+  SortingType.sortedByPriceHighToLow.index:
+      "الترتيب حسب السعر: من الأعلى إلى الأقل",
+  SortingType.sortedByRateHighToLow.index:
+      "الترتيب حسب التقييم: من الأعلى إلى الأقل",
+  SortingType.sortedByRateLowToHigh.index:
+      "الترتيب حسب التقييم: من الأقل إلى الأعلى",
 };
 
-const Map<SortingType, String> sortingTypeEnglish = {
-  SortingType.sortedByPriceLowToHigh: "Sorted by Price: Low to High",
-  SortingType.sortedByPriceHighToLow: "Sorted by Price: High to Low",
-  SortingType.sortedByRateHighToLow: "Sorted by Rate: High to Low",
-  SortingType.sortedByRateLowToHigh: "Sorted by Rate: Low to High",
+Map<int, String> sortingTypeEnglish = {
+  SortingType.sortedByPriceLowToHigh.index: "Sorted by Price: Low to High",
+  SortingType.sortedByPriceHighToLow.index: "Sorted by Price: High to Low",
+  SortingType.sortedByRateHighToLow.index: "Sorted by Rate: High to Low",
+  SortingType.sortedByRateLowToHigh.index: "Sorted by Rate: Low to High",
 };
 
-const Map<FormatType, String> formatTypeArabic = {
-  FormatType.staticImage: "صورة ثابتة",
-  FormatType.digitalImage: "صورة رقمية",
-  FormatType.video: "فيديو",
-  FormatType.dynamic: "ديناميكي",
-  FormatType.indoor: "داخلي",
-  FormatType.outdoor: "خارجي",
+Map<int, String> formatTypeArabic = {
+  FormatType.staticImage.index: "صورة ثابتة",
+  FormatType.digitalImage.index: "صورة رقمية",
+  FormatType.video.index: "فيديو",
+  FormatType.dynamic.index: "ديناميكي",
+  FormatType.indoor.index: "داخلي",
+  FormatType.outdoor.index: "خارجي",
 };
 
-const Map<FormatType, String> formatTypeEnglish = {
-  FormatType.staticImage: "Static Image",
-  FormatType.digitalImage: "Digital Image",
-  FormatType.video: "Video",
-  FormatType.dynamic: "Dynamic",
-  FormatType.indoor: "Indoor",
-  FormatType.outdoor: "Outdoor",
+Map<int, String> formatTypeEnglish = {
+  FormatType.staticImage.index: "Static Image",
+  FormatType.digitalImage.index: "Digital Image",
+  FormatType.video.index: "Video",
+  FormatType.dynamic.index: "Dynamic",
+  FormatType.indoor.index: "Indoor",
+  FormatType.outdoor.index: "Outdoor",
 };
 
-const Map<SizeType, String> sizeTypeArabic = {
-  SizeType.bulletIn: "لوحة إعلانية",
-  SizeType.triFaced: "ثلاثي الوجوه",
-  SizeType.posters: "ملصقات",
-  SizeType.juniorPosters: "ملصقات صغيرة",
-  SizeType.spectaclulars: "لوحات ضخمة",
-  SizeType.wallScapes: "لوحات جدارية",
+Map<int, String> sizeTypeArabic = {
+  SizeType.bulletIn.index: "لوحة إعلانية",
+  SizeType.triFaced.index: "ثلاثي الوجوه",
+  SizeType.posters.index: "ملصقات",
+  SizeType.juniorPosters.index: "ملصقات صغيرة",
+  SizeType.spectaclulars.index: "لوحات ضخمة",
+  SizeType.wallScapes.index: "لوحات جدارية",
 };
 
-const Map<SizeType, String> sizeTypeEnglish = {
-  SizeType.bulletIn: "Bulletin",
-  SizeType.triFaced: "Tri-Faced",
-  SizeType.posters: "Posters",
-  SizeType.juniorPosters: "Junior Posters",
-  SizeType.spectaclulars: "Spectaculars",
-  SizeType.wallScapes: "Wallscapes",
+Map<int, String> sizeTypeEnglish = {
+  SizeType.bulletIn.index: "Bulletin",
+  SizeType.triFaced.index: "Tri-Faced",
+  SizeType.posters.index: "Posters",
+  SizeType.juniorPosters.index: "Junior Posters",
+  SizeType.spectaclulars.index: "Spectaculars",
+  SizeType.wallScapes.index: "Wallscapes",
 };
