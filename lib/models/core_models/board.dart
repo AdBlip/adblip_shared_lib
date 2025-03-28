@@ -158,7 +158,10 @@ class Board {
       'priceBeforeDiscount': priceBeforeDiscount,
       'priceUnit': priceUnit,
       'preparationDays': preparationDays,
-      'latLng': latLng.toJson(),
+      'latLng': {
+        'latitude': latLng.latitude,
+        'longitude': latLng.longitude,
+      },
       'address': address.toMap(),
       'bookedThisManyTimes': bookedThisManyTimes,
       'timeOfCreation': timeOfCreation,
