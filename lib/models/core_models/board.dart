@@ -202,7 +202,10 @@ class Board {
       priceBeforeDiscount: (map['priceBeforeDiscount'] as num).toDouble(),
       priceUnit: map['priceUnit'] as String,
       preparationDays: map['preparationDays'] as int,
-      latLng: LatLng.fromJson(map['latLng'] as Object?)!,
+      latLng: LatLng(
+        (map['latLng']['latitude'] as num).toDouble(),
+        (map['latLng']['longitude'] as num).toDouble(),
+      ),
       address: Address.fromMap(map['address']),
       bookedThisManyTimes: map['bookedThisManyTimes'] as int,
       timeOfCreation: map['timeOfCreation'],
