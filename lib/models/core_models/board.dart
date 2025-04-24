@@ -18,7 +18,9 @@ class Board {
   int widthInCm;
   int heightInCm;
   bool isDigitalAd;
-  double priceAfterDiscount;
+
+  //after discount or with none applied at all
+  double finalPrice;
   double priceBeforeDiscount;
   String priceUnit;
   SortingType sortingType;
@@ -44,6 +46,8 @@ class Board {
   int numOfViews;
 
   String ratio;
+
+  bool isAvailable;
   Board(
       {required this.id,
       required this.boardIdByCompany,
@@ -56,7 +60,7 @@ class Board {
       required this.widthInCm,
       required this.heightInCm,
       required this.isDigitalAd,
-      required this.priceAfterDiscount,
+      required this.finalPrice,
       required this.priceBeforeDiscount,
       required this.priceUnit,
       required this.preparationDays,
@@ -74,7 +78,8 @@ class Board {
       required this.numOfViews,
       required this.formatType,
       required this.sizeType,
-      required this.sortingType});
+      required this.sortingType,
+      required this.isAvailable});
 
   Board copyWith({
     String? id,
@@ -105,6 +110,9 @@ class Board {
     FormatType? formatType,
     SortingType? sortingType,
     SizeType? sizeType,
+    int? numOfViews,
+    bool? isAvailable,
+
   }) {
     return Board(
       id: id ?? this.id,
@@ -118,7 +126,7 @@ class Board {
       widthInCm: widthInCm ?? this.widthInCm,
       heightInCm: heightInCm ?? this.heightInCm,
       isDigitalAd: isDigitalAd ?? this.isDigitalAd,
-      priceAfterDiscount: priceAfterDiscount ?? this.priceAfterDiscount,
+      finalPrice: priceAfterDiscount ?? this.finalPrice,
       priceBeforeDiscount: priceBeforeDiscount ?? this.priceBeforeDiscount,
       priceUnit: priceUnit ?? this.priceUnit,
       preparationDays: preparationDays ?? this.preparationDays,
@@ -139,6 +147,7 @@ class Board {
       sortingType: sortingType ?? this.sortingType,
       formatType: formatType ?? this.formatType,
       sizeType: sizeType ?? this.sizeType,
+      isAvailable: isAvailable?? this.isAvailable,
     );
   }
 
@@ -154,7 +163,7 @@ class Board {
       'widthInCm': widthInCm,
       'heightInCm': heightInCm,
       'isDigitalAd': isDigitalAd,
-      'priceAfterDiscount': priceAfterDiscount,
+      'priceAfterDiscount': finalPrice,
       'priceBeforeDiscount': priceBeforeDiscount,
       'priceUnit': priceUnit,
       'preparationDays': preparationDays,
@@ -177,6 +186,7 @@ class Board {
       'sortingType': sortingType.index,
       'formatType': formatType.index,
       'sizeType': sizeType.index,
+      'isAvailable': isAvailable,
     };
   }
 
@@ -198,7 +208,7 @@ class Board {
       widthInCm: map['widthInCm'] as int,
       heightInCm: map['heightInCm'] as int,
       isDigitalAd: map['isDigitalAd'] as bool,
-      priceAfterDiscount: (map['priceAfterDiscount'] as num).toDouble(),
+      finalPrice: (map['priceAfterDiscount'] as num).toDouble(),
       priceBeforeDiscount: (map['priceBeforeDiscount'] as num).toDouble(),
       priceUnit: map['priceUnit'] as String,
       preparationDays: map['preparationDays'] as int,
@@ -228,6 +238,7 @@ class Board {
       sizeType: SizeType.values[map['sizeType'] as int],
       formatType: FormatType.values[map['formatType'] as int],
       sortingType: SortingType.values[map['sortingType'] as int],
+      isAvailable: map['isAvailable'] as bool,
     );
   }
 
@@ -238,7 +249,7 @@ class Board {
 
   @override
   String toString() {
-    return 'Board(id: $id, boardIdByCompany: $boardIdByCompany, ownerCompanyId: $ownerCompanyId, maxMediaUploadSizeInMb: $maxMediaUploadSizeInMb, title: $title, description: $description, imagesData: $imagesData, widthInCm: $widthInCm, heightInCm: $heightInCm, isDigitalAd: $isDigitalAd, priceAfterDiscount: $priceAfterDiscount, priceBeforeDiscount: $priceBeforeDiscount, priceUnit: $priceUnit, preparationDays: $preparationDays, latLng: $latLng, address: $address, bookedThisManyTimes: $bookedThisManyTimes, timeOfCreation: $timeOfCreation, rating: $rating, minimumRentDuration: $minimumRentDuration, maximumRentDuration: $maximumRentDuration, timeUnit: $timeUnit, resolutionInPixels: $resolutionInPixels, totalDurationOfRenting: $totalDurationOfRenting, ratio: $ratio)';
+    return 'Board(id: $id, boardIdByCompany: $boardIdByCompany, ownerCompanyId: $ownerCompanyId, maxMediaUploadSizeInMb: $maxMediaUploadSizeInMb, title: $title, description: $description, imagesData: $imagesData, widthInCm: $widthInCm, heightInCm: $heightInCm, isDigitalAd: $isDigitalAd, priceAfterDiscount: $finalPrice, priceBeforeDiscount: $priceBeforeDiscount, priceUnit: $priceUnit, preparationDays: $preparationDays, latLng: $latLng, address: $address, bookedThisManyTimes: $bookedThisManyTimes, timeOfCreation: $timeOfCreation, rating: $rating, minimumRentDuration: $minimumRentDuration, maximumRentDuration: $maximumRentDuration, timeUnit: $timeUnit, resolutionInPixels: $resolutionInPixels, totalDurationOfRenting: $totalDurationOfRenting, ratio: $ratio)';
   }
 
   @override
@@ -254,7 +265,7 @@ class Board {
         other.widthInCm == widthInCm &&
         other.heightInCm == heightInCm &&
         other.isDigitalAd == isDigitalAd &&
-        other.priceAfterDiscount == priceAfterDiscount &&
+        other.finalPrice == finalPrice &&
         other.priceBeforeDiscount == priceBeforeDiscount &&
         other.priceUnit == priceUnit &&
         other.preparationDays == preparationDays &&
@@ -282,7 +293,7 @@ class Board {
         widthInCm.hashCode ^
         heightInCm.hashCode ^
         isDigitalAd.hashCode ^
-        priceAfterDiscount.hashCode ^
+        finalPrice.hashCode ^
         priceBeforeDiscount.hashCode ^
         priceUnit.hashCode ^
         preparationDays.hashCode ^
@@ -298,4 +309,34 @@ class Board {
         totalDurationOfRenting.hashCode ^
         ratio.hashCode;
   }
+factory Board.empty() {
+  return Board(
+    id: '',
+    boardIdByCompany: '',
+    ownerCompanyId: '',
+    title: '',
+    description: '',
+    widthInCm: 0,
+    heightInCm: 0,
+    isDigitalAd: false,
+    finalPrice: 0,
+    priceBeforeDiscount: 0,
+    priceUnit: 'EGP',
+    preparationDays: 1,
+    latLng: const LatLng(0, 0),
+    address: Address.empty(),
+    bookedThisManyTimes: 0,
+    timeOfCreation: Timestamp.now(),
+    minimumRentDuration: 1,
+    timeUnit: 'hour',
+    resolutionInPixels: 0,
+    totalDurationOfRenting: 0,
+    ratio: '1:1',
+    numOfViews: 0,
+    sortingType: SortingType.sortedByPriceLowToHigh,
+    formatType: FormatType.staticImage,
+    sizeType: SizeType.bulletIn,
+    isAvailable: true,
+  );
+}
 }
