@@ -134,4 +134,18 @@ class Address {
         administrativeAreaLevel2.hashCode ^
         administrativeAreaLevel3.hashCode;
   }
+factory Address.empty() {
+  return Address(
+    street: '',
+    locality: '',
+    country: '',
+    neighborhood: '',
+    buildingNumber: '',
+    postalCode: '',
+    administrativeAreaLevel1: '',
+    administrativeAreaLevel2: '',
+    administrativeAreaLevel3: '',
+    formattedAddress: '',
+  );
+}
 }
