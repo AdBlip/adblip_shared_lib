@@ -148,4 +148,29 @@ factory Address.empty() {
     formattedAddress: '',
   );
 }
+  Address copyWith({
+    String? street,
+    String? locality,
+    String? country,
+    String? neighborhood,
+    String? buildingNumber,
+    String? postalCode,
+    String? administrativeAreaLevel1,
+    String? administrativeAreaLevel2,
+    String? administrativeAreaLevel3,
+    String? formattedAddress,
+  }) {
+    return Address(
+      street: street ?? this.street,
+      locality: locality ?? this.locality,
+      country: country ?? this.country,
+      neighborhood: neighborhood ?? this.neighborhood,
+      buildingNumber: buildingNumber ?? this.buildingNumber,
+      postalCode: postalCode ?? this.postalCode,
+      administrativeAreaLevel1: administrativeAreaLevel1 ?? this.administrativeAreaLevel1,
+      administrativeAreaLevel2: administrativeAreaLevel2 ?? this.administrativeAreaLevel2,
+      administrativeAreaLevel3: administrativeAreaLevel3 ?? this.administrativeAreaLevel3,
+      formattedAddress: formattedAddress ?? this.formattedAddress,
+    );
+  }
 }
