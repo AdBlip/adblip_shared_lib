@@ -37,7 +37,7 @@ class BoardOwner {
         'firstName': firstName,
         'lastName': lastName,
         'contactMail': contactMail,
-        'country': countryCode,
+        'countryCode': countryCode,
         'language': language,
         'profilePictureData': profilePictureData.toMap(),
       };
@@ -48,7 +48,7 @@ class BoardOwner {
         firstName: json['firstName'],
         lastName: json['lastName'],
         contactMail: json['contactMail'],
-        countryCode: json['country'],
+        countryCode: json['countryCode'],
         language: json['language'],
         profilePictureData:
             UploadedFileData.fromMap(json['profilePictureData']),
