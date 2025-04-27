@@ -1,3 +1,5 @@
+import 'package:adblip_shared_lib/models/helper_models/uploaded_file_data.dart';
+
 class BoardOwner {
   /* 
   * User Info Model
@@ -6,17 +8,17 @@ class BoardOwner {
   * 2- firstName: The user's first name
   * 3- lastName: The user's last name
   * 4- contactMail: The user's contact email
-  * 5- country: The country of Ads operations (e.g. Egypt, Saudi Arabia, UAE, etc.)
+  * 5- countryCode: The country code of Ads operations (e.g. Egypt, Saudi Arabia, UAE, etc.)
   * 6- language: The user's preferred language ()
-  * 7- profilePictureUrl: The user's profile picture URL
+  * 7- profilePictureData: An instance of UploadedFileData that contains the user's profile picture data
   */
   final String uid;
   final String firstName;
   final String lastName;
   final String contactMail;
-  final String country;
+  final String countryCode;
   final String language;
-  final String profilePictureUrl;
+  final UploadedFileData profilePictureData;
 
   // Model Constructor
   BoardOwner({
@@ -24,9 +26,9 @@ class BoardOwner {
     required this.firstName,
     required this.lastName,
     required this.contactMail,
-    required this.country,
+    required this.countryCode,
     required this.language,
-    required this.profilePictureUrl,
+    required this.profilePictureData,
   });
 
   // Model to Json
@@ -35,9 +37,9 @@ class BoardOwner {
         'firstName': firstName,
         'lastName': lastName,
         'contactMail': contactMail,
-        'country': country,
+        'country': countryCode,
         'language': language,
-        'profilePictureUrl': profilePictureUrl,
+        'profilePictureData': profilePictureData.toMap(),
       };
 
   // Json to Model
@@ -46,8 +48,30 @@ class BoardOwner {
         firstName: json['firstName'],
         lastName: json['lastName'],
         contactMail: json['contactMail'],
-        country: json['country'],
+        countryCode: json['country'],
         language: json['language'],
-        profilePictureUrl: json['profilePictureUrl'],
+        profilePictureData:
+            UploadedFileData.fromMap(json['profilePictureData']),
       );
+
+  // Create a copy of the current instance with optional field modifications
+  BoardOwner copyWith({
+    String? uid,
+    String? firstName,
+    String? lastName,
+    String? contactMail,
+    String? countryCode,
+    String? language,
+    UploadedFileData? profilePictureData,
+  }) {
+    return BoardOwner(
+      uid: uid ?? this.uid,
+      firstName: firstName ?? this.firstName,
+      lastName: lastName ?? this.lastName,
+      contactMail: contactMail ?? this.contactMail,
+      countryCode: countryCode ?? this.countryCode,
+      language: language ?? this.language,
+      profilePictureData: profilePictureData ?? this.profilePictureData,
+    );
+  }
 }
