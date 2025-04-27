@@ -1,5 +1,6 @@
 class FirestoreCollectionNames {
   static const String usersCollection = "users";
+  static const String boardOwnersCollection = "board_owners";
   static const String boardsCollecion = "boards";
   static const String companiesCollecion = "companies";
   static const String bookingsCollection = "bookings";
