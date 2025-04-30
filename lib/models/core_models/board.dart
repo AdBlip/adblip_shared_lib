@@ -173,7 +173,7 @@ class Board {
       },
       'address': address.toMap(),
       'bookedThisManyTimes': bookedThisManyTimes,
-      'timeOfCreation': timeOfCreation,
+      'timeOfCreation': timeOfCreation.toDate().toIso8601String(),
       'rating': rating?.map((key, value) => MapEntry(key.toString(), value)),
       'minimumRentDuration': minimumRentDuration,
       'maximumRentDuration': maximumRentDuration,
@@ -218,7 +218,7 @@ class Board {
       ),
       address: Address.fromMap(map['address']),
       bookedThisManyTimes: map['bookedThisManyTimes'] as int,
-      timeOfCreation: map['timeOfCreation'],
+      timeOfCreation: Timestamp.fromDate(DateTime.parse(map['timeOfCreation'])),
       rating: map["rating"] != null
           ? Map<int, int>.from(map["rating"]
               ?.map((key, value) => MapEntry(int.parse(key), value)))
