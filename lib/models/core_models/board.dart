@@ -192,6 +192,10 @@ class Board {
   }
 
   factory Board.fromMap(Map<String, dynamic> map) {
+    final timeOfCreation = map['timeOfCreation'] is Timestamp
+        ? (map['timeOfCreation'] as Timestamp)
+        : Timestamp.fromDate(DateTime.parse(map['timeOfCreation'] as String));
+
     return Board(
       id: map['id'] as String,
       boardIdByCompany: map['boardIdByCompany'] as String,
@@ -221,7 +225,7 @@ class Board {
 
       address: Address.fromMap(map['address']),
       bookedThisManyTimes: map['bookedThisManyTimes'] as int,
-      timeOfCreation: Timestamp.fromDate(DateTime.parse(map['timeOfCreation'])),
+      timeOfCreation: timeOfCreation,
       rating: map["rating"] != null
           ? Map<int, int>.from(map["rating"]
               ?.map((key, value) => MapEntry(int.parse(key), value)))
