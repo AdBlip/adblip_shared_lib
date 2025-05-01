@@ -4,6 +4,7 @@ import 'package:adblip_shared_lib/models/enums/sorting_type.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../helper_models/uploaded_file_data.dart';
+import '../model_helper_utils/latling_mapper.dart';
 import 'address.dart';
 
 class Board {
@@ -216,10 +217,7 @@ class Board {
       //   (map['latLng']['latitude'] as num).toDouble(),
       //   (map['latLng']['longitude'] as num).toDouble(),
       // ),
-      latLng: LatLng(
-        double.parse(map['latLng']['latitude'].toString()),
-        double.parse(map['latLng']['longitude'].toString()),
-      ),
+      latLng: LatLngMapper.fromMap(map['latLng']),
 
       address: Address.fromMap(map['address']),
       bookedThisManyTimes: map['bookedThisManyTimes'] as int,
