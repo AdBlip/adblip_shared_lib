@@ -212,7 +212,7 @@ class Board {
           : [])),
       widthInCm: map['widthInCm'] as int,
       heightInCm: map['heightInCm'] as int,
-      isDigitalAd: map['isDigitalAd'] as bool,
+      isDigitalAd: (map['isDigitalAd'] as bool?) ?? false, // Provide default if null
       finalPrice: (map['priceAfterDiscount'] as num).toDouble(),
       priceBeforeDiscount: (map['priceBeforeDiscount'] as num).toDouble(),
       priceUnit: map['priceUnit'] as String,
@@ -245,7 +245,7 @@ class Board {
       sizeType: SizeType.values[map['sizeType'] as int],
       formatType: FormatType.values[map['formatType'] as int],
       sortingType: SortingType.values[map['sortingType'] as int],
-      isAvailable: map['isAvailable'] as bool,
+      isAvailable: (map['isAvailable'] as bool?) ?? true,  // Provide default if null
     );
   }
 
