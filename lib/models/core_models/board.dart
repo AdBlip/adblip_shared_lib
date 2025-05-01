@@ -217,7 +217,7 @@ class Board {
       //   (map['latLng']['latitude'] as num).toDouble(),
       //   (map['latLng']['longitude'] as num).toDouble(),
       // ),
-      latLng: LatLng.fromJson(map['latLng'])!,
+      latLng: LatLngMapper.fromMap(map['latLng']),
 
       address: Address.fromMap(map['address']),
       bookedThisManyTimes: map['bookedThisManyTimes'] as int,
