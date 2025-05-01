@@ -212,10 +212,15 @@ class Board {
       priceBeforeDiscount: (map['priceBeforeDiscount'] as num).toDouble(),
       priceUnit: map['priceUnit'] as String,
       preparationDays: map['preparationDays'] as int,
+      // latLng: LatLng(
+      //   (map['latLng']['latitude'] as num).toDouble(),
+      //   (map['latLng']['longitude'] as num).toDouble(),
+      // ),
       latLng: LatLng(
-        (map['latLng']['latitude'] as num).toDouble(),
-        (map['latLng']['longitude'] as num).toDouble(),
+        double.parse(map['latLng']['latitude'].toString()),
+        double.parse(map['latLng']['longitude'].toString()),
       ),
+
       address: Address.fromMap(map['address']),
       bookedThisManyTimes: map['bookedThisManyTimes'] as int,
       timeOfCreation: Timestamp.fromDate(DateTime.parse(map['timeOfCreation'])),
