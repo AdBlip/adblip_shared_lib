@@ -4,7 +4,6 @@ import 'package:adblip_shared_lib/models/enums/sorting_type.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../helper_models/uploaded_file_data.dart';
-import '../model_helper_utils/latling_mapper.dart';
 import 'address.dart';
 
 class Board {
@@ -19,9 +18,7 @@ class Board {
   int widthInCm;
   int heightInCm;
   bool isDigitalAd;
-
-  //after discount or with none applied at all
-  double finalPrice;
+  double priceAfterDiscount;
   double priceBeforeDiscount;
   String priceUnit;
   SortingType sortingType;
@@ -47,8 +44,6 @@ class Board {
   int numOfViews;
 
   String ratio;
-
-  bool isAvailable;
   Board(
       {required this.id,
       required this.boardIdByCompany,
@@ -61,7 +56,7 @@ class Board {
       required this.widthInCm,
       required this.heightInCm,
       required this.isDigitalAd,
-      required this.finalPrice,
+      required this.priceAfterDiscount,
       required this.priceBeforeDiscount,
       required this.priceUnit,
       required this.preparationDays,
@@ -78,9 +73,9 @@ class Board {
       required this.ratio,
       required this.numOfViews,
       required this.formatType,
+      // required this.geo,
       required this.sizeType,
-      required this.sortingType,
-      required this.isAvailable});
+      required this.sortingType});
 
   Board copyWith({
     String? id,
@@ -92,6 +87,7 @@ class Board {
     List<UploadedFileData>? imagesData,
     int? widthInCm,
     int? heightInCm,
+    Map<String, dynamic>? geo, // <String, dynamic>
     bool? isDigitalAd,
     double? priceAfterDiscount,
     double? priceBeforeDiscount,
@@ -111,9 +107,6 @@ class Board {
     FormatType? formatType,
     SortingType? sortingType,
     SizeType? sizeType,
-    int? numOfViews,
-    bool? isAvailable,
-
   }) {
     return Board(
       id: id ?? this.id,
@@ -127,12 +120,13 @@ class Board {
       widthInCm: widthInCm ?? this.widthInCm,
       heightInCm: heightInCm ?? this.heightInCm,
       isDigitalAd: isDigitalAd ?? this.isDigitalAd,
-      finalPrice: priceAfterDiscount ?? this.finalPrice,
+      priceAfterDiscount: priceAfterDiscount ?? this.priceAfterDiscount,
       priceBeforeDiscount: priceBeforeDiscount ?? this.priceBeforeDiscount,
       priceUnit: priceUnit ?? this.priceUnit,
       preparationDays: preparationDays ?? this.preparationDays,
       latLng: latLng ?? this.latLng,
       address: address ?? this.address,
+      // geo: geo ?? this.geo,
       bookedThisManyTimes: bookedThisManyTimes ?? this.bookedThisManyTimes,
       timeOfCreation: timeOfCreation ?? this.timeOfCreation,
       rating: rating ?? this.rating,
@@ -148,7 +142,6 @@ class Board {
       sortingType: sortingType ?? this.sortingType,
       formatType: formatType ?? this.formatType,
       sizeType: sizeType ?? this.sizeType,
-      isAvailable: isAvailable?? this.isAvailable,
     );
   }
 
@@ -164,7 +157,7 @@ class Board {
       'widthInCm': widthInCm,
       'heightInCm': heightInCm,
       'isDigitalAd': isDigitalAd,
-      'priceAfterDiscount': finalPrice,
+      'priceAfterDiscount': priceAfterDiscount,
       'priceBeforeDiscount': priceBeforeDiscount,
       'priceUnit': priceUnit,
       'preparationDays': preparationDays,
@@ -172,9 +165,10 @@ class Board {
         'latitude': latLng.latitude,
         'longitude': latLng.longitude,
       },
+      // 'geo': geo,
       'address': address.toMap(),
       'bookedThisManyTimes': bookedThisManyTimes,
-      'timeOfCreation': timeOfCreation.toDate().toIso8601String(),
+      'timeOfCreation': timeOfCreation,
       'rating': rating?.map((key, value) => MapEntry(key.toString(), value)),
       'minimumRentDuration': minimumRentDuration,
       'maximumRentDuration': maximumRentDuration,
@@ -187,15 +181,10 @@ class Board {
       'sortingType': sortingType.index,
       'formatType': formatType.index,
       'sizeType': sizeType.index,
-      'isAvailable': isAvailable,
     };
   }
 
   factory Board.fromMap(Map<String, dynamic> map) {
-    final timeOfCreation = map['timeOfCreation'] is Timestamp
-        ? (map['timeOfCreation'] as Timestamp)
-        : Timestamp.fromDate(DateTime.parse(map['timeOfCreation'] as String));
-
     return Board(
       id: map['id'] as String,
       boardIdByCompany: map['boardIdByCompany'] as String,
@@ -212,20 +201,18 @@ class Board {
           : [])),
       widthInCm: map['widthInCm'] as int,
       heightInCm: map['heightInCm'] as int,
-      isDigitalAd: (map['isDigitalAd'] as bool?) ?? false, // Provide default if null
-      finalPrice: (map['priceAfterDiscount'] as num).toDouble(),
+      isDigitalAd: map['isDigitalAd'] as bool,
+      priceAfterDiscount: (map['priceAfterDiscount'] as num).toDouble(),
       priceBeforeDiscount: (map['priceBeforeDiscount'] as num).toDouble(),
       priceUnit: map['priceUnit'] as String,
       preparationDays: map['preparationDays'] as int,
-      // latLng: LatLng(
-      //   (map['latLng']['latitude'] as num).toDouble(),
-      //   (map['latLng']['longitude'] as num).toDouble(),
-      // ),
-      latLng: LatLngMapper.fromMap(map['latLng']),
-
+      latLng: LatLng(
+        (map['latLng']['latitude'] as num).toDouble(),
+        (map['latLng']['longitude'] as num).toDouble(),
+      ),
       address: Address.fromMap(map['address']),
       bookedThisManyTimes: map['bookedThisManyTimes'] as int,
-      timeOfCreation: timeOfCreation,
+      timeOfCreation: map['timeOfCreation'],
       rating: map["rating"] != null
           ? Map<int, int>.from(map["rating"]
               ?.map((key, value) => MapEntry(int.parse(key), value)))
@@ -245,7 +232,6 @@ class Board {
       sizeType: SizeType.values[map['sizeType'] as int],
       formatType: FormatType.values[map['formatType'] as int],
       sortingType: SortingType.values[map['sortingType'] as int],
-      isAvailable: (map['isAvailable'] as bool?) ?? true,  // Provide default if null
     );
   }
 
@@ -256,7 +242,7 @@ class Board {
 
   @override
   String toString() {
-    return 'Board(id: $id, boardIdByCompany: $boardIdByCompany, ownerCompanyId: $ownerCompanyId, maxMediaUploadSizeInMb: $maxMediaUploadSizeInMb, title: $title, description: $description, imagesData: $imagesData, widthInCm: $widthInCm, heightInCm: $heightInCm, isDigitalAd: $isDigitalAd, priceAfterDiscount: $finalPrice, priceBeforeDiscount: $priceBeforeDiscount, priceUnit: $priceUnit, preparationDays: $preparationDays, latLng: $latLng, address: $address, bookedThisManyTimes: $bookedThisManyTimes, timeOfCreation: $timeOfCreation, rating: $rating, minimumRentDuration: $minimumRentDuration, maximumRentDuration: $maximumRentDuration, timeUnit: $timeUnit, resolutionInPixels: $resolutionInPixels, totalDurationOfRenting: $totalDurationOfRenting, ratio: $ratio)';
+    return 'Board(id: $id, boardIdByCompany: $boardIdByCompany, ownerCompanyId: $ownerCompanyId, maxMediaUploadSizeInMb: $maxMediaUploadSizeInMb, title: $title, description: $description, imagesData: $imagesData, widthInCm: $widthInCm, heightInCm: $heightInCm, isDigitalAd: $isDigitalAd, priceAfterDiscount: $priceAfterDiscount, priceBeforeDiscount: $priceBeforeDiscount, priceUnit: $priceUnit, preparationDays: $preparationDays, latLng: $latLng, address: $address, bookedThisManyTimes: $bookedThisManyTimes, timeOfCreation: $timeOfCreation, rating: $rating, minimumRentDuration: $minimumRentDuration, maximumRentDuration: $maximumRentDuration, timeUnit: $timeUnit, resolutionInPixels: $resolutionInPixels, totalDurationOfRenting: $totalDurationOfRenting, ratio: $ratio)';
   }
 
   @override
@@ -272,7 +258,7 @@ class Board {
         other.widthInCm == widthInCm &&
         other.heightInCm == heightInCm &&
         other.isDigitalAd == isDigitalAd &&
-        other.finalPrice == finalPrice &&
+        other.priceAfterDiscount == priceAfterDiscount &&
         other.priceBeforeDiscount == priceBeforeDiscount &&
         other.priceUnit == priceUnit &&
         other.preparationDays == preparationDays &&
@@ -300,7 +286,7 @@ class Board {
         widthInCm.hashCode ^
         heightInCm.hashCode ^
         isDigitalAd.hashCode ^
-        finalPrice.hashCode ^
+        priceAfterDiscount.hashCode ^
         priceBeforeDiscount.hashCode ^
         priceUnit.hashCode ^
         preparationDays.hashCode ^
@@ -316,34 +302,4 @@ class Board {
         totalDurationOfRenting.hashCode ^
         ratio.hashCode;
   }
-factory Board.empty() {
-  return Board(
-    id: '',
-    boardIdByCompany: '',
-    ownerCompanyId: '',
-    title: '',
-    description: '',
-    widthInCm: 0,
-    heightInCm: 0,
-    isDigitalAd: false,
-    finalPrice: 0,
-    priceBeforeDiscount: 0,
-    priceUnit: 'EGP',
-    preparationDays: 1,
-    latLng: const LatLng(0, 0),
-    address: Address.empty(),
-    bookedThisManyTimes: 0,
-    timeOfCreation: Timestamp.now(),
-    minimumRentDuration: 1,
-    timeUnit: 'hour',
-    resolutionInPixels: 0,
-    totalDurationOfRenting: 0,
-    ratio: '1:1',
-    numOfViews: 0,
-    sortingType: SortingType.sortedByPriceLowToHigh,
-    formatType: FormatType.staticImage,
-    sizeType: SizeType.bulletIn,
-    isAvailable: true,
-  );
-}
 }
