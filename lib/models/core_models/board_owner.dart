@@ -11,6 +11,7 @@ class BoardOwner {
   * 5- countryCode: The country code of Ads operations (e.g. Egypt, Saudi Arabia, UAE, etc.)
   * 6- language: The user's preferred language ()
   * 7- profilePictureData: An instance of UploadedFileData that contains the user's profile picture data
+  * 8- isDeleted: Boolean flag to indicate if the board owner is deleted
   */
   final String uid;
   final String firstName;
@@ -19,6 +20,7 @@ class BoardOwner {
   final String countryCode;
   final String language;
   final UploadedFileData profilePictureData;
+  final bool isDeleted;
 
   // Model Constructor
   BoardOwner({
@@ -29,6 +31,7 @@ class BoardOwner {
     required this.countryCode,
     required this.language,
     required this.profilePictureData,
+    this.isDeleted = false,
   });
 
   // Model to Json
@@ -40,6 +43,7 @@ class BoardOwner {
         'countryCode': countryCode,
         'language': language,
         'profilePictureData': profilePictureData.toMap(),
+        'isDeleted': isDeleted,
       };
 
   // Json to Model
@@ -52,6 +56,7 @@ class BoardOwner {
         language: json['language'],
         profilePictureData:
             UploadedFileData.fromMap(json['profilePictureData']),
+        isDeleted: json['isDeleted'] ?? false,
       );
 
   // Create a copy of the current instance with optional field modifications
@@ -63,6 +68,7 @@ class BoardOwner {
     String? countryCode,
     String? language,
     UploadedFileData? profilePictureData,
+    bool? isDeleted,
   }) {
     return BoardOwner(
       uid: uid ?? this.uid,
@@ -72,6 +78,7 @@ class BoardOwner {
       countryCode: countryCode ?? this.countryCode,
       language: language ?? this.language,
       profilePictureData: profilePictureData ?? this.profilePictureData,
+      isDeleted: isDeleted ?? this.isDeleted,
     );
   }
 }
