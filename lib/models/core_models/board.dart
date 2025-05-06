@@ -6,6 +6,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../helper_models/uploaded_file_data.dart';
 import '../model_helper_utils/latling_mapper.dart';
 import 'address.dart';
+import 'booked_spans.dart';
 
 class Board {
   String id;
@@ -47,8 +48,9 @@ class Board {
   int numOfViews;
 
   String ratio;
+  List<BookedTimeSpan> bookedTimeSpans;
 
-  bool isAvailable;
+  // bool isAvailable;
   Board(
       {required this.id,
       required this.boardIdByCompany,
@@ -80,7 +82,8 @@ class Board {
       required this.formatType,
       required this.sizeType,
       required this.sortingType,
-      required this.isAvailable});
+      // required this.isAvailable
+      required this.bookedTimeSpans});
 
   Board copyWith({
     String? id,
@@ -112,8 +115,8 @@ class Board {
     SortingType? sortingType,
     SizeType? sizeType,
     int? numOfViews,
-    bool? isAvailable,
-
+    // bool? isAvailable,
+    List<BookedTimeSpan>? bookedTimeSpans,
   }) {
     return Board(
       id: id ?? this.id,
@@ -148,7 +151,8 @@ class Board {
       sortingType: sortingType ?? this.sortingType,
       formatType: formatType ?? this.formatType,
       sizeType: sizeType ?? this.sizeType,
-      isAvailable: isAvailable?? this.isAvailable,
+      // isAvailable: isAvailable ?? this.isAvailable,
+      bookedTimeSpans: bookedTimeSpans ?? this.bookedTimeSpans,
     );
   }
 
@@ -187,7 +191,8 @@ class Board {
       'sortingType': sortingType.index,
       'formatType': formatType.index,
       'sizeType': sizeType.index,
-      'isAvailable': isAvailable,
+      // 'isAvailable': isAvailable,
+      'bookedTimeSpans': bookedTimeSpans.map((x) => x.toMap()).toList(),
     };
   }
 
@@ -212,7 +217,8 @@ class Board {
           : [])),
       widthInCm: map['widthInCm'] as int,
       heightInCm: map['heightInCm'] as int,
-      isDigitalAd: (map['isDigitalAd'] as bool?) ?? false, // Provide default if null
+      isDigitalAd:
+          (map['isDigitalAd'] as bool?) ?? false, // Provide default if null
       finalPrice: (map['priceAfterDiscount'] as num).toDouble(),
       priceBeforeDiscount: (map['priceBeforeDiscount'] as num).toDouble(),
       priceUnit: map['priceUnit'] as String,
@@ -245,7 +251,10 @@ class Board {
       sizeType: SizeType.values[map['sizeType'] as int],
       formatType: FormatType.values[map['formatType'] as int],
       sortingType: SortingType.values[map['sortingType'] as int],
-      isAvailable: (map['isAvailable'] as bool?) ?? true,  // Provide default if null
+      // isAvailable:
+      //     (map['isAvailable'] as bool?) ?? true, // Provide default if null
+      bookedTimeSpans: List<BookedTimeSpan>.from(
+          (map['bookedTimeSpans'] ?? []).map((x) => BookedTimeSpan.fromMap(x))),
     );
   }
 
@@ -316,34 +325,36 @@ class Board {
         totalDurationOfRenting.hashCode ^
         ratio.hashCode;
   }
-factory Board.empty() {
-  return Board(
-    id: '',
-    boardIdByCompany: '',
-    ownerCompanyId: '',
-    title: '',
-    description: '',
-    widthInCm: 0,
-    heightInCm: 0,
-    isDigitalAd: false,
-    finalPrice: 0,
-    priceBeforeDiscount: 0,
-    priceUnit: 'EGP',
-    preparationDays: 1,
-    latLng: const LatLng(0, 0),
-    address: Address.empty(),
-    bookedThisManyTimes: 0,
-    timeOfCreation: Timestamp.now(),
-    minimumRentDuration: 1,
-    timeUnit: 'hour',
-    resolutionInPixels: 0,
-    totalDurationOfRenting: 0,
-    ratio: '1:1',
-    numOfViews: 0,
-    sortingType: SortingType.sortedByPriceLowToHigh,
-    formatType: FormatType.staticImage,
-    sizeType: SizeType.bulletIn,
-    isAvailable: true,
-  );
-}
+
+  factory Board.empty() {
+    return Board(
+      id: '',
+      boardIdByCompany: '',
+      ownerCompanyId: '',
+      title: '',
+      description: '',
+      widthInCm: 0,
+      heightInCm: 0,
+      isDigitalAd: false,
+      finalPrice: 0,
+      priceBeforeDiscount: 0,
+      priceUnit: 'EGP',
+      preparationDays: 1,
+      latLng: const LatLng(0, 0),
+      address: Address.empty(),
+      bookedThisManyTimes: 0,
+      timeOfCreation: Timestamp.now(),
+      minimumRentDuration: 1,
+      timeUnit: 'hour',
+      resolutionInPixels: 0,
+      totalDurationOfRenting: 0,
+      ratio: '1:1',
+      numOfViews: 0,
+      sortingType: SortingType.sortedByPriceLowToHigh,
+      formatType: FormatType.staticImage,
+      sizeType: SizeType.bulletIn,
+      // isAvailable: true,
+      bookedTimeSpans: [],
+    );
+  }
 }
