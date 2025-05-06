@@ -20,6 +20,7 @@ class AppUser {
   List<String> favouriteBoardsIds;
   List<String> recentSearchedPlaceIds;
   String? fcmToken;
+  bool isDeleted;
   AppUser(
       {required this.id,
       required this.companyName,
@@ -34,7 +35,8 @@ class AppUser {
       required this.logoImageLink,
       required this.favouriteBoardsIds,
       required this.recentSearchedPlaceIds,
-      required this.fcmToken});
+      required this.fcmToken,
+      this.isDeleted = false});
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
@@ -54,6 +56,7 @@ class AppUser {
       'favouriteBoardsIds': favouriteBoardsIds,
       "recentSearchedPlaceIds": recentSearchedPlaceIds,
       "fcmToken": fcmToken,
+      "isDeleted": isDeleted,
     };
   }
 
@@ -92,6 +95,7 @@ class AppUser {
       recentSearchedPlaceIds:
           List<String>.from((map['recentSearchedPlaceIds'] as List<dynamic>)),
       fcmToken: map['fcmToken'] as String?,
+      isDeleted: map['isDeleted'] as bool? ?? false,
     );
   }
 
@@ -102,7 +106,7 @@ class AppUser {
 
   @override
   String toString() {
-    return 'AppUser(id: $id, companyName: $companyName, companyEmail: $companyEmail, companyBaseCountryCode: $companyBaseCountryCode, companyPhoneNumber: $companyPhoneNumber, companyOperatingCountry: $companyOperatingCountry, joinDate: $joinDate, companyBusinessActivityLicenseImageLink: $companyBusinessActivityLicenseImageLink, companyCommercialRegisterImageLink: $companyCommercialRegisterImageLink, logoImageLink: $logoImageLink, favouriteBoardsIds: $favouriteBoardsIds)';
+    return 'AppUser(id: $id, companyName: $companyName, companyEmail: $companyEmail, companyBaseCountryCode: $companyBaseCountryCode, companyPhoneNumber: $companyPhoneNumber, companyOperatingCountry: $companyOperatingCountry, joinDate: $joinDate, companyBusinessActivityLicenseImageLink: $companyBusinessActivityLicenseImageLink, companyCommercialRegisterImageLink: $companyCommercialRegisterImageLink, logoImageLink: $logoImageLink, favouriteBoardsIds: $favouriteBoardsIds, isDeleted: $isDeleted)';
   }
 
   @override
@@ -122,7 +126,8 @@ class AppUser {
         other.companyCommercialRegisterImageLink ==
             companyCommercialRegisterImageLink &&
         other.logoImageLink == logoImageLink &&
-        listEquals(other.favouriteBoardsIds, favouriteBoardsIds);
+        listEquals(other.favouriteBoardsIds, favouriteBoardsIds) &&
+        other.isDeleted == isDeleted;
   }
 
   @override
@@ -137,6 +142,7 @@ class AppUser {
         companyBusinessActivityLicenseImageLink.hashCode ^
         companyCommercialRegisterImageLink.hashCode ^
         logoImageLink.hashCode ^
-        favouriteBoardsIds.hashCode;
+        favouriteBoardsIds.hashCode ^
+        isDeleted.hashCode;
   }
 }
