@@ -46,7 +46,7 @@ class Board {
   int numOfViews;
 
   String ratio;
-  List<BookedTimeSpan> bookedTimeSpans;
+  List<BookedTimeSpan>? bookedTimeSpans;
 
   // bool isAvailable;
   Board(
@@ -81,7 +81,7 @@ class Board {
       required this.sizeType,
       required this.sortingType,
       // required this.isAvailable
-      required this.bookedTimeSpans});
+      this.bookedTimeSpans});
 
   Board copyWith({
     String? id,
@@ -190,7 +190,7 @@ class Board {
       'formatType': formatType.index,
       'sizeType': sizeType.index,
       // 'isAvailable': isAvailable,
-      'bookedTimeSpans': bookedTimeSpans.map((x) => x.toMap()).toList(),
+      'bookedTimeSpans': bookedTimeSpans?.map((x) => x.toMap()).toList(),
     };
   }
 
@@ -253,8 +253,13 @@ class Board {
       sortingType: SortingType.values[map['sortingType'] as int],
       // isAvailable:
       //     (map['isAvailable'] as bool?) ?? true, // Provide default if null
-      bookedTimeSpans: List<BookedTimeSpan>.from(
-          (map['bookedTimeSpans'] ?? []).map((x) => BookedTimeSpan.fromMap(x))),
+      bookedTimeSpans: map['bookedTimeSpans'] != null
+          ? List<BookedTimeSpan>.from(
+              (map['bookedTimeSpans'] as List).map(
+                (x) => BookedTimeSpan.fromMap(x),
+              ),
+            )
+          : null, // Handle null case
     );
   }
 
