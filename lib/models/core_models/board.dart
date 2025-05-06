@@ -20,9 +20,7 @@ class Board {
   int widthInCm;
   int heightInCm;
   bool isDigitalAd;
-
-  //after discount or with none applied at all
-  double finalPrice;
+  double priceAfterDiscount;
   double priceBeforeDiscount;
   String priceUnit;
   SortingType sortingType;
@@ -63,7 +61,7 @@ class Board {
       required this.widthInCm,
       required this.heightInCm,
       required this.isDigitalAd,
-      required this.finalPrice,
+      required this.priceAfterDiscount,
       required this.priceBeforeDiscount,
       required this.priceUnit,
       required this.preparationDays,
@@ -130,7 +128,7 @@ class Board {
       widthInCm: widthInCm ?? this.widthInCm,
       heightInCm: heightInCm ?? this.heightInCm,
       isDigitalAd: isDigitalAd ?? this.isDigitalAd,
-      finalPrice: priceAfterDiscount ?? this.finalPrice,
+      priceAfterDiscount: priceAfterDiscount ?? this.priceAfterDiscount,
       priceBeforeDiscount: priceBeforeDiscount ?? this.priceBeforeDiscount,
       priceUnit: priceUnit ?? this.priceUnit,
       preparationDays: preparationDays ?? this.preparationDays,
@@ -168,7 +166,7 @@ class Board {
       'widthInCm': widthInCm,
       'heightInCm': heightInCm,
       'isDigitalAd': isDigitalAd,
-      'priceAfterDiscount': finalPrice,
+      'priceAfterDiscount': priceAfterDiscount,
       'priceBeforeDiscount': priceBeforeDiscount,
       'priceUnit': priceUnit,
       'preparationDays': preparationDays,
@@ -219,7 +217,9 @@ class Board {
       heightInCm: map['heightInCm'] as int,
       isDigitalAd:
           (map['isDigitalAd'] as bool?) ?? false, // Provide default if null
-      finalPrice: (map['priceAfterDiscount'] as num).toDouble(),
+      priceAfterDiscount: (map['priceAfterDiscount'] as num).toDouble(),
+      // isDigitalAd: map['isDigitalAd'] as bool,
+      // priceAfterDiscount: (map['priceAfterDiscount'] as num).toDouble(),
       priceBeforeDiscount: (map['priceBeforeDiscount'] as num).toDouble(),
       priceUnit: map['priceUnit'] as String,
       preparationDays: map['preparationDays'] as int,
@@ -265,7 +265,7 @@ class Board {
 
   @override
   String toString() {
-    return 'Board(id: $id, boardIdByCompany: $boardIdByCompany, ownerCompanyId: $ownerCompanyId, maxMediaUploadSizeInMb: $maxMediaUploadSizeInMb, title: $title, description: $description, imagesData: $imagesData, widthInCm: $widthInCm, heightInCm: $heightInCm, isDigitalAd: $isDigitalAd, priceAfterDiscount: $finalPrice, priceBeforeDiscount: $priceBeforeDiscount, priceUnit: $priceUnit, preparationDays: $preparationDays, latLng: $latLng, address: $address, bookedThisManyTimes: $bookedThisManyTimes, timeOfCreation: $timeOfCreation, rating: $rating, minimumRentDuration: $minimumRentDuration, maximumRentDuration: $maximumRentDuration, timeUnit: $timeUnit, resolutionInPixels: $resolutionInPixels, totalDurationOfRenting: $totalDurationOfRenting, ratio: $ratio)';
+    return 'Board(id: $id, boardIdByCompany: $boardIdByCompany, ownerCompanyId: $ownerCompanyId, maxMediaUploadSizeInMb: $maxMediaUploadSizeInMb, title: $title, description: $description, imagesData: $imagesData, widthInCm: $widthInCm, heightInCm: $heightInCm, isDigitalAd: $isDigitalAd, priceAfterDiscount: $priceAfterDiscount, priceBeforeDiscount: $priceBeforeDiscount, priceUnit: $priceUnit, preparationDays: $preparationDays, latLng: $latLng, address: $address, bookedThisManyTimes: $bookedThisManyTimes, timeOfCreation: $timeOfCreation, rating: $rating, minimumRentDuration: $minimumRentDuration, maximumRentDuration: $maximumRentDuration, timeUnit: $timeUnit, resolutionInPixels: $resolutionInPixels, totalDurationOfRenting: $totalDurationOfRenting, ratio: $ratio)';
   }
 
   @override
@@ -281,7 +281,7 @@ class Board {
         other.widthInCm == widthInCm &&
         other.heightInCm == heightInCm &&
         other.isDigitalAd == isDigitalAd &&
-        other.finalPrice == finalPrice &&
+        other.priceAfterDiscount == priceAfterDiscount &&
         other.priceBeforeDiscount == priceBeforeDiscount &&
         other.priceUnit == priceUnit &&
         other.preparationDays == preparationDays &&
@@ -309,7 +309,7 @@ class Board {
         widthInCm.hashCode ^
         heightInCm.hashCode ^
         isDigitalAd.hashCode ^
-        finalPrice.hashCode ^
+        priceAfterDiscount.hashCode ^
         priceBeforeDiscount.hashCode ^
         priceUnit.hashCode ^
         preparationDays.hashCode ^
@@ -336,7 +336,7 @@ class Board {
       widthInCm: 0,
       heightInCm: 0,
       isDigitalAd: false,
-      finalPrice: 0,
+      priceAfterDiscount: 0,
       priceBeforeDiscount: 0,
       priceUnit: 'EGP',
       preparationDays: 1,
