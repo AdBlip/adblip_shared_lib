@@ -11,8 +11,8 @@ class BookedTimeSpan {
 
   Map<String, dynamic> toMap() {
     return {
-      'startDate': startDate,
-      'endDate': endDate,
+      'startDate': startDate.toDate().toIso8601String(),
+      'endDate': endDate.toDate().toIso8601String(),
     };
   }
 
