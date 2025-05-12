@@ -12,6 +12,8 @@ class BoardOwner {
   * 6- language: The user's preferred language ()
   * 7- profilePictureData: An instance of UploadedFileData that contains the user's profile picture data
   * 8- isDeleted: Boolean flag to indicate if the board owner is deleted
+  * 9- phoneNumber: The user's phone number
+  * 10- joinDate: The date and time when the user joined the board
   */
   final String uid;
   final String firstName;
@@ -19,6 +21,8 @@ class BoardOwner {
   final String contactMail;
   final String countryCode;
   final String language;
+  final String? contactPhoneNumber;
+  final DateTime? joinDate;
   final UploadedFileData profilePictureData;
   final bool isDeleted;
 
@@ -31,6 +35,8 @@ class BoardOwner {
     required this.countryCode,
     required this.language,
     required this.profilePictureData,
+    this.contactPhoneNumber,
+    this.joinDate,
     this.isDeleted = false,
   });
 
@@ -42,6 +48,8 @@ class BoardOwner {
         'contactMail': contactMail,
         'countryCode': countryCode,
         'language': language,
+        'phoneNumber': contactPhoneNumber,
+        'joinDate': joinDate.toString(),
         'profilePictureData': profilePictureData.toMap(),
         'isDeleted': isDeleted,
       };
@@ -56,6 +64,9 @@ class BoardOwner {
         language: json['language'],
         profilePictureData:
             UploadedFileData.fromMap(json['profilePictureData']),
+        contactPhoneNumber: json['phoneNumber'],
+        joinDate:
+            json['joinDate'] != null ? DateTime.parse(json['joinDate']) : null,
         isDeleted: json['isDeleted'] ?? false,
       );
 
@@ -68,6 +79,8 @@ class BoardOwner {
     String? countryCode,
     String? language,
     UploadedFileData? profilePictureData,
+    String? phoneNumber,
+    DateTime? joinDate,
     bool? isDeleted,
   }) {
     return BoardOwner(
@@ -78,6 +91,8 @@ class BoardOwner {
       countryCode: countryCode ?? this.countryCode,
       language: language ?? this.language,
       profilePictureData: profilePictureData ?? this.profilePictureData,
+      contactPhoneNumber: phoneNumber ?? this.contactPhoneNumber,
+      joinDate: joinDate ?? this.joinDate,
       isDeleted: isDeleted ?? this.isDeleted,
     );
   }
