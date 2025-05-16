@@ -46,42 +46,43 @@ class Board {
   int numOfViews;
 
   String ratio;
-  List<BookedTimeSpan> bookedTimeSpans;
+  // List<BookedTimeSpan> bookedTimeSpans;
 
   // bool isAvailable;
-  Board(
-      {required this.id,
-      required this.boardIdByCompany,
-      required this.ownerCompanyId,
-      this.maxMediaUploadSizeInMb,
-      required this.title,
-      required this.description,
-      this.imagesData,
-      this.weightedRating,
-      required this.widthInCm,
-      required this.heightInCm,
-      required this.isDigitalAd,
-      required this.priceAfterDiscount,
-      required this.priceBeforeDiscount,
-      required this.priceUnit,
-      required this.preparationDays,
-      required this.latLng,
-      required this.address,
-      required this.bookedThisManyTimes,
-      required this.timeOfCreation,
-      this.rating,
-      required this.minimumRentDuration,
-      this.maximumRentDuration,
-      required this.timeUnit,
-      required this.resolutionInPixels,
-      required this.totalDurationOfRenting,
-      required this.ratio,
-      required this.numOfViews,
-      required this.formatType,
-      required this.sizeType,
-      required this.sortingType,
-      // required this.isAvailable
-      required this.bookedTimeSpans});
+  Board({
+    required this.id,
+    required this.boardIdByCompany,
+    required this.ownerCompanyId,
+    this.maxMediaUploadSizeInMb,
+    required this.title,
+    required this.description,
+    this.imagesData,
+    this.weightedRating,
+    required this.widthInCm,
+    required this.heightInCm,
+    required this.isDigitalAd,
+    required this.priceAfterDiscount,
+    required this.priceBeforeDiscount,
+    required this.priceUnit,
+    required this.preparationDays,
+    required this.latLng,
+    required this.address,
+    required this.bookedThisManyTimes,
+    required this.timeOfCreation,
+    this.rating,
+    required this.minimumRentDuration,
+    this.maximumRentDuration,
+    required this.timeUnit,
+    required this.resolutionInPixels,
+    required this.totalDurationOfRenting,
+    required this.ratio,
+    required this.numOfViews,
+    required this.formatType,
+    required this.sizeType,
+    required this.sortingType,
+    // required this.isAvailable
+    // required this.bookedTimeSpans
+  });
 
   Board copyWith({
     String? id,
@@ -114,7 +115,7 @@ class Board {
     SizeType? sizeType,
     int? numOfViews,
     // bool? isAvailable,
-    List<BookedTimeSpan>? bookedTimeSpans,
+    // List<BookedTimeSpan>? bookedTimeSpans,
   }) {
     return Board(
       id: id ?? this.id,
@@ -150,7 +151,7 @@ class Board {
       formatType: formatType ?? this.formatType,
       sizeType: sizeType ?? this.sizeType,
       // isAvailable: isAvailable ?? this.isAvailable,
-      bookedTimeSpans: bookedTimeSpans ?? this.bookedTimeSpans,
+      // bookedTimeSpans: bookedTimeSpans ?? this.bookedTimeSpans,
     );
   }
 
@@ -190,7 +191,7 @@ class Board {
       'formatType': formatType.index,
       'sizeType': sizeType.index,
       // 'isAvailable': isAvailable,
-      'bookedTimeSpans': bookedTimeSpans.map((x) => x.toMap()).toList(),
+      // 'bookedTimeSpans': bookedTimeSpans.map((x) => x.toMap()).toList(),
     };
   }
 
@@ -253,8 +254,8 @@ class Board {
       sortingType: SortingType.values[map['sortingType'] as int],
       // isAvailable:
       //     (map['isAvailable'] as bool?) ?? true, // Provide default if null
-      bookedTimeSpans: List<BookedTimeSpan>.from(
-          (map['bookedTimeSpans'] ?? []).map((x) => BookedTimeSpan.fromMap(x))),
+      // bookedTimeSpans: List<BookedTimeSpan>.from(
+      //     (map['bookedTimeSpans'] ?? []).map((x) => BookedTimeSpan.fromMap(x))),
     );
   }
 
@@ -324,37 +325,5 @@ class Board {
         resolutionInPixels.hashCode ^
         totalDurationOfRenting.hashCode ^
         ratio.hashCode;
-  }
-
-  factory Board.empty() {
-    return Board(
-      id: '',
-      boardIdByCompany: '',
-      ownerCompanyId: '',
-      title: '',
-      description: '',
-      widthInCm: 0,
-      heightInCm: 0,
-      isDigitalAd: false,
-      priceAfterDiscount: 0,
-      priceBeforeDiscount: 0,
-      priceUnit: 'EGP',
-      preparationDays: 1,
-      latLng: const LatLng(0, 0),
-      address: Address.empty(),
-      bookedThisManyTimes: 0,
-      timeOfCreation: Timestamp.now(),
-      minimumRentDuration: 1,
-      timeUnit: 'hour',
-      resolutionInPixels: 0,
-      totalDurationOfRenting: 0,
-      ratio: '1:1',
-      numOfViews: 0,
-      sortingType: SortingType.sortedByPriceLowToHigh,
-      formatType: FormatType.staticImage,
-      sizeType: SizeType.bulletIn,
-      // isAvailable: true,
-      bookedTimeSpans: [],
-    );
   }
 }
