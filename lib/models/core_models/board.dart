@@ -6,8 +6,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../helper_models/uploaded_file_data.dart';
 import '../model_helper_utils/latling_mapper.dart';
 import 'address.dart';
-import 'booked_spans.dart';
 
+//TODO: add price per day amount, and remove time unit
 class Board {
   String id;
   String boardIdByCompany;
