@@ -2,6 +2,7 @@
 import 'dart:convert';
 import 'package:adblip_shared_lib/models/enums/sorting_type.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:geoflutterfire_plus/geoflutterfire_plus.dart';
 import '../helper_models/uploaded_file_data.dart';
 import 'address.dart';
 
@@ -36,39 +37,42 @@ class Board {
   int numOfViews;
   String ratio;
 
-  Board({
-    required this.id,
-    required this.boardOwnerId,
-    this.maxMediaUploadSizeInMb,
-    required this.title,
-    required this.description,
-    this.imagesData,
-    this.weightedRating,
-    required this.widthInCm,
-    required this.heightInCm,
-    required this.isDigitalAd,
-    required this.dailyPriceAfterDiscount,
-    required this.dailyPriceBeforeDiscount,
-    required this.priceUnit,
-    required this.preparationDays,
-    required this.latitude,
-    required this.longitude,
-    required this.address,
-    required this.bookedThisManyTimes,
-    required this.timeOfCreation,
-    this.rating,
-    required this.minimumRentDurationInDays,
-    this.maximumRentDurationInDays,
-    required this.resolutionInPixels,
-    required this.totalDurationOfRenting,
-    required this.ratio,
-    required this.numOfViews,
-    required this.formatType,
-    required this.sizeType,
-    required this.sortingType,
-    // required this.isAvailable
-    // required this.bookedTimeSpans
-  });
+  GeoFirePoint geoFirePoint;
+
+  Board(
+      {required this.id,
+      required this.boardOwnerId,
+      this.maxMediaUploadSizeInMb,
+      required this.title,
+      required this.description,
+      this.imagesData,
+      this.weightedRating,
+      required this.widthInCm,
+      required this.heightInCm,
+      required this.isDigitalAd,
+      required this.dailyPriceAfterDiscount,
+      required this.dailyPriceBeforeDiscount,
+      required this.priceUnit,
+      required this.preparationDays,
+      required this.latitude,
+      required this.longitude,
+      required this.address,
+      required this.bookedThisManyTimes,
+      required this.timeOfCreation,
+      this.rating,
+      required this.minimumRentDurationInDays,
+      this.maximumRentDurationInDays,
+      required this.resolutionInPixels,
+      required this.totalDurationOfRenting,
+      required this.ratio,
+      required this.numOfViews,
+      required this.formatType,
+      required this.sizeType,
+      required this.sortingType,
+      required this.geoFirePoint
+      // required this.isAvailable
+      // required this.bookedTimeSpans
+      });
 
   Board copyWith(
       {String? id,
@@ -99,48 +103,48 @@ class Board {
       SortingType? sortingType,
       SizeType? sizeType,
       int? numOfViews,
-      // bool? isAvailable,
-      // List<BookedTimeSpan>? bookedTimeSpans,
+      GeoFirePoint? geoFirePoint,
       double? weightedRating}) {
     return Board(
-      id: id ?? this.id,
-      boardOwnerId: boardOwnerId ?? this.boardOwnerId,
-      maxMediaUploadSizeInMb:
-          maxMediaUploadSizeInMb ?? this.maxMediaUploadSizeInMb,
-      title: title ?? this.title,
-      description: description ?? this.description,
-      imagesData: imagesData ?? this.imagesData,
-      widthInCm: widthInCm ?? this.widthInCm,
-      heightInCm: heightInCm ?? this.heightInCm,
-      isDigitalAd: isDigitalAd ?? this.isDigitalAd,
-      dailyPriceAfterDiscount:
-          dailyPriceAfterDiscount ?? this.dailyPriceAfterDiscount,
-      dailyPriceBeforeDiscount:
-          dailyPriceBeforeDiscount ?? this.dailyPriceBeforeDiscount,
-      priceUnit: priceUnit ?? this.priceUnit,
-      preparationDays: preparationDays ?? this.preparationDays,
-      longitude: longitude ?? this.longitude,
-      latitude: latitude ?? this.latitude,
-      address: address ?? this.address,
-      bookedThisManyTimes: bookedThisManyTimes ?? this.bookedThisManyTimes,
-      timeOfCreation: timeOfCreation ?? this.timeOfCreation,
-      rating: rating ?? this.rating,
-      minimumRentDurationInDays:
-          minimumRentDurationInDays ?? this.minimumRentDurationInDays,
-      maximumRentDurationInDays:
-          maximumRentDurationInDays ?? this.maximumRentDurationInDays,
-      resolutionInPixels: resolutionInPixels ?? this.resolutionInPixels,
-      totalDurationOfRenting:
-          totalDurationOfRenting ?? this.totalDurationOfRenting,
-      ratio: ratio ?? this.ratio,
-      weightedRating: weightedRating ?? this.weightedRating,
-      numOfViews: numOfViews ?? this.numOfViews,
-      sortingType: sortingType ?? this.sortingType,
-      formatType: formatType ?? this.formatType,
-      sizeType: sizeType ?? this.sizeType,
-      // isAvailable: isAvailable ?? this.isAvailable,
-      // bookedTimeSpans: bookedTimeSpans ?? this.bookedTimeSpans,
-    );
+        id: id ?? this.id,
+        boardOwnerId: boardOwnerId ?? this.boardOwnerId,
+        maxMediaUploadSizeInMb:
+            maxMediaUploadSizeInMb ?? this.maxMediaUploadSizeInMb,
+        title: title ?? this.title,
+        description: description ?? this.description,
+        imagesData: imagesData ?? this.imagesData,
+        widthInCm: widthInCm ?? this.widthInCm,
+        heightInCm: heightInCm ?? this.heightInCm,
+        isDigitalAd: isDigitalAd ?? this.isDigitalAd,
+        dailyPriceAfterDiscount:
+            dailyPriceAfterDiscount ?? this.dailyPriceAfterDiscount,
+        dailyPriceBeforeDiscount:
+            dailyPriceBeforeDiscount ?? this.dailyPriceBeforeDiscount,
+        priceUnit: priceUnit ?? this.priceUnit,
+        preparationDays: preparationDays ?? this.preparationDays,
+        longitude: longitude ?? this.longitude,
+        latitude: latitude ?? this.latitude,
+        address: address ?? this.address,
+        bookedThisManyTimes: bookedThisManyTimes ?? this.bookedThisManyTimes,
+        timeOfCreation: timeOfCreation ?? this.timeOfCreation,
+        rating: rating ?? this.rating,
+        minimumRentDurationInDays:
+            minimumRentDurationInDays ?? this.minimumRentDurationInDays,
+        maximumRentDurationInDays:
+            maximumRentDurationInDays ?? this.maximumRentDurationInDays,
+        resolutionInPixels: resolutionInPixels ?? this.resolutionInPixels,
+        totalDurationOfRenting:
+            totalDurationOfRenting ?? this.totalDurationOfRenting,
+        ratio: ratio ?? this.ratio,
+        weightedRating: weightedRating ?? this.weightedRating,
+        numOfViews: numOfViews ?? this.numOfViews,
+        sortingType: sortingType ?? this.sortingType,
+        formatType: formatType ?? this.formatType,
+        sizeType: sizeType ?? this.sizeType,
+        geoFirePoint: geoFirePoint ?? this.geoFirePoint
+        // isAvailable: isAvailable ?? this.isAvailable,
+        // bookedTimeSpans: bookedTimeSpans ?? this.bookedTimeSpans,
+        );
   }
 
   Map<String, dynamic> toMap() {
@@ -160,7 +164,7 @@ class Board {
       'preparationDays': preparationDays,
       'latitude': latitude,
       'longitude': longitude,
-
+      'geoFirePoint': geoFirePoint.data,
       'address': address.toMap(),
       'bookedThisManyTimes': bookedThisManyTimes,
       'timeOfCreation': timeOfCreation.toDate().toIso8601String(),
@@ -187,6 +191,8 @@ class Board {
 
     return Board(
       id: map['id'] as String,
+      geoFirePoint: GeoFirePoint(
+          GeoPoint(map['latitude'] as double, map['longitude'] as double)),
       boardOwnerId: map['boardOwnerId'] as String,
       maxMediaUploadSizeInMb: map['maxMediaUploadSizeInMb'] != null
           ? map['maxMediaUploadSizeInMb'] as int
