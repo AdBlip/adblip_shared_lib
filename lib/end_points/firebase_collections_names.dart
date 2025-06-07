@@ -9,4 +9,5 @@ class FirestoreCollectionNames {
   static const String searchedPlacesCollection = "searched_places";
   static const String faqCollection = "faqs";
   static const String notificationsCollection = "notifications";
+  static const String feedbackCollection = "feedbacks";
 }
