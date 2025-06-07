@@ -10,6 +10,8 @@ environment:
 dependencies:
   cloud_firestore: ^5.6.5
   google_maps_flutter: ^2.9.0
+  geoflutterfire_plus: ^0.0.32
+
   # path: ^1.8.0
 
 dev_dependencies:

@@ -2,17 +2,13 @@
 import 'dart:convert';
 import 'package:adblip_shared_lib/models/enums/sorting_type.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:geoflutterfire_plus/geoflutterfire_plus.dart';
 import '../helper_models/uploaded_file_data.dart';
-import '../model_helper_utils/latling_mapper.dart';
 import 'address.dart';
-import 'booked_spans.dart';
 
 class Board {
   String id;
-  String boardIdByCompany;
-  String ownerCompanyId;
-
+  String boardOwnerId;
   int? maxMediaUploadSizeInMb;
   String title;
   String description;
@@ -20,39 +16,32 @@ class Board {
   int widthInCm;
   int heightInCm;
   bool isDigitalAd;
-  double priceAfterDiscount;
-  double priceBeforeDiscount;
+  double dailyPriceAfterDiscount;
+  double dailyPriceBeforeDiscount;
   String priceUnit;
   SortingType sortingType;
   FormatType formatType;
   SizeType sizeType;
   int preparationDays; //default is 1 working day (Sunday to Thursday)
-  LatLng latLng;
+  double latitude;
+  double longitude;
   Address address;
   Timestamp timeOfCreation;
-  //edit
   Map<int, int>? rating;
   double? weightedRating;
-
-  //new
-  int minimumRentDuration;
-  int? maximumRentDuration;
-
-  String timeUnit;
+  int minimumRentDurationInDays;
+  int? maximumRentDurationInDays;
   int resolutionInPixels;
-
   int totalDurationOfRenting;
   int bookedThisManyTimes;
   int numOfViews;
-
   String ratio;
-  List<BookedTimeSpan> bookedTimeSpans;
 
-  // bool isAvailable;
+  GeoFirePoint geoFirePoint;
+
   Board(
       {required this.id,
-      required this.boardIdByCompany,
-      required this.ownerCompanyId,
+      required this.boardOwnerId,
       this.maxMediaUploadSizeInMb,
       required this.title,
       required this.description,
@@ -61,18 +50,18 @@ class Board {
       required this.widthInCm,
       required this.heightInCm,
       required this.isDigitalAd,
-      required this.priceAfterDiscount,
-      required this.priceBeforeDiscount,
+      required this.dailyPriceAfterDiscount,
+      required this.dailyPriceBeforeDiscount,
       required this.priceUnit,
       required this.preparationDays,
-      required this.latLng,
+      required this.latitude,
+      required this.longitude,
       required this.address,
       required this.bookedThisManyTimes,
       required this.timeOfCreation,
       this.rating,
-      required this.minimumRentDuration,
-      this.maximumRentDuration,
-      required this.timeUnit,
+      required this.minimumRentDurationInDays,
+      this.maximumRentDurationInDays,
       required this.resolutionInPixels,
       required this.totalDurationOfRenting,
       required this.ratio,
@@ -80,85 +69,88 @@ class Board {
       required this.formatType,
       required this.sizeType,
       required this.sortingType,
+      required this.geoFirePoint
       // required this.isAvailable
-      required this.bookedTimeSpans});
+      // required this.bookedTimeSpans
+      });
 
-  Board copyWith({
-    String? id,
-    String? boardIdByCompany,
-    String? ownerCompanyId,
-    int? maxMediaUploadSizeInMb,
-    String? title,
-    String? description,
-    List<UploadedFileData>? imagesData,
-    int? widthInCm,
-    int? heightInCm,
-    bool? isDigitalAd,
-    double? priceAfterDiscount,
-    double? priceBeforeDiscount,
-    String? priceUnit,
-    int? preparationDays,
-    LatLng? latLng,
-    Address? address,
-    int? bookedThisManyTimes,
-    Timestamp? timeOfCreation,
-    Map<int, int>? rating,
-    int? minimumRentDuration,
-    int? maximumRentDuration,
-    String? timeUnit,
-    int? resolutionInPixels,
-    int? totalDurationOfRenting,
-    String? ratio,
-    FormatType? formatType,
-    SortingType? sortingType,
-    SizeType? sizeType,
-    int? numOfViews,
-    // bool? isAvailable,
-    List<BookedTimeSpan>? bookedTimeSpans,
-  }) {
+  Board copyWith(
+      {String? id,
+      String? boardOwnerId,
+      int? maxMediaUploadSizeInMb,
+      String? title,
+      String? description,
+      List<UploadedFileData>? imagesData,
+      int? widthInCm,
+      int? heightInCm,
+      bool? isDigitalAd,
+      double? dailyPriceAfterDiscount,
+      double? dailyPriceBeforeDiscount,
+      String? priceUnit,
+      int? preparationDays,
+      double? longitude,
+      double? latitude,
+      Address? address,
+      int? bookedThisManyTimes,
+      Timestamp? timeOfCreation,
+      Map<int, int>? rating,
+      int? minimumRentDurationInDays,
+      int? maximumRentDurationInDays,
+      int? resolutionInPixels,
+      int? totalDurationOfRenting,
+      String? ratio,
+      FormatType? formatType,
+      SortingType? sortingType,
+      SizeType? sizeType,
+      int? numOfViews,
+      GeoFirePoint? geoFirePoint,
+      double? weightedRating}) {
     return Board(
-      id: id ?? this.id,
-      boardIdByCompany: boardIdByCompany ?? this.boardIdByCompany,
-      ownerCompanyId: ownerCompanyId ?? this.ownerCompanyId,
-      maxMediaUploadSizeInMb:
-          maxMediaUploadSizeInMb ?? this.maxMediaUploadSizeInMb,
-      title: title ?? this.title,
-      description: description ?? this.description,
-      imagesData: imagesData ?? this.imagesData,
-      widthInCm: widthInCm ?? this.widthInCm,
-      heightInCm: heightInCm ?? this.heightInCm,
-      isDigitalAd: isDigitalAd ?? this.isDigitalAd,
-      priceAfterDiscount: priceAfterDiscount ?? this.priceAfterDiscount,
-      priceBeforeDiscount: priceBeforeDiscount ?? this.priceBeforeDiscount,
-      priceUnit: priceUnit ?? this.priceUnit,
-      preparationDays: preparationDays ?? this.preparationDays,
-      latLng: latLng ?? this.latLng,
-      address: address ?? this.address,
-      bookedThisManyTimes: bookedThisManyTimes ?? this.bookedThisManyTimes,
-      timeOfCreation: timeOfCreation ?? this.timeOfCreation,
-      rating: rating ?? this.rating,
-      minimumRentDuration: minimumRentDuration ?? this.minimumRentDuration,
-      maximumRentDuration: maximumRentDuration ?? this.maximumRentDuration,
-      timeUnit: timeUnit ?? this.timeUnit,
-      resolutionInPixels: resolutionInPixels ?? this.resolutionInPixels,
-      totalDurationOfRenting:
-          totalDurationOfRenting ?? this.totalDurationOfRenting,
-      ratio: ratio ?? this.ratio,
-      weightedRating: weightedRating ?? this.weightedRating,
-      numOfViews: numOfViews ?? this.numOfViews,
-      sortingType: sortingType ?? this.sortingType,
-      formatType: formatType ?? this.formatType,
-      sizeType: sizeType ?? this.sizeType,
-      // isAvailable: isAvailable ?? this.isAvailable,
-      bookedTimeSpans: bookedTimeSpans ?? this.bookedTimeSpans,
-    );
+        id: id ?? this.id,
+        boardOwnerId: boardOwnerId ?? this.boardOwnerId,
+        maxMediaUploadSizeInMb:
+            maxMediaUploadSizeInMb ?? this.maxMediaUploadSizeInMb,
+        title: title ?? this.title,
+        description: description ?? this.description,
+        imagesData: imagesData ?? this.imagesData,
+        widthInCm: widthInCm ?? this.widthInCm,
+        heightInCm: heightInCm ?? this.heightInCm,
+        isDigitalAd: isDigitalAd ?? this.isDigitalAd,
+        dailyPriceAfterDiscount:
+            dailyPriceAfterDiscount ?? this.dailyPriceAfterDiscount,
+        dailyPriceBeforeDiscount:
+            dailyPriceBeforeDiscount ?? this.dailyPriceBeforeDiscount,
+        priceUnit: priceUnit ?? this.priceUnit,
+        preparationDays: preparationDays ?? this.preparationDays,
+        longitude: longitude ?? this.longitude,
+        latitude: latitude ?? this.latitude,
+        address: address ?? this.address,
+        bookedThisManyTimes: bookedThisManyTimes ?? this.bookedThisManyTimes,
+        timeOfCreation: timeOfCreation ?? this.timeOfCreation,
+        rating: rating ?? this.rating,
+        minimumRentDurationInDays:
+            minimumRentDurationInDays ?? this.minimumRentDurationInDays,
+        maximumRentDurationInDays:
+            maximumRentDurationInDays ?? this.maximumRentDurationInDays,
+        resolutionInPixels: resolutionInPixels ?? this.resolutionInPixels,
+        totalDurationOfRenting:
+            totalDurationOfRenting ?? this.totalDurationOfRenting,
+        ratio: ratio ?? this.ratio,
+        weightedRating: weightedRating ?? this.weightedRating,
+        numOfViews: numOfViews ?? this.numOfViews,
+        sortingType: sortingType ?? this.sortingType,
+        formatType: formatType ?? this.formatType,
+        sizeType: sizeType ?? this.sizeType,
+        geoFirePoint: geoFirePoint ?? this.geoFirePoint
+        // isAvailable: isAvailable ?? this.isAvailable,
+        // bookedTimeSpans: bookedTimeSpans ?? this.bookedTimeSpans,
+        );
   }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
-      'boardIdByCompany': boardIdByCompany,
-      'ownerCompanyId': ownerCompanyId,
+      'boardOwnerId': boardOwnerId,
       'maxMediaUploadSizeInMb': maxMediaUploadSizeInMb,
       'title': title,
       'description': description,
@@ -166,21 +158,19 @@ class Board {
       'widthInCm': widthInCm,
       'heightInCm': heightInCm,
       'isDigitalAd': isDigitalAd,
-      'priceAfterDiscount': priceAfterDiscount,
-      'priceBeforeDiscount': priceBeforeDiscount,
+      'dailyPriceAfterDiscount': dailyPriceAfterDiscount,
+      'dailyPriceBeforeDiscount': dailyPriceBeforeDiscount,
       'priceUnit': priceUnit,
       'preparationDays': preparationDays,
-      'latLng': {
-        'latitude': latLng.latitude,
-        'longitude': latLng.longitude,
-      },
+      'latitude': latitude,
+      'longitude': longitude,
+      'geoFirePoint': geoFirePoint.data,
       'address': address.toMap(),
       'bookedThisManyTimes': bookedThisManyTimes,
       'timeOfCreation': timeOfCreation.toDate().toIso8601String(),
       'rating': rating?.map((key, value) => MapEntry(key.toString(), value)),
-      'minimumRentDuration': minimumRentDuration,
-      'maximumRentDuration': maximumRentDuration,
-      'timeUnit': timeUnit,
+      'minimumRentDurationInDays': minimumRentDurationInDays,
+      'maximumRentDurationInDays': maximumRentDurationInDays,
       'resolutionInPixels': resolutionInPixels,
       'totalDurationOfRenting': totalDurationOfRenting,
       'ratio': ratio,
@@ -190,7 +180,7 @@ class Board {
       'formatType': formatType.index,
       'sizeType': sizeType.index,
       // 'isAvailable': isAvailable,
-      'bookedTimeSpans': bookedTimeSpans.map((x) => x.toMap()).toList(),
+      // 'bookedTimeSpans': bookedTimeSpans.map((x) => x.toMap()).toList(),
     };
   }
 
@@ -201,8 +191,9 @@ class Board {
 
     return Board(
       id: map['id'] as String,
-      boardIdByCompany: map['boardIdByCompany'] as String,
-      ownerCompanyId: map['ownerCompanyId'] as String,
+      geoFirePoint: GeoFirePoint(
+          GeoPoint(map['latitude'] as double, map['longitude'] as double)),
+      boardOwnerId: map['boardOwnerId'] as String,
       maxMediaUploadSizeInMb: map['maxMediaUploadSizeInMb'] != null
           ? map['maxMediaUploadSizeInMb'] as int
           : null,
@@ -217,17 +208,18 @@ class Board {
       heightInCm: map['heightInCm'] as int,
       isDigitalAd:
           (map['isDigitalAd'] as bool?) ?? false, // Provide default if null
-      priceAfterDiscount: (map['priceAfterDiscount'] as num).toDouble(),
+      dailyPriceAfterDiscount:
+          (map['dailyPriceAfterDiscount'] as num).toDouble(),
       // isDigitalAd: map['isDigitalAd'] as bool,
-      // priceAfterDiscount: (map['priceAfterDiscount'] as num).toDouble(),
-      priceBeforeDiscount: (map['priceBeforeDiscount'] as num).toDouble(),
+      // dailyPriceAfterDiscount: (map['dailyPriceAfterDiscount'] as num).toDouble(),
+      dailyPriceBeforeDiscount:
+          (map['dailyPriceBeforeDiscount'] as num).toDouble(),
       priceUnit: map['priceUnit'] as String,
       preparationDays: map['preparationDays'] as int,
       // latLng: LatLng(
       //   (map['latLng']['latitude'] as num).toDouble(),
       //   (map['latLng']['longitude'] as num).toDouble(),
       // ),
-      latLng: LatLngMapper.fromMap(map['latLng']),
 
       address: Address.fromMap(map['address']),
       bookedThisManyTimes: map['bookedThisManyTimes'] as int,
@@ -236,11 +228,10 @@ class Board {
           ? Map<int, int>.from(map["rating"]
               ?.map((key, value) => MapEntry(int.parse(key), value)))
           : null,
-      minimumRentDuration: map['minimumRentDuration'] as int,
-      maximumRentDuration: map['maximumRentDuration'] != null
-          ? map['maximumRentDuration'] as int
+      minimumRentDurationInDays: map['minimumRentDurationInDays'] as int,
+      maximumRentDurationInDays: map['maximumRentDurationInDays'] != null
+          ? map['maximumRentDurationInDays'] as int
           : null,
-      timeUnit: map['timeUnit'] as String,
       resolutionInPixels: map['resolutionInPixels'] as int,
       totalDurationOfRenting: map['totalDurationOfRenting'] as int,
       ratio: map['ratio'] as String,
@@ -251,10 +242,12 @@ class Board {
       sizeType: SizeType.values[map['sizeType'] as int],
       formatType: FormatType.values[map['formatType'] as int],
       sortingType: SortingType.values[map['sortingType'] as int],
+      latitude: map['latitude'] as double,
+      longitude: map['longitude'] as double,
       // isAvailable:
       //     (map['isAvailable'] as bool?) ?? true, // Provide default if null
-      bookedTimeSpans: List<BookedTimeSpan>.from(
-          (map['bookedTimeSpans'] ?? []).map((x) => BookedTimeSpan.fromMap(x))),
+      // bookedTimeSpans: List<BookedTimeSpan>.from(
+      //     (map['bookedTimeSpans'] ?? []).map((x) => BookedTimeSpan.fromMap(x))),
     );
   }
 
@@ -262,99 +255,4 @@ class Board {
 
   factory Board.fromJson(String source) =>
       Board.fromMap(json.decode(source) as Map<String, dynamic>);
-
-  @override
-  String toString() {
-    return 'Board(id: $id, boardIdByCompany: $boardIdByCompany, ownerCompanyId: $ownerCompanyId, maxMediaUploadSizeInMb: $maxMediaUploadSizeInMb, title: $title, description: $description, imagesData: $imagesData, widthInCm: $widthInCm, heightInCm: $heightInCm, isDigitalAd: $isDigitalAd, priceAfterDiscount: $priceAfterDiscount, priceBeforeDiscount: $priceBeforeDiscount, priceUnit: $priceUnit, preparationDays: $preparationDays, latLng: $latLng, address: $address, bookedThisManyTimes: $bookedThisManyTimes, timeOfCreation: $timeOfCreation, rating: $rating, minimumRentDuration: $minimumRentDuration, maximumRentDuration: $maximumRentDuration, timeUnit: $timeUnit, resolutionInPixels: $resolutionInPixels, totalDurationOfRenting: $totalDurationOfRenting, ratio: $ratio)';
-  }
-
-  @override
-  bool operator ==(covariant Board other) {
-    if (identical(this, other)) return true;
-
-    return other.id == id &&
-        other.boardIdByCompany == boardIdByCompany &&
-        other.ownerCompanyId == ownerCompanyId &&
-        other.maxMediaUploadSizeInMb == maxMediaUploadSizeInMb &&
-        other.title == title &&
-        other.description == description &&
-        other.widthInCm == widthInCm &&
-        other.heightInCm == heightInCm &&
-        other.isDigitalAd == isDigitalAd &&
-        other.priceAfterDiscount == priceAfterDiscount &&
-        other.priceBeforeDiscount == priceBeforeDiscount &&
-        other.priceUnit == priceUnit &&
-        other.preparationDays == preparationDays &&
-        other.latLng == latLng &&
-        other.address == address &&
-        other.bookedThisManyTimes == bookedThisManyTimes &&
-        other.timeOfCreation == timeOfCreation &&
-        other.minimumRentDuration == minimumRentDuration &&
-        other.maximumRentDuration == maximumRentDuration &&
-        other.timeUnit == timeUnit &&
-        other.resolutionInPixels == resolutionInPixels &&
-        other.totalDurationOfRenting == totalDurationOfRenting &&
-        other.ratio == ratio;
-  }
-
-  @override
-  int get hashCode {
-    return id.hashCode ^
-        boardIdByCompany.hashCode ^
-        ownerCompanyId.hashCode ^
-        maxMediaUploadSizeInMb.hashCode ^
-        title.hashCode ^
-        description.hashCode ^
-        imagesData.hashCode ^
-        widthInCm.hashCode ^
-        heightInCm.hashCode ^
-        isDigitalAd.hashCode ^
-        priceAfterDiscount.hashCode ^
-        priceBeforeDiscount.hashCode ^
-        priceUnit.hashCode ^
-        preparationDays.hashCode ^
-        latLng.hashCode ^
-        address.hashCode ^
-        bookedThisManyTimes.hashCode ^
-        timeOfCreation.hashCode ^
-        rating.hashCode ^
-        minimumRentDuration.hashCode ^
-        maximumRentDuration.hashCode ^
-        timeUnit.hashCode ^
-        resolutionInPixels.hashCode ^
-        totalDurationOfRenting.hashCode ^
-        ratio.hashCode;
-  }
-
-  factory Board.empty() {
-    return Board(
-      id: '',
-      boardIdByCompany: '',
-      ownerCompanyId: '',
-      title: '',
-      description: '',
-      widthInCm: 0,
-      heightInCm: 0,
-      isDigitalAd: false,
-      priceAfterDiscount: 0,
-      priceBeforeDiscount: 0,
-      priceUnit: 'EGP',
-      preparationDays: 1,
-      latLng: const LatLng(0, 0),
-      address: Address.empty(),
-      bookedThisManyTimes: 0,
-      timeOfCreation: Timestamp.now(),
-      minimumRentDuration: 1,
-      timeUnit: 'hour',
-      resolutionInPixels: 0,
-      totalDurationOfRenting: 0,
-      ratio: '1:1',
-      numOfViews: 0,
-      sortingType: SortingType.sortedByPriceLowToHigh,
-      formatType: FormatType.staticImage,
-      sizeType: SizeType.bulletIn,
-      // isAvailable: true,
-      bookedTimeSpans: [],
-    );
-  }
 }
