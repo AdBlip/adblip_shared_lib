@@ -1,4 +1,4 @@
-class Feedback {
+class BillboardFeedback {
   final String id;
   final String userId;
   final String userName;
@@ -8,7 +8,7 @@ class Feedback {
   final DateTime createdAt;
   final String? comment;
 
-  Feedback({
+  BillboardFeedback({
     required this.id,
     required this.userId,
     required this.userName,
@@ -19,8 +19,8 @@ class Feedback {
     required this.comment,
   });
 
-  factory Feedback.fromJson(Map<String, dynamic> json) {
-    return Feedback(
+  factory BillboardFeedback.fromJson(Map<String, dynamic> json) {
+    return BillboardFeedback(
       id: json['id'],
       userId: json['userId'],
       userName: json['userName'],
