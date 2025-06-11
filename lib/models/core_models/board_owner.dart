@@ -62,8 +62,9 @@ class BoardOwner {
         contactMail: json['contactMail'],
         countryCode: json['countryCode'],
         language: json['language'],
-        profilePictureData:
-            UploadedFileData.fromMap(json['profilePictureData']),
+        profilePictureData: json['profilePictureData'] != null
+            ? UploadedFileData.fromMap(json['profilePictureData'])
+            : null,
         contactPhoneNumber: json['phoneNumber'],
         joinDate: DateTime.parse(json['joinDate']),
         isDeleted: json['isDeleted'] ?? false,
