@@ -22,8 +22,8 @@ class BoardOwner {
   final String countryCode;
   final String language;
   final String? contactPhoneNumber;
-  final DateTime? joinDate;
-  final UploadedFileData profilePictureData;
+  final DateTime joinDate;
+  final UploadedFileData? profilePictureData;
   final bool isDeleted;
 
   // Model Constructor
@@ -34,9 +34,9 @@ class BoardOwner {
     required this.contactMail,
     required this.countryCode,
     required this.language,
-    required this.profilePictureData,
+    this.profilePictureData,
     this.contactPhoneNumber,
-    this.joinDate,
+    required this.joinDate,
     this.isDeleted = false,
   });
 
@@ -50,7 +50,7 @@ class BoardOwner {
         'language': language,
         'phoneNumber': contactPhoneNumber,
         'joinDate': joinDate.toString(),
-        'profilePictureData': profilePictureData.toMap(),
+        'profilePictureData': profilePictureData?.toMap(),
         'isDeleted': isDeleted,
       };
 
@@ -65,35 +65,7 @@ class BoardOwner {
         profilePictureData:
             UploadedFileData.fromMap(json['profilePictureData']),
         contactPhoneNumber: json['phoneNumber'],
-        joinDate:
-            json['joinDate'] != null ? DateTime.parse(json['joinDate']) : null,
+        joinDate: DateTime.parse(json['joinDate']),
         isDeleted: json['isDeleted'] ?? false,
       );
-
-  // Create a copy of the current instance with optional field modifications
-  BoardOwner copyWith({
-    String? uid,
-    String? firstName,
-    String? lastName,
-    String? contactMail,
-    String? countryCode,
-    String? language,
-    UploadedFileData? profilePictureData,
-    String? phoneNumber,
-    DateTime? joinDate,
-    bool? isDeleted,
-  }) {
-    return BoardOwner(
-      uid: uid ?? this.uid,
-      firstName: firstName ?? this.firstName,
-      lastName: lastName ?? this.lastName,
-      contactMail: contactMail ?? this.contactMail,
-      countryCode: countryCode ?? this.countryCode,
-      language: language ?? this.language,
-      profilePictureData: profilePictureData ?? this.profilePictureData,
-      contactPhoneNumber: phoneNumber ?? this.contactPhoneNumber,
-      joinDate: joinDate ?? this.joinDate,
-      isDeleted: isDeleted ?? this.isDeleted,
-    );
-  }
 }
