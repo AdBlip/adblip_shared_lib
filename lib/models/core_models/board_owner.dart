@@ -68,4 +68,30 @@ class BoardOwner {
         joinDate: DateTime.parse(json['joinDate']),
         isDeleted: json['isDeleted'] ?? false,
       );
+
+  BoardOwner copyWith({
+    String? uid,
+    String? firstName,
+    String? lastName,
+    String? contactMail,
+    String? countryCode,
+    String? language,
+    String? contactPhoneNumber,
+    DateTime? joinDate,
+    UploadedFileData? profilePictureData,
+    bool? isDeleted,
+  }) {
+    return BoardOwner(
+      uid: uid ?? this.uid,
+      firstName: firstName ?? this.firstName,
+      lastName: lastName ?? this.lastName,
+      contactMail: contactMail ?? this.contactMail,
+      countryCode: countryCode ?? this.countryCode,
+      language: language ?? this.language,
+      contactPhoneNumber: contactPhoneNumber ?? this.contactPhoneNumber,
+      joinDate: joinDate ?? this.joinDate,
+      profilePictureData: profilePictureData ?? this.profilePictureData,
+      isDeleted: isDeleted ?? this.isDeleted,
+    );
+  }
 }
