@@ -49,7 +49,7 @@ class BoardOwner {
         'countryCode': countryCode,
         'languageCode': languageCode,
         'phoneNumber': contactPhoneNumber,
-        'joinDate': joinDate.toString(),
+        'joinDate': joinDate.toIso8601String(),
         'profilePictureData': profilePictureData?.toMap(),
         'isDeleted': isDeleted,
       };
