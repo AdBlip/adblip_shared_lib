@@ -9,7 +9,7 @@ class BoardOwner {
   * 3- lastName: The user's last name
   * 4- contactMail: The user's contact email
   * 5- countryCode: The country code of Ads operations (e.g. Egypt, Saudi Arabia, UAE, etc.)
-  * 6- language: The user's preferred language ()
+  * 6- languageCode: The user's preferred languageCode ()
   * 7- profilePictureData: An instance of UploadedFileData that contains the user's profile picture data
   * 8- isDeleted: Boolean flag to indicate if the board owner is deleted
   * 9- phoneNumber: The user's phone number
@@ -20,7 +20,7 @@ class BoardOwner {
   final String lastName;
   final String contactMail;
   final String countryCode;
-  final String language;
+  final String languageCode;
   final String? contactPhoneNumber;
   final DateTime joinDate;
   final UploadedFileData? profilePictureData;
@@ -33,7 +33,7 @@ class BoardOwner {
     required this.lastName,
     required this.contactMail,
     required this.countryCode,
-    required this.language,
+    required this.languageCode,
     this.profilePictureData,
     this.contactPhoneNumber,
     required this.joinDate,
@@ -47,7 +47,7 @@ class BoardOwner {
         'lastName': lastName,
         'contactMail': contactMail,
         'countryCode': countryCode,
-        'language': language,
+        'languageCode': languageCode,
         'phoneNumber': contactPhoneNumber,
         'joinDate': joinDate.toString(),
         'profilePictureData': profilePictureData?.toMap(),
@@ -61,7 +61,7 @@ class BoardOwner {
         lastName: json['lastName'],
         contactMail: json['contactMail'],
         countryCode: json['countryCode'],
-        language: json['language'],
+        languageCode: json['languageCode'],
         profilePictureData: json['profilePictureData'] != null
             ? UploadedFileData.fromMap(json['profilePictureData'])
             : null,
@@ -76,7 +76,7 @@ class BoardOwner {
     String? lastName,
     String? contactMail,
     String? countryCode,
-    String? language,
+    String? languageCode,
     String? contactPhoneNumber,
     DateTime? joinDate,
     UploadedFileData? profilePictureData,
@@ -88,7 +88,7 @@ class BoardOwner {
       lastName: lastName ?? this.lastName,
       contactMail: contactMail ?? this.contactMail,
       countryCode: countryCode ?? this.countryCode,
-      language: language ?? this.language,
+      languageCode: languageCode ?? this.languageCode,
       contactPhoneNumber: contactPhoneNumber ?? this.contactPhoneNumber,
       joinDate: joinDate ?? this.joinDate,
       profilePictureData: profilePictureData ?? this.profilePictureData,
