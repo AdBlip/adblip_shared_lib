@@ -111,7 +111,8 @@ class Board {
     return Board(
         id: id ?? this.id,
         boardOwnerId: boardOwnerId ?? this.boardOwnerId,
-        boardOwnerCountryCode: boardOwnerCountryCode ?? this.boardOwnerCountryCode,
+        boardOwnerCountryCode:
+            boardOwnerCountryCode ?? this.boardOwnerCountryCode,
         isAvailable: isAvailable ?? this.isAvailable,
         maxMediaUploadSizeInMb:
             maxMediaUploadSizeInMb ?? this.maxMediaUploadSizeInMb,
@@ -171,7 +172,7 @@ class Board {
       'geoFirePoint': geoFirePoint.data,
       'address': address.toMap(),
       'bookedThisManyTimes': bookedThisManyTimes,
-      'timeOfCreation': timeOfCreation.toDate().toIso8601String(),
+      'timeOfCreation': timeOfCreation,
       'rating': rating?.map((key, value) => MapEntry(key.toString(), value)),
       'minimumRentDurationInDays': minimumRentDurationInDays,
       'maximumRentDurationInDays': maximumRentDurationInDays,
@@ -187,10 +188,6 @@ class Board {
   }
 
   factory Board.fromMap(Map<String, dynamic> map) {
-    final timeOfCreation = map['timeOfCreation'] is Timestamp
-        ? (map['timeOfCreation'] as Timestamp)
-        : Timestamp.fromDate(DateTime.parse(map['timeOfCreation'] as String));
-
     return Board(
       id: map['id'] as String,
       geoFirePoint: GeoFirePoint(
@@ -219,7 +216,7 @@ class Board {
       preparationDays: map['preparationDays'] as int,
       address: Address.fromMap(map['address']),
       bookedThisManyTimes: map['bookedThisManyTimes'] as int,
-      timeOfCreation: timeOfCreation,
+      timeOfCreation: map['timeOfCreation'] as Timestamp,
       rating: map["rating"] != null
           ? Map<int, int>.from(map["rating"]
               ?.map((key, value) => MapEntry(int.parse(key), value)))
