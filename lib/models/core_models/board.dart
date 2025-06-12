@@ -14,6 +14,7 @@ class Board {
   bool isAvailable;
   String title;
   String description;
+  bool isDeleted;
   List<UploadedFileData>? imagesData;
   int widthInCm;
   int heightInCm;
@@ -47,6 +48,7 @@ class Board {
       required this.boardOwnerCountryCode,
       required this.isAvailable,
       this.maxMediaUploadSizeInMb,
+      required this.isDeleted,
       required this.title,
       required this.description,
       this.imagesData,
@@ -81,6 +83,7 @@ class Board {
       String? boardOwnerCountryCode,
       bool? isAvailable,
       int? maxMediaUploadSizeInMb,
+      bool? isDeleted,
       String? title,
       String? description,
       List<UploadedFileData>? imagesData,
@@ -116,6 +119,7 @@ class Board {
         isAvailable: isAvailable ?? this.isAvailable,
         maxMediaUploadSizeInMb:
             maxMediaUploadSizeInMb ?? this.maxMediaUploadSizeInMb,
+        isDeleted: isDeleted ?? this.isDeleted,
         title: title ?? this.title,
         description: description ?? this.description,
         imagesData: imagesData ?? this.imagesData,
@@ -157,6 +161,7 @@ class Board {
       'boardOwnerCountryCode': boardOwnerCountryCode,
       'isAvailable': isAvailable,
       'maxMediaUploadSizeInMb': maxMediaUploadSizeInMb,
+      'isDeleted': isDeleted,
       'title': title,
       'description': description,
       'imagesData': imagesData?.map((x) => x.toMap()).toList(),
@@ -198,6 +203,7 @@ class Board {
       maxMediaUploadSizeInMb: map['maxMediaUploadSizeInMb'] != null
           ? map['maxMediaUploadSizeInMb'] as int
           : null,
+      isDeleted: map['isDeleted'] as bool,
       title: map['title'] as String,
       description: map['description'] as String,
       imagesData: List<UploadedFileData>.from((map['imagesData'] != null
