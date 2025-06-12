@@ -10,6 +10,8 @@ class Board {
   String id;
   String boardOwnerId;
   int? maxMediaUploadSizeInMb;
+  String boardOwnerCountryCode; //ISO 3166-1 alpha-2 code
+  bool isAvailable;
   String title;
   String description;
   List<UploadedFileData>? imagesData;
@@ -42,6 +44,8 @@ class Board {
   Board(
       {required this.id,
       required this.boardOwnerId,
+      required this.boardOwnerCountryCode,
+      required this.isAvailable,
       this.maxMediaUploadSizeInMb,
       required this.title,
       required this.description,
@@ -69,14 +73,13 @@ class Board {
       required this.formatType,
       required this.sizeType,
       required this.sortingType,
-      required this.geoFirePoint
-      // required this.isAvailable
-      // required this.bookedTimeSpans
-      });
+      required this.geoFirePoint});
 
   Board copyWith(
       {String? id,
       String? boardOwnerId,
+      String? boardOwnerCountryCode,
+      bool? isAvailable,
       int? maxMediaUploadSizeInMb,
       String? title,
       String? description,
@@ -108,6 +111,8 @@ class Board {
     return Board(
         id: id ?? this.id,
         boardOwnerId: boardOwnerId ?? this.boardOwnerId,
+        boardOwnerCountryCode: boardOwnerCountryCode ?? this.boardOwnerCountryCode,
+        isAvailable: isAvailable ?? this.isAvailable,
         maxMediaUploadSizeInMb:
             maxMediaUploadSizeInMb ?? this.maxMediaUploadSizeInMb,
         title: title ?? this.title,
@@ -141,16 +146,15 @@ class Board {
         sortingType: sortingType ?? this.sortingType,
         formatType: formatType ?? this.formatType,
         sizeType: sizeType ?? this.sizeType,
-        geoFirePoint: geoFirePoint ?? this.geoFirePoint
-        // isAvailable: isAvailable ?? this.isAvailable,
-        // bookedTimeSpans: bookedTimeSpans ?? this.bookedTimeSpans,
-        );
+        geoFirePoint: geoFirePoint ?? this.geoFirePoint);
   }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
       'boardOwnerId': boardOwnerId,
+      'boardOwnerCountryCode': boardOwnerCountryCode,
+      'isAvailable': isAvailable,
       'maxMediaUploadSizeInMb': maxMediaUploadSizeInMb,
       'title': title,
       'description': description,
@@ -179,8 +183,6 @@ class Board {
       'sortingType': sortingType.index,
       'formatType': formatType.index,
       'sizeType': sizeType.index,
-      // 'isAvailable': isAvailable,
-      // 'bookedTimeSpans': bookedTimeSpans.map((x) => x.toMap()).toList(),
     };
   }
 
@@ -194,6 +196,8 @@ class Board {
       geoFirePoint: GeoFirePoint(
           GeoPoint(map['latitude'] as double, map['longitude'] as double)),
       boardOwnerId: map['boardOwnerId'] as String,
+      boardOwnerCountryCode: map['boardOwnerCountryCode'] as String,
+      isAvailable: map['isAvailable'] as bool,
       maxMediaUploadSizeInMb: map['maxMediaUploadSizeInMb'] != null
           ? map['maxMediaUploadSizeInMb'] as int
           : null,
@@ -206,21 +210,13 @@ class Board {
           : [])),
       widthInCm: map['widthInCm'] as int,
       heightInCm: map['heightInCm'] as int,
-      isDigitalAd:
-          (map['isDigitalAd'] as bool?) ?? false, // Provide default if null
+      isDigitalAd: (map['isDigitalAd'] as bool?) ?? false,
       dailyPriceAfterDiscount:
           (map['dailyPriceAfterDiscount'] as num).toDouble(),
-      // isDigitalAd: map['isDigitalAd'] as bool,
-      // dailyPriceAfterDiscount: (map['dailyPriceAfterDiscount'] as num).toDouble(),
       dailyPriceBeforeDiscount:
           (map['dailyPriceBeforeDiscount'] as num).toDouble(),
       priceUnit: map['priceUnit'] as String,
       preparationDays: map['preparationDays'] as int,
-      // latLng: LatLng(
-      //   (map['latLng']['latitude'] as num).toDouble(),
-      //   (map['latLng']['longitude'] as num).toDouble(),
-      // ),
-
       address: Address.fromMap(map['address']),
       bookedThisManyTimes: map['bookedThisManyTimes'] as int,
       timeOfCreation: timeOfCreation,
@@ -244,10 +240,6 @@ class Board {
       sortingType: SortingType.values[map['sortingType'] as int],
       latitude: map['latitude'] as double,
       longitude: map['longitude'] as double,
-      // isAvailable:
-      //     (map['isAvailable'] as bool?) ?? true, // Provide default if null
-      // bookedTimeSpans: List<BookedTimeSpan>.from(
-      //     (map['bookedTimeSpans'] ?? []).map((x) => BookedTimeSpan.fromMap(x))),
     );
   }
 
