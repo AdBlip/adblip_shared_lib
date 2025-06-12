@@ -10,7 +10,7 @@ enum BookingState { pending, approved, rejected, canceled }
 class Booking {
   final String id;
   final String boardId;
-  final String vendorCompanyId;
+  final String boardOwnerId;
   final String customerId;
   final BookingState bookingState;
   final Timestamp startDate;
@@ -22,7 +22,7 @@ class Booking {
   Booking({
     required this.id,
     required this.boardId,
-    required this.vendorCompanyId,
+    required this.boardOwnerId,
     required this.customerId,
     required this.bookingState,
     required this.startDate,
@@ -36,7 +36,7 @@ class Booking {
   Booking copyWith({
     String? id,
     String? boardId,
-    String? vendorCompanyId,
+    String? boardOwnerId,
     String? customerId,
     BookingState? bookingState,
     Timestamp? startDate,
@@ -51,7 +51,7 @@ class Booking {
     return Booking(
       id: id ?? this.id,
       boardId: boardId ?? this.boardId,
-      vendorCompanyId: vendorCompanyId ?? this.vendorCompanyId,
+      boardOwnerId: boardOwnerId ?? this.boardOwnerId,
       customerId: customerId ?? this.customerId,
       bookingState: bookingState ?? this.bookingState,
       startDate: startDate ?? this.startDate,
@@ -67,7 +67,7 @@ class Booking {
     return <String, dynamic>{
       'id': id,
       'boardId': boardId,
-      'vendorCompanyId': vendorCompanyId,
+      'boardOwnerId': boardOwnerId,
       'customerId': customerId,
       'bookingState': bookingState.index,
       'startDate': startDate,
@@ -83,7 +83,7 @@ class Booking {
     return Booking(
       id: map['id'] as String,
       boardId: map['boardId'] as String,
-      vendorCompanyId: map['vendorCompanyId'] as String,
+      boardOwnerId: map['boardOwnerId'] as String,
       customerId: map['customerId'] as String,
       bookingState: BookingState.values[map['bookingState'] as int],
       startDate: (map['startDate'] as Timestamp),
@@ -102,7 +102,7 @@ class Booking {
 
   @override
   String toString() {
-    return 'Booking(id: $id, boardId: $boardId, vendorCompanyId: $vendorCompanyId, customerId: $customerId, bookingState: $bookingState, startDate: $startDate, endDate: $endDate, totalPrice: $totalPrice, hasPaid: $hasPaid, totalCostUnit: $totalCostUnit, ad: $ad)';
+    return 'Booking(id: $id, boardId: $boardId, boardOwnerId: $boardOwnerId, customerId: $customerId, bookingState: $bookingState, startDate: $startDate, endDate: $endDate, totalPrice: $totalPrice, hasPaid: $hasPaid, totalCostUnit: $totalCostUnit, ad: $ad)';
   }
 
   @override
@@ -111,7 +111,7 @@ class Booking {
 
     return other.id == id &&
         other.boardId == boardId &&
-        other.vendorCompanyId == vendorCompanyId &&
+        other.boardOwnerId == boardOwnerId &&
         other.customerId == customerId &&
         other.bookingState == bookingState &&
         other.startDate == startDate &&
@@ -126,7 +126,7 @@ class Booking {
   int get hashCode {
     return id.hashCode ^
         boardId.hashCode ^
-        vendorCompanyId.hashCode ^
+        boardOwnerId.hashCode ^
         customerId.hashCode ^
         bookingState.hashCode ^
         startDate.hashCode ^
