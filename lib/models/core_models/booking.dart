@@ -19,6 +19,7 @@ class Booking {
   final bool hasPaid;
   final String totalCostUnit;
   final Ad ad;
+  final String? vendorCompanyId;
   Booking({
     required this.id,
     required this.boardId,
@@ -31,6 +32,7 @@ class Booking {
     required this.hasPaid,
     required this.totalCostUnit,
     required this.ad,
+    this.vendorCompanyId,
   });
 
   Booking copyWith({
@@ -47,6 +49,7 @@ class Booking {
     bool? hasPaid,
     String? totalCostUnit,
     Ad? ad,
+    String? vendorCompanyId,
   }) {
     return Booking(
       id: id ?? this.id,
@@ -60,6 +63,7 @@ class Booking {
       hasPaid: hasPaid ?? this.hasPaid,
       totalCostUnit: totalCostUnit ?? this.totalCostUnit,
       ad: ad ?? this.ad,
+      vendorCompanyId: vendorCompanyId ?? this.vendorCompanyId,
     );
   }
 
@@ -76,6 +80,7 @@ class Booking {
       'hasPaid': hasPaid,
       'totalCostUnit': totalCostUnit,
       'ad': ad.toMap(),
+      'vendorCompanyId': vendorCompanyId,
     };
   }
 
@@ -92,6 +97,7 @@ class Booking {
       hasPaid: map['hasPaid'] as bool,
       totalCostUnit: map['totalCostUnit'] as String,
       ad: Ad.fromMap(map['ad'] as Map<String, dynamic>),
+      vendorCompanyId: map['vendorCompanyId'] as String?,
     );
   }
 
@@ -102,7 +108,7 @@ class Booking {
 
   @override
   String toString() {
-    return 'Booking(id: $id, boardId: $boardId, boardOwnerId: $boardOwnerId, customerId: $customerId, bookingState: $bookingState, startDate: $startDate, endDate: $endDate, totalPrice: $totalPrice, hasPaid: $hasPaid, totalCostUnit: $totalCostUnit, ad: $ad)';
+    return 'Booking(id: $id, boardId: $boardId, boardOwnerId: $boardOwnerId, customerId: $customerId, bookingState: $bookingState, startDate: $startDate, endDate: $endDate, totalPrice: $totalPrice, hasPaid: $hasPaid, totalCostUnit: $totalCostUnit, ad: $ad, vendorCompanyId: $vendorCompanyId)';
   }
 
   @override
@@ -119,7 +125,8 @@ class Booking {
         other.totalPrice == totalPrice &&
         other.hasPaid == hasPaid &&
         other.totalCostUnit == totalCostUnit &&
-        other.ad == ad;
+        other.ad == ad &&
+        other.vendorCompanyId == vendorCompanyId;
   }
 
   @override
@@ -134,6 +141,7 @@ class Booking {
         totalPrice.hashCode ^
         hasPaid.hashCode ^
         totalCostUnit.hashCode ^
-        ad.hashCode;
+        ad.hashCode ^
+        vendorCompanyId.hashCode;
   }
 }
