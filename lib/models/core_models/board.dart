@@ -10,7 +10,7 @@ class Board {
   String id;
   String boardOwnerId;
   int? maxMediaUploadSizeInMb;
-  String boardOwnerCountryCode; //ISO 3166-1 alpha-2 code
+  String countryCode; //ISO 3166-1 alpha-2 code
   bool isAvailable;
   String title;
   String description;
@@ -45,7 +45,7 @@ class Board {
   Board(
       {required this.id,
       required this.boardOwnerId,
-      required this.boardOwnerCountryCode,
+      required this.countryCode,
       required this.isAvailable,
       this.maxMediaUploadSizeInMb,
       required this.isDeleted,
@@ -80,7 +80,7 @@ class Board {
   Board copyWith(
       {String? id,
       String? boardOwnerId,
-      String? boardOwnerCountryCode,
+      String? countryCode,
       bool? isAvailable,
       int? maxMediaUploadSizeInMb,
       bool? isDeleted,
@@ -114,8 +114,8 @@ class Board {
     return Board(
         id: id ?? this.id,
         boardOwnerId: boardOwnerId ?? this.boardOwnerId,
-        boardOwnerCountryCode:
-            boardOwnerCountryCode ?? this.boardOwnerCountryCode,
+        countryCode:
+            countryCode ?? this.countryCode,
         isAvailable: isAvailable ?? this.isAvailable,
         maxMediaUploadSizeInMb:
             maxMediaUploadSizeInMb ?? this.maxMediaUploadSizeInMb,
@@ -158,7 +158,7 @@ class Board {
     return <String, dynamic>{
       'id': id,
       'boardOwnerId': boardOwnerId,
-      'boardOwnerCountryCode': boardOwnerCountryCode,
+      'countryCode': countryCode,
       'isAvailable': isAvailable,
       'maxMediaUploadSizeInMb': maxMediaUploadSizeInMb,
       'isDeleted': isDeleted,
@@ -198,7 +198,7 @@ class Board {
       geoFirePoint: GeoFirePoint(
           GeoPoint(map['latitude'] as double, map['longitude'] as double)),
       boardOwnerId: map['boardOwnerId'] as String,
-      boardOwnerCountryCode: map['boardOwnerCountryCode'] as String,
+      countryCode: map['countryCode'] as String,
       isAvailable: map['isAvailable'] as bool,
       maxMediaUploadSizeInMb: map['maxMediaUploadSizeInMb'] != null
           ? map['maxMediaUploadSizeInMb'] as int
