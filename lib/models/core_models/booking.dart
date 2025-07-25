@@ -17,9 +17,8 @@ class Booking {
   final Timestamp endDate;
   final double totalPrice;
   final bool hasPaid;
-  final String totalCostUnit;
+  final String currency;
   final Ad ad;
-  final String? vendorCompanyId;
   Booking({
     required this.id,
     required this.boardId,
@@ -30,9 +29,8 @@ class Booking {
     required this.endDate,
     required this.totalPrice,
     required this.hasPaid,
-    required this.totalCostUnit,
+    required this.currency,
     required this.ad,
-    this.vendorCompanyId,
   });
 
   Booking copyWith({
@@ -47,9 +45,8 @@ class Booking {
     Timestamp? endTime,
     double? totalPrice,
     bool? hasPaid,
-    String? totalCostUnit,
+    String? currency,
     Ad? ad,
-    String? vendorCompanyId,
   }) {
     return Booking(
       id: id ?? this.id,
@@ -61,9 +58,8 @@ class Booking {
       endDate: endDate ?? this.endDate,
       totalPrice: totalPrice ?? this.totalPrice,
       hasPaid: hasPaid ?? this.hasPaid,
-      totalCostUnit: totalCostUnit ?? this.totalCostUnit,
+      currency: currency ?? this.currency,
       ad: ad ?? this.ad,
-      vendorCompanyId: vendorCompanyId ?? this.vendorCompanyId,
     );
   }
 
@@ -78,9 +74,8 @@ class Booking {
       'endDate': endDate,
       'totalPrice': totalPrice,
       'hasPaid': hasPaid,
-      'totalCostUnit': totalCostUnit,
+      'currency': currency,
       'ad': ad.toMap(),
-      'vendorCompanyId': vendorCompanyId,
     };
   }
 
@@ -95,9 +90,8 @@ class Booking {
       endDate: (map['endDate'] as Timestamp),
       totalPrice: map['totalPrice'] as double,
       hasPaid: map['hasPaid'] as bool,
-      totalCostUnit: map['totalCostUnit'] as String,
+      currency: map['currency'] as String,
       ad: Ad.fromMap(map['ad'] as Map<String, dynamic>),
-      vendorCompanyId: map['vendorCompanyId'] as String?,
     );
   }
 
@@ -108,7 +102,7 @@ class Booking {
 
   @override
   String toString() {
-    return 'Booking(id: $id, boardId: $boardId, boardOwnerId: $boardOwnerId, customerId: $customerId, bookingState: $bookingState, startDate: $startDate, endDate: $endDate, totalPrice: $totalPrice, hasPaid: $hasPaid, totalCostUnit: $totalCostUnit, ad: $ad, vendorCompanyId: $vendorCompanyId)';
+    return 'Booking(id: $id, boardId: $boardId, boardOwnerId: $boardOwnerId, customerId: $customerId, bookingState: $bookingState, startDate: $startDate, endDate: $endDate, totalPrice: $totalPrice, hasPaid: $hasPaid, currency: $currency, ad: $ad)';
   }
 
   @override
@@ -124,9 +118,8 @@ class Booking {
         other.endDate == endDate &&
         other.totalPrice == totalPrice &&
         other.hasPaid == hasPaid &&
-        other.totalCostUnit == totalCostUnit &&
-        other.ad == ad &&
-        other.vendorCompanyId == vendorCompanyId;
+        other.currency == currency &&
+        other.ad == ad;
   }
 
   @override
@@ -140,8 +133,7 @@ class Booking {
         endDate.hashCode ^
         totalPrice.hashCode ^
         hasPaid.hashCode ^
-        totalCostUnit.hashCode ^
-        ad.hashCode ^
-        vendorCompanyId.hashCode;
+        currency.hashCode ^
+        ad.hashCode;
   }
 }
