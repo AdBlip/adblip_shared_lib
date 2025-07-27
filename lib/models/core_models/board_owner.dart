@@ -15,6 +15,7 @@ class BoardOwner {
   * 8- isDeleted: Boolean flag to indicate if the board owner is deleted
   * 9- phoneNumber: The user's phone number
   * 10- joinDate: The date and time when the user joined the board
+  * 11- isActive: Boolean flag to indicate if the board owner is active
   */
   final String uid;
   final String firstName;
