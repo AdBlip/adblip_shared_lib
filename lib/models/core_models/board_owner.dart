@@ -1,4 +1,5 @@
 import 'package:adblip_shared_lib/models/helper_models/uploaded_file_data.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class BoardOwner {
   /* 
@@ -22,9 +23,10 @@ class BoardOwner {
   final String countryCode;
   final String languageCode;
   final String? contactPhoneNumber;
-  final DateTime joinDate;
+  final Timestamp joinDate;
   final UploadedFileData? profilePictureData;
   final bool isDeleted;
+  final bool isActive;
 
   // Model Constructor
   BoardOwner({
@@ -38,6 +40,7 @@ class BoardOwner {
     this.contactPhoneNumber,
     required this.joinDate,
     this.isDeleted = false,
+    this.isActive = false,
   });
 
   // Model to Json
@@ -49,9 +52,10 @@ class BoardOwner {
         'countryCode': countryCode,
         'languageCode': languageCode,
         'phoneNumber': contactPhoneNumber,
-        'joinDate': joinDate.toIso8601String(),
+        'joinDate': joinDate,
         'profilePictureData': profilePictureData?.toMap(),
         'isDeleted': isDeleted,
+        'isActive': isActive,
       };
 
   // Json to Model
@@ -66,8 +70,9 @@ class BoardOwner {
             ? UploadedFileData.fromMap(json['profilePictureData'])
             : null,
         contactPhoneNumber: json['phoneNumber'],
-        joinDate: DateTime.parse(json['joinDate']),
-        isDeleted: json['isDeleted'] ?? false,
+        joinDate: json['joinDate'],
+        isDeleted: json['isDeleted'] as bool,
+        isActive: json['isActive'] as bool,
       );
 
   BoardOwner copyWith({
@@ -78,9 +83,10 @@ class BoardOwner {
     String? countryCode,
     String? languageCode,
     String? contactPhoneNumber,
-    DateTime? joinDate,
+    Timestamp? joinDate,
     UploadedFileData? profilePictureData,
     bool? isDeleted,
+    bool? isActive,
   }) {
     return BoardOwner(
       uid: uid ?? this.uid,
@@ -93,6 +99,7 @@ class BoardOwner {
       joinDate: joinDate ?? this.joinDate,
       profilePictureData: profilePictureData ?? this.profilePictureData,
       isDeleted: isDeleted ?? this.isDeleted,
+      isActive: isActive ?? this.isActive,
     );
   }
 }
