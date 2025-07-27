@@ -4,10 +4,95 @@ enum SortingType {
   sortedByPriceLowToHigh,
   sortedByPriceHighToLow,
   sortedByRateHighToLow,
-  sortedByRateLowToHigh
+  sortedByRateLowToHigh;
+
+  String get toJson => name;
+
+  String get arabic {
+    switch (this) {
+      case SortingType.sortedByPriceLowToHigh:
+        return "الترتيب حسب السعر: من الأقل إلى الأعلى";
+      case SortingType.sortedByPriceHighToLow:
+        return "الترتيب حسب السعر: من الأعلى إلى الأقل";
+      case SortingType.sortedByRateHighToLow:
+        return "الترتيب حسب التقييم: من الأعلى إلى الأقل";
+      case SortingType.sortedByRateLowToHigh:
+        return "الترتيب حسب التقييم: من الأقل إلى الأعلى";
+    }
+  }
+
+  String get english {
+    switch (this) {
+      case SortingType.sortedByPriceLowToHigh:
+        return "Sorted by Price: Low to High";
+      case SortingType.sortedByPriceHighToLow:
+        return "Sorted by Price: High to Low";
+      case SortingType.sortedByRateHighToLow:
+        return "Sorted by Rate: High to Low";
+      case SortingType.sortedByRateLowToHigh:
+        return "Sorted by Rate: Low to High";
+    }
+  }
+
+  static SortingType fromJson(String json) {
+    return SortingType.values.firstWhere(
+      (e) => e.name == json,
+      orElse: () => SortingType.sortedByPriceLowToHigh,
+    );
+  }
 }
 
-enum FormatType { staticImage, digitalImage, video, dynamic, indoor, outdoor }
+enum FormatType {
+  staticImage,
+  digitalImage,
+  video,
+  dynamic,
+  indoor,
+  outdoor;
+
+  String get toJson => name;
+
+  String get arabic {
+    switch (this) {
+      case FormatType.staticImage:
+        return "صورة ثابتة";
+      case FormatType.digitalImage:
+        return "صورة رقمية";
+      case FormatType.video:
+        return "فيديو";
+      case FormatType.dynamic:
+        return "ديناميكي";
+      case FormatType.indoor:
+        return "داخلي";
+      case FormatType.outdoor:
+        return "خارجي";
+    }
+  }
+
+  String get english {
+    switch (this) {
+      case FormatType.staticImage:
+        return "Static Image";
+      case FormatType.digitalImage:
+        return "Digital Image";
+      case FormatType.video:
+        return "Video";
+      case FormatType.dynamic:
+        return "Dynamic";
+      case FormatType.indoor:
+        return "Indoor";
+      case FormatType.outdoor:
+        return "Outdoor";
+    }
+  }
+
+  static FormatType fromJson(String json) {
+    return FormatType.values.firstWhere(
+      (e) => e.name == json,
+      orElse: () => FormatType.staticImage,
+    );
+  }
+}
 
 enum SizeType {
   bulletIn,
@@ -15,59 +100,48 @@ enum SizeType {
   posters,
   juniorPosters,
   spectaclulars,
-  wallScapes
+  wallScapes;
+
+  String get toJson => name;
+
+  String get arabic {
+    switch (this) {
+      case SizeType.bulletIn:
+        return "لوحة إعلانية";
+      case SizeType.triFaced:
+        return "ثلاثي الوجوه";
+      case SizeType.posters:
+        return "ملصقات";
+      case SizeType.juniorPosters:
+        return "ملصقات صغيرة";
+      case SizeType.spectaclulars:
+        return "لوحات ضخمة";
+      case SizeType.wallScapes:
+        return "لوحات جدارية";
+    }
+  }
+
+  String get english {
+    switch (this) {
+      case SizeType.bulletIn:
+        return "Bulletin";
+      case SizeType.triFaced:
+        return "Tri-Faced";
+      case SizeType.posters:
+        return "Posters";
+      case SizeType.juniorPosters:
+        return "Junior Posters";
+      case SizeType.spectaclulars:
+        return "Spectaculars";
+      case SizeType.wallScapes:
+        return "Wallscapes";
+    }
+  }
+
+  static SizeType fromJson(String json) {
+    return SizeType.values.firstWhere(
+      (e) => e.name == json,
+      orElse: () => SizeType.bulletIn,
+    );
+  }
 }
-
-Map<int, String> sortingTypeArabic = {
-  SortingType.sortedByPriceLowToHigh.index:
-      "الترتيب حسب السعر: من الأقل إلى الأعلى",
-  SortingType.sortedByPriceHighToLow.index:
-      "الترتيب حسب السعر: من الأعلى إلى الأقل",
-  SortingType.sortedByRateHighToLow.index:
-      "الترتيب حسب التقييم: من الأعلى إلى الأقل",
-  SortingType.sortedByRateLowToHigh.index:
-      "الترتيب حسب التقييم: من الأقل إلى الأعلى",
-};
-
-Map<int, String> sortingTypeEnglish = {
-  SortingType.sortedByPriceLowToHigh.index: "Sorted by Price: Low to High",
-  SortingType.sortedByPriceHighToLow.index: "Sorted by Price: High to Low",
-  SortingType.sortedByRateHighToLow.index: "Sorted by Rate: High to Low",
-  SortingType.sortedByRateLowToHigh.index: "Sorted by Rate: Low to High",
-};
-
-Map<int, String> formatTypeArabic = {
-  FormatType.staticImage.index: "صورة ثابتة",
-  FormatType.digitalImage.index: "صورة رقمية",
-  FormatType.video.index: "فيديو",
-  FormatType.dynamic.index: "ديناميكي",
-  FormatType.indoor.index: "داخلي",
-  FormatType.outdoor.index: "خارجي",
-};
-
-Map<int, String> formatTypeEnglish = {
-  FormatType.staticImage.index: "Static Image",
-  FormatType.digitalImage.index: "Digital Image",
-  FormatType.video.index: "Video",
-  FormatType.dynamic.index: "Dynamic",
-  FormatType.indoor.index: "Indoor",
-  FormatType.outdoor.index: "Outdoor",
-};
-
-Map<int, String> sizeTypeArabic = {
-  SizeType.bulletIn.index: "لوحة إعلانية",
-  SizeType.triFaced.index: "ثلاثي الوجوه",
-  SizeType.posters.index: "ملصقات",
-  SizeType.juniorPosters.index: "ملصقات صغيرة",
-  SizeType.spectaclulars.index: "لوحات ضخمة",
-  SizeType.wallScapes.index: "لوحات جدارية",
-};
-
-Map<int, String> sizeTypeEnglish = {
-  SizeType.bulletIn.index: "Bulletin",
-  SizeType.triFaced.index: "Tri-Faced",
-  SizeType.posters.index: "Posters",
-  SizeType.juniorPosters.index: "Junior Posters",
-  SizeType.spectaclulars.index: "Spectaculars",
-  SizeType.wallScapes.index: "Wallscapes",
-};
