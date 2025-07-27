@@ -1,6 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
-import 'package:adblip_shared_lib/models/enums/sorting_type.dart';
+import 'package:adblip_shared_lib/models/consts/sorting_type.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:geoflutterfire_plus/geoflutterfire_plus.dart';
 import '../helper_models/uploaded_file_data.dart';
