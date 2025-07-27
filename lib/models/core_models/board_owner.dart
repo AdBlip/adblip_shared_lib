@@ -8,8 +8,8 @@ class BoardOwner {
   * 1- uid: The user's ID that references the object's document in the database
   * 2- firstName: The user's first name
   * 3- lastName: The user's last name
-  * 4- contactMail: The user's contact email
-  * 5- countryCode: The country code of Ads operations (e.g. Egypt, Saudi Arabia, UAE, etc.)
+  * 4- email: The user's contact email
+  * 5- operatingCountryCode: The country code of Ads operations (e.g. Egypt, Saudi Arabia, UAE, etc.)
   * 6- languageCode: The user's preferred languageCode ()
   * 7- profilePictureData: An instance of UploadedFileData that contains the user's profile picture data
   * 8- isDeleted: Boolean flag to indicate if the board owner is deleted
@@ -20,10 +20,10 @@ class BoardOwner {
   final String uid;
   final String firstName;
   final String lastName;
-  final String contactMail;
-  final String countryCode;
+  final String email;
+  final String operatingCountryCode;
   final String languageCode;
-  final String? contactPhoneNumber;
+  final String phonenumber;
   final Timestamp joinDate;
   final UploadedFileData? profilePictureData;
   final bool isDeleted;
@@ -34,11 +34,11 @@ class BoardOwner {
     required this.uid,
     required this.firstName,
     required this.lastName,
-    required this.contactMail,
-    required this.countryCode,
+    required this.email,
+    required this.operatingCountryCode,
     required this.languageCode,
     this.profilePictureData,
-    this.contactPhoneNumber,
+    required this.phonenumber,
     required this.joinDate,
     this.isDeleted = false,
     this.isActive = false,
@@ -49,10 +49,10 @@ class BoardOwner {
         'uid': uid,
         'firstName': firstName,
         'lastName': lastName,
-        'contactMail': contactMail,
-        'countryCode': countryCode,
+        'email': email,
+        'operatingCountryCode': operatingCountryCode,
         'languageCode': languageCode,
-        'phoneNumber': contactPhoneNumber,
+        'phoneNumber': phonenumber,
         'joinDate': joinDate,
         'profilePictureData': profilePictureData?.toMap(),
         'isDeleted': isDeleted,
@@ -64,13 +64,13 @@ class BoardOwner {
         uid: json['uid'],
         firstName: json['firstName'],
         lastName: json['lastName'],
-        contactMail: json['contactMail'],
-        countryCode: json['countryCode'],
+        email: json['email'],
+        operatingCountryCode: json['operatingCountryCode'],
         languageCode: json['languageCode'],
         profilePictureData: json['profilePictureData'] != null
             ? UploadedFileData.fromMap(json['profilePictureData'])
             : null,
-        contactPhoneNumber: json['phoneNumber'],
+        phonenumber: json['phoneNumber'] as String,
         joinDate: json['joinDate'],
         isDeleted: json['isDeleted'] as bool,
         isActive: json['isActive'] as bool,
@@ -80,10 +80,10 @@ class BoardOwner {
     String? uid,
     String? firstName,
     String? lastName,
-    String? contactMail,
-    String? countryCode,
+    String? email,
+    String? operatingCountryCode,
     String? languageCode,
-    String? contactPhoneNumber,
+    String? phonenumber,
     Timestamp? joinDate,
     UploadedFileData? profilePictureData,
     bool? isDeleted,
@@ -93,10 +93,10 @@ class BoardOwner {
       uid: uid ?? this.uid,
       firstName: firstName ?? this.firstName,
       lastName: lastName ?? this.lastName,
-      contactMail: contactMail ?? this.contactMail,
-      countryCode: countryCode ?? this.countryCode,
+      email: email ?? this.email,
+      operatingCountryCode: operatingCountryCode ?? this.operatingCountryCode,
       languageCode: languageCode ?? this.languageCode,
-      contactPhoneNumber: contactPhoneNumber ?? this.contactPhoneNumber,
+      phonenumber: phonenumber ?? this.phonenumber,
       joinDate: joinDate ?? this.joinDate,
       profilePictureData: profilePictureData ?? this.profilePictureData,
       isDeleted: isDeleted ?? this.isDeleted,
