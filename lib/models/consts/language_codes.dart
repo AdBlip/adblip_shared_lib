@@ -4,8 +4,17 @@ enum LanguageCodesConstants {
   arabic("ar"),
   english("en");
 
-  const LanguageCodesConstants(this.value);
-  final String value;
+  const LanguageCodesConstants(this.code);
+  final String code;
+
+  String get toName {
+    switch (this) {
+      case LanguageCodesConstants.arabic:
+        return "Arabic";
+      case LanguageCodesConstants.english:
+        return "English";
+    }
+  }
 
   static String? codeToLanguageName(String code) {
     switch (code.toUpperCase()) {
