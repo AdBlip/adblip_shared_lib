@@ -44,28 +44,19 @@ enum SortingType {
 
 enum FormatType {
   staticImage,
-  digitalImage,
   video,
   dynamic,
-  indoor,
-  outdoor;
-
+  
   String get toJson => name;
 
   String get arabic {
     switch (this) {
       case FormatType.staticImage:
         return "صورة ثابتة";
-      case FormatType.digitalImage:
-        return "صورة رقمية";
       case FormatType.video:
         return "فيديو";
       case FormatType.dynamic:
         return "ديناميكي";
-      case FormatType.indoor:
-        return "داخلي";
-      case FormatType.outdoor:
-        return "خارجي";
     }
   }
 
@@ -73,16 +64,10 @@ enum FormatType {
     switch (this) {
       case FormatType.staticImage:
         return "Static Image";
-      case FormatType.digitalImage:
-        return "Digital Image";
       case FormatType.video:
         return "Video";
       case FormatType.dynamic:
         return "Dynamic";
-      case FormatType.indoor:
-        return "Indoor";
-      case FormatType.outdoor:
-        return "Outdoor";
     }
   }
 
