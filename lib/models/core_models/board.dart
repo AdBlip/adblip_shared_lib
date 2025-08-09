@@ -8,6 +8,7 @@ import 'address.dart';
 
 class Board {
   String id;
+  String customId;
   String boardOwnerId;
   int? maxMediaUploadSizeInMb;
   String countryCode; //ISO 3166-1 alpha-2 code
@@ -22,7 +23,6 @@ class Board {
   double dailyPriceAfterDiscount;
   double dailyPriceBeforeDiscount;
   String priceUnit;
-  SortingType sortingType;
   FormatType formatType;
   SizeType sizeType;
   int preparationDays; //default is 1 working day (Sunday to Thursday)
@@ -44,6 +44,7 @@ class Board {
 
   Board(
       {required this.id,
+      required this.customId,
       required this.boardOwnerId,
       required this.countryCode,
       required this.isAvailable,
@@ -74,11 +75,11 @@ class Board {
       required this.numOfViews,
       required this.formatType,
       required this.sizeType,
-      required this.sortingType,
       required this.geoFirePoint});
 
   Board copyWith(
       {String? id,
+      String? customId,
       String? boardOwnerId,
       String? countryCode,
       bool? isAvailable,
@@ -106,16 +107,15 @@ class Board {
       int? totalDurationOfRenting,
       String? ratio,
       FormatType? formatType,
-      SortingType? sortingType,
       SizeType? sizeType,
       int? numOfViews,
       GeoFirePoint? geoFirePoint,
       double? weightedRating}) {
     return Board(
         id: id ?? this.id,
+        customId: customId ?? this.customId,
         boardOwnerId: boardOwnerId ?? this.boardOwnerId,
-        countryCode:
-            countryCode ?? this.countryCode,
+        countryCode: countryCode ?? this.countryCode,
         isAvailable: isAvailable ?? this.isAvailable,
         maxMediaUploadSizeInMb:
             maxMediaUploadSizeInMb ?? this.maxMediaUploadSizeInMb,
@@ -148,7 +148,6 @@ class Board {
         ratio: ratio ?? this.ratio,
         weightedRating: weightedRating ?? this.weightedRating,
         numOfViews: numOfViews ?? this.numOfViews,
-        sortingType: sortingType ?? this.sortingType,
         formatType: formatType ?? this.formatType,
         sizeType: sizeType ?? this.sizeType,
         geoFirePoint: geoFirePoint ?? this.geoFirePoint);
@@ -157,6 +156,7 @@ class Board {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
+      'customId': customId,
       'boardOwnerId': boardOwnerId,
       'countryCode': countryCode,
       'isAvailable': isAvailable,
@@ -186,9 +186,8 @@ class Board {
       'ratio': ratio,
       'weightedRating': weightedRating,
       'numOfViews': numOfViews,
-      'sortingType': sortingType.index,
-      'formatType': formatType.index,
-      'sizeType': sizeType.index,
+      'formatType': formatType.toJson(),
+      'sizeType': sizeType.toJson(),
     };
   }
 
@@ -197,6 +196,7 @@ class Board {
       id: map['id'] as String,
       geoFirePoint: GeoFirePoint(
           GeoPoint(map['latitude'] as double, map['longitude'] as double)),
+      customId: map['customId'] as String,
       boardOwnerId: map['boardOwnerId'] as String,
       countryCode: map['countryCode'] as String,
       isAvailable: map['isAvailable'] as bool,
@@ -238,9 +238,8 @@ class Board {
           ? (map['weightedRating'] as num).toDouble()
           : null,
       numOfViews: map['numOfViews'] as int,
-      sizeType: SizeType.values[map['sizeType'] as int],
-      formatType: FormatType.values[map['formatType'] as int],
-      sortingType: SortingType.values[map['sortingType'] as int],
+      sizeType: SizeType.fromJson(map['sizeType'] as String),
+      formatType: FormatType.fromJson(map['formatType'] as String),
       latitude: map['latitude'] as double,
       longitude: map['longitude'] as double,
     );
