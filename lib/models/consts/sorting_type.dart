@@ -6,7 +6,7 @@ enum SortingType {
   sortedByRateHighToLow,
   sortedByRateLowToHigh;
 
-  String get toJson => name;
+  String toJson() => name;
 
   String get arabic {
     switch (this) {
@@ -45,9 +45,9 @@ enum SortingType {
 enum FormatType {
   staticImage,
   video,
-  dynamic,
-  
-  String get toJson => name;
+  dynamic;
+
+  String toJson() => name;
 
   String get arabic {
     switch (this) {
@@ -87,7 +87,7 @@ enum SizeType {
   spectaclulars,
   wallScapes;
 
-  String get toJson => name;
+  String toJson() => name;
 
   String get arabic {
     switch (this) {
