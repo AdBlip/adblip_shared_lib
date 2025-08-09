@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'ad.dart';
+import '../helper_models/uploaded_file_data.dart';
 
 enum BookingState {
   pending,
@@ -34,11 +34,12 @@ class Booking {
   final double totalPrice;
   final bool hasPaid;
   final String currency;
-  final Ad ad;
+  final UploadedFileData adData;
+
   Booking({
     required this.id,
     required this.boardId,
-    required this.isAddedByBoardOwner,
+    this.isAddedByBoardOwner = false,
     required this.boardOwnerId,
     required this.clientId,
     required this.bookingState,
@@ -47,7 +48,7 @@ class Booking {
     required this.totalPrice,
     required this.hasPaid,
     required this.currency,
-    required this.ad,
+    required this.adData,
   });
 
   Booking copyWith({
@@ -59,12 +60,10 @@ class Booking {
     BookingState? bookingState,
     Timestamp? startDate,
     Timestamp? endDate,
-    Timestamp? startTime,
-    Timestamp? endTime,
     double? totalPrice,
     bool? hasPaid,
     String? currency,
-    Ad? ad,
+    UploadedFileData? adData,
   }) {
     return Booking(
       id: id ?? this.id,
@@ -78,7 +77,7 @@ class Booking {
       totalPrice: totalPrice ?? this.totalPrice,
       hasPaid: hasPaid ?? this.hasPaid,
       currency: currency ?? this.currency,
-      ad: ad ?? this.ad,
+      adData: adData ?? this.adData,
     );
   }
 
@@ -95,7 +94,7 @@ class Booking {
       'totalPrice': totalPrice,
       'hasPaid': hasPaid,
       'currency': currency,
-      'ad': ad.toMap(),
+      'adData': adData.toMap(),
     };
   }
 
@@ -112,7 +111,7 @@ class Booking {
       totalPrice: map['totalPrice'] as double,
       hasPaid: map['hasPaid'] as bool,
       currency: map['currency'] as String,
-      ad: Ad.fromMap(map['ad'] as Map<String, dynamic>),
+      adData: UploadedFileData.fromMap(map['adData'] as Map<String, dynamic>),
     );
   }
 
@@ -123,7 +122,7 @@ class Booking {
 
   @override
   String toString() {
-    return 'Booking(id: $id, boardId: $boardId, isAddedByBoardOwner: $isAddedByBoardOwner, boardOwnerId: $boardOwnerId, clientId: $clientId, bookingState: $bookingState, startDate: $startDate, endDate: $endDate, totalPrice: $totalPrice, hasPaid: $hasPaid, currency: $currency, ad: $ad)';
+    return 'Booking(id: $id, boardId: $boardId, isAddedByBoardOwner: $isAddedByBoardOwner, boardOwnerId: $boardOwnerId, clientId: $clientId, bookingState: $bookingState, startDate: $startDate, endDate: $endDate, totalPrice: $totalPrice, hasPaid: $hasPaid, currency: $currency, adData: $adData)';
   }
 
   @override
@@ -141,7 +140,7 @@ class Booking {
         other.totalPrice == totalPrice &&
         other.hasPaid == hasPaid &&
         other.currency == currency &&
-        other.ad == ad;
+        other.adData == adData;
   }
 
   @override
@@ -157,6 +156,6 @@ class Booking {
         totalPrice.hashCode ^
         hasPaid.hashCode ^
         currency.hashCode ^
-        ad.hashCode;
+        adData.hashCode;
   }
 }
