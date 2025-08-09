@@ -25,7 +25,8 @@ enum BookingState {
 class Booking {
   final String id;
   final String boardId;
-  final bool isAddedByBoardOwner;
+  final bool isUnAvailablePeriod;
+  final String? reasonForUnAvailablePeriod;
   final String boardOwnerId;
   final String clientId;
   final BookingState bookingState;
@@ -39,7 +40,8 @@ class Booking {
   Booking({
     required this.id,
     required this.boardId,
-    this.isAddedByBoardOwner = false,
+    this.isUnAvailablePeriod = false,
+    this.reasonForUnAvailablePeriod,
     required this.boardOwnerId,
     required this.clientId,
     required this.bookingState,
@@ -54,7 +56,8 @@ class Booking {
   Booking copyWith({
     String? id,
     String? boardId,
-    bool? isAddedByBoardOwner,
+    bool? isUnAvailablePeriod,
+    String? reasonForUnAvailablePeriod,
     String? boardOwnerId,
     String? clientId,
     BookingState? bookingState,
@@ -68,7 +71,9 @@ class Booking {
     return Booking(
       id: id ?? this.id,
       boardId: boardId ?? this.boardId,
-      isAddedByBoardOwner: isAddedByBoardOwner ?? this.isAddedByBoardOwner,
+      isUnAvailablePeriod: isUnAvailablePeriod ?? this.isUnAvailablePeriod,
+      reasonForUnAvailablePeriod:
+          reasonForUnAvailablePeriod ?? this.reasonForUnAvailablePeriod,
       boardOwnerId: boardOwnerId ?? this.boardOwnerId,
       clientId: clientId ?? this.clientId,
       bookingState: bookingState ?? this.bookingState,
@@ -85,7 +90,8 @@ class Booking {
     return <String, dynamic>{
       'id': id,
       'boardId': boardId,
-      'isAddedByBoardOwner': isAddedByBoardOwner,
+      'isUnAvailablePeriod': isUnAvailablePeriod,
+      'reasonForUnAvailablePeriod': reasonForUnAvailablePeriod,
       'boardOwnerId': boardOwnerId,
       'clientId': clientId,
       'bookingState': bookingState.toJson(),
@@ -102,7 +108,8 @@ class Booking {
     return Booking(
       id: map['id'] as String,
       boardId: map['boardId'] as String,
-      isAddedByBoardOwner: map['isAddedByBoardOwner'] as bool,
+      isUnAvailablePeriod: map['isUnAvailablePeriod'] as bool,
+      reasonForUnAvailablePeriod: map['reasonForUnAvailablePeriod'] as String?,
       boardOwnerId: map['boardOwnerId'] as String,
       clientId: map['clientId'] as String,
       bookingState: BookingState.fromJson(map['bookingState'] as String),
@@ -122,7 +129,7 @@ class Booking {
 
   @override
   String toString() {
-    return 'Booking(id: $id, boardId: $boardId, isAddedByBoardOwner: $isAddedByBoardOwner, boardOwnerId: $boardOwnerId, clientId: $clientId, bookingState: $bookingState, startDate: $startDate, endDate: $endDate, totalPrice: $totalPrice, hasPaid: $hasPaid, currency: $currency, adData: $adData)';
+    return 'Booking(id: $id, boardId: $boardId, isUnAvailablePeriod: $isUnAvailablePeriod, reasonForUnAvailablePeriod: $reasonForUnAvailablePeriod, boardOwnerId: $boardOwnerId, clientId: $clientId, bookingState: $bookingState, startDate: $startDate, endDate: $endDate, totalPrice: $totalPrice, hasPaid: $hasPaid, currency: $currency, adData: $adData)';
   }
 
   @override
@@ -131,7 +138,8 @@ class Booking {
 
     return other.id == id &&
         other.boardId == boardId &&
-        other.isAddedByBoardOwner == isAddedByBoardOwner &&
+        other.isUnAvailablePeriod == isUnAvailablePeriod &&
+        other.reasonForUnAvailablePeriod == reasonForUnAvailablePeriod &&
         other.boardOwnerId == boardOwnerId &&
         other.clientId == clientId &&
         other.bookingState == bookingState &&
@@ -147,7 +155,8 @@ class Booking {
   int get hashCode {
     return id.hashCode ^
         boardId.hashCode ^
-        isAddedByBoardOwner.hashCode ^
+        isUnAvailablePeriod.hashCode ^
+        reasonForUnAvailablePeriod.hashCode ^
         boardOwnerId.hashCode ^
         clientId.hashCode ^
         bookingState.hashCode ^
