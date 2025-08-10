@@ -7,9 +7,9 @@ class MyAppNotification {
   final String id; 
   final String title; 
   final String body; 
-  final String imageUrl; // Associated booking ID (if applicable)
-  final Timestamp creationTime; // When the notification was created
-  final bool isRead; // Flag to indicate if the notification has been read
+  final String imageUrl; 
+  final Timestamp creationTime; 
+  final bool isRead; 
   MyAppNotification({
     required this.id,
     required this.title,
