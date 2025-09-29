@@ -194,8 +194,8 @@ class Board {
   factory Board.fromMap(Map<String, dynamic> map) {
     return Board(
       id: map['id'] as String,
-      geoFirePoint: GeoFirePoint(
-          GeoPoint(map['latitude'] as double, map['longitude'] as double)),
+      geoFirePoint: GeoFirePoint(GeoPoint((map['latitude'] as num).toDouble(),
+          (map['longitude'] as num).toDouble())),
       customId: map['customId'] as String,
       boardOwnerId: map['boardOwnerId'] as String,
       countryCode: map['countryCode'] as String,
@@ -240,8 +240,8 @@ class Board {
       numOfViews: map['numOfViews'] as int,
       sizeType: SizeType.fromJson(map['sizeType'] as String),
       formatType: FormatType.fromJson(map['formatType'] as String),
-      latitude: map['latitude'] as double,
-      longitude: map['longitude'] as double,
+      latitude: (map['latitude'] as num).toDouble(),
+      longitude: (map['longitude'] as num).toDouble(),
     );
   }
 
