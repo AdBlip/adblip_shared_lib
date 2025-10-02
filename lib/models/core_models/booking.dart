@@ -115,7 +115,7 @@ class Booking {
       bookingState: BookingState.fromJson(map['bookingState'] as String),
       startDate: (map['startDate'] as Timestamp),
       endDate: (map['endDate'] as Timestamp),
-      totalPrice: map['totalPrice'] as double,
+      totalPrice: (map['totalPrice'] as num).toDouble(),
       hasPaid: map['hasPaid'] as bool,
       currency: map['currency'] as String,
       adData: UploadedFileData.fromMap(map['adData'] as Map<String, dynamic>),
