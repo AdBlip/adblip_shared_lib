@@ -1,47 +1,43 @@
 class BoardInActionModel {
   final String id;
-  final String boardId;
   final String mediaUrl;
-  final bool isVideo;
+  final String? boardId;
+  
   // final String title;
 
   BoardInActionModel({
     required this.id,
-    required this.boardId,
     required this.mediaUrl,
-    required this.isVideo,
+    this.boardId,
   });
-
-  BoardInActionModel.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
-        boardId = json['boardId'],
-        mediaUrl = json['mediaUrl'],
-        isVideo = json['isVideo'];
+  factory BoardInActionModel.fromJson(Map<String, dynamic> json) {
+    return BoardInActionModel(
+      id: json['id'],
+      boardId: json['boardId'],
+      mediaUrl: json['mediaUrl'],
+    );
+  }
 
   Map<String, dynamic> toJson() => {
         'id': id,
         'boardId': boardId,
         'mediaUrl': mediaUrl,
-        'isVideo': isVideo,
       };
 
   @override
   String toString() {
-    return 'BoardInActionModel{id: $id, boardId: $boardId, mediaUrl: $mediaUrl, isVideo: $isVideo}';
+    return 'BoardInActionModel{id: $id, boardId: $boardId, mediaUrl: $mediaUrl, boardId: $boardId}';
   }
 
   BoardInActionModel copyWith({
     String? id,
     String? boardId,
     String? mediaUrl,
-    bool? isVideo,
-    String? title,
   }) {
     return BoardInActionModel(
       id: id ?? this.id,
       boardId: boardId ?? this.boardId,
       mediaUrl: mediaUrl ?? this.mediaUrl,
-      isVideo: isVideo ?? this.isVideo,
     );
   }
 }
