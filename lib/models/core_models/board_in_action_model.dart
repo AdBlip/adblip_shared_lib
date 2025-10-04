@@ -1,14 +1,14 @@
 class BoardInActionModel {
   final String id;
   final String mediaUrl;
-  final String? boardId;
+  final String boardId;
   
   // final String title;
 
   BoardInActionModel({
     required this.id,
     required this.mediaUrl,
-    this.boardId,
+    required this.boardId,
   });
   factory BoardInActionModel.fromJson(Map<String, dynamic> json) {
     return BoardInActionModel(
@@ -26,7 +26,7 @@ class BoardInActionModel {
 
   @override
   String toString() {
-    return 'BoardInActionModel{id: $id, boardId: $boardId, mediaUrl: $mediaUrl, boardId: $boardId}';
+    return 'BoardInActionModel{id: $id, boardId: $boardId, mediaUrl: $mediaUrl}';
   }
 
   BoardInActionModel copyWith({
