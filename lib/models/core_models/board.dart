@@ -34,7 +34,7 @@ class Board {
   double? weightedRating;
   int minimumRentDurationInDays;
   int? maximumRentDurationInDays;
-  int resolutionInPixels;
+  String resolutionInPixels;
   int totalDurationOfRenting;
   int bookedThisManyTimes;
   int numOfViews;
@@ -103,7 +103,7 @@ class Board {
       Map<int, int>? rating,
       int? minimumRentDurationInDays,
       int? maximumRentDurationInDays,
-      int? resolutionInPixels,
+      String? resolutionInPixels,
       int? totalDurationOfRenting,
       String? ratio,
       FormatType? formatType,
@@ -231,7 +231,7 @@ class Board {
       maximumRentDurationInDays: map['maximumRentDurationInDays'] != null
           ? map['maximumRentDurationInDays'] as int
           : null,
-      resolutionInPixels: map['resolutionInPixels'] as int,
+      resolutionInPixels: map['resolutionInPixels'] as String,
       totalDurationOfRenting: map['totalDurationOfRenting'] as int,
       ratio: map['ratio'] as String,
       weightedRating: map['weightedRating'] != null
