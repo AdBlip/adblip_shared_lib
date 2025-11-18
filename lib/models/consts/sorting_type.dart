@@ -45,7 +45,7 @@ enum SortingType {
 enum FormatType {
   staticImage,
   video,
-  dynamic;
+  videoOrImage;
 
   String toJson() => name;
 
@@ -55,8 +55,8 @@ enum FormatType {
         return "صورة ثابتة";
       case FormatType.video:
         return "فيديو";
-      case FormatType.dynamic:
-        return "ديناميكي";
+      case FormatType.videoOrImage:
+        return "فيديو أو صورة";
     }
   }
 
@@ -66,8 +66,8 @@ enum FormatType {
         return "Static Image";
       case FormatType.video:
         return "Video";
-      case FormatType.dynamic:
-        return "Dynamic";
+      case FormatType.videoOrImage:
+        return "Video or Image";
     }
   }
 
