@@ -40,6 +40,7 @@ class Board {
   int numOfViews;
   String ratio;
   bool? isOutdoor;
+  bool isLive;
 
   GeoFirePoint geoFirePoint;
 
@@ -77,6 +78,7 @@ class Board {
       required this.formatType,
       required this.sizeType,
       this.isOutdoor,
+      this.isLive = true,
       required this.geoFirePoint});
 
   Board copyWith(
@@ -113,7 +115,8 @@ class Board {
       int? numOfViews,
       GeoFirePoint? geoFirePoint,
       double? weightedRating,
-      bool? isOutdoor}) {
+      bool? isOutdoor,
+      bool? isLive}) {
     return Board(
         id: id ?? this.id,
         customId: customId ?? this.customId,
@@ -154,6 +157,7 @@ class Board {
         formatType: formatType ?? this.formatType,
         sizeType: sizeType ?? this.sizeType,
         isOutdoor: isOutdoor ?? this.isOutdoor,
+        isLive: isLive ?? this.isLive,
         geoFirePoint: geoFirePoint ?? this.geoFirePoint);
   }
 
@@ -193,6 +197,7 @@ class Board {
       'formatType': formatType.toJson(),
       'sizeType': sizeType.toJson(),
       'isOutdoor': isOutdoor,
+      'isLive': isLive,
     };
   }
 
@@ -248,6 +253,7 @@ class Board {
       latitude: (map['latitude'] as num).toDouble(),
       longitude: (map['longitude'] as num).toDouble(),
       isOutdoor: map['isOutdoor'] != null ? map['isOutdoor'] as bool : null,
+      isLive: (map['isLive'] as bool?) ?? true,
     );
   }
 

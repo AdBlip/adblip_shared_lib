@@ -90,10 +90,10 @@ class AppUser {
           ? null
           : UploadedFileData.fromMap(
               map['logoImageLink'] as Map<String, dynamic>),
-      favouriteBoardsIds:
-          List<String>.from((map['favouriteBoardsIds'] as List<dynamic>)),
-      recentSearchedPlaceIds:
-          List<String>.from((map['recentSearchedPlaceIds'] as List<dynamic>)),
+      favouriteBoardsIds: List<String>.from(
+          (map['favouriteBoardsIds'] as List<dynamic>?) ?? []),
+      recentSearchedPlaceIds: List<String>.from(
+          (map['recentSearchedPlaceIds'] as List<dynamic>?) ?? []),
       fcmToken: map['fcmToken'] as String?,
       isDeleted: map['isDeleted'] as bool? ?? false,
     );
