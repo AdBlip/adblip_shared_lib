@@ -29,6 +29,8 @@ class Booking {
   final String? reasonForUnAvailablePeriod;
   final String boardOwnerId;
   final String clientId;
+  final String? bundleId;
+  final String? bundleName;
   final BookingState bookingState;
   final Timestamp startDate;
   final Timestamp endDate;
@@ -44,6 +46,8 @@ class Booking {
     this.reasonForUnAvailablePeriod,
     required this.boardOwnerId,
     required this.clientId,
+    this.bundleId,
+    this.bundleName,
     required this.bookingState,
     required this.startDate,
     required this.endDate,
@@ -60,6 +64,8 @@ class Booking {
     String? reasonForUnAvailablePeriod,
     String? boardOwnerId,
     String? clientId,
+    String? bundleId,
+    String? bundleName,
     BookingState? bookingState,
     Timestamp? startDate,
     Timestamp? endDate,
@@ -76,6 +82,8 @@ class Booking {
           reasonForUnAvailablePeriod ?? this.reasonForUnAvailablePeriod,
       boardOwnerId: boardOwnerId ?? this.boardOwnerId,
       clientId: clientId ?? this.clientId,
+      bundleId: bundleId ?? this.bundleId,
+      bundleName: bundleName ?? this.bundleName,
       bookingState: bookingState ?? this.bookingState,
       startDate: startDate ?? this.startDate,
       endDate: endDate ?? this.endDate,
@@ -94,6 +102,8 @@ class Booking {
       'reasonForUnAvailablePeriod': reasonForUnAvailablePeriod,
       'boardOwnerId': boardOwnerId,
       'clientId': clientId,
+      'bundleId': bundleId,
+      'bundleName': bundleName,
       'bookingState': bookingState.toJson(),
       'startDate': startDate,
       'endDate': endDate,
@@ -112,6 +122,8 @@ class Booking {
       reasonForUnAvailablePeriod: map['reasonForUnAvailablePeriod'] as String?,
       boardOwnerId: map['boardOwnerId'] as String,
       clientId: map['clientId'] as String,
+      bundleId: map['bundleId'] as String?,
+      bundleName: map['bundleName'] as String?,
       bookingState: BookingState.fromJson(map['bookingState'] as String),
       startDate: (map['startDate'] as Timestamp),
       endDate: (map['endDate'] as Timestamp),
@@ -129,7 +141,7 @@ class Booking {
 
   @override
   String toString() {
-    return 'Booking(id: $id, boardId: $boardId, isUnAvailablePeriod: $isUnAvailablePeriod, reasonForUnAvailablePeriod: $reasonForUnAvailablePeriod, boardOwnerId: $boardOwnerId, clientId: $clientId, bookingState: $bookingState, startDate: $startDate, endDate: $endDate, totalPrice: $totalPrice, hasPaid: $hasPaid, currency: $currency, adData: $adData)';
+    return 'Booking(id: $id, boardId: $boardId, isUnAvailablePeriod: $isUnAvailablePeriod, reasonForUnAvailablePeriod: $reasonForUnAvailablePeriod, boardOwnerId: $boardOwnerId, clientId: $clientId, bundleId: $bundleId, bundleName: $bundleName, bookingState: $bookingState, startDate: $startDate, endDate: $endDate, totalPrice: $totalPrice, hasPaid: $hasPaid, currency: $currency, adData: $adData)';
   }
 
   @override
@@ -142,6 +154,8 @@ class Booking {
         other.reasonForUnAvailablePeriod == reasonForUnAvailablePeriod &&
         other.boardOwnerId == boardOwnerId &&
         other.clientId == clientId &&
+        other.bundleId == bundleId &&
+        other.bundleName == bundleName &&
         other.bookingState == bookingState &&
         other.startDate == startDate &&
         other.endDate == endDate &&
@@ -159,6 +173,8 @@ class Booking {
         reasonForUnAvailablePeriod.hashCode ^
         boardOwnerId.hashCode ^
         clientId.hashCode ^
+        bundleId.hashCode ^
+        bundleName.hashCode ^
         bookingState.hashCode ^
         startDate.hashCode ^
         endDate.hashCode ^
