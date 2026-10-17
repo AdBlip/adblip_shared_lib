@@ -28,6 +28,7 @@ class BoardOwner {
   final UploadedFileData? profilePictureData;
   final bool isDeleted;
   final bool isActive;
+  final bool isLiveEnabled;
 
   // Model Constructor
   BoardOwner({
@@ -42,6 +43,7 @@ class BoardOwner {
     required this.joinDate,
     this.isDeleted = false,
     this.isActive = false,
+    this.isLiveEnabled = false,
   });
 
   // Model to Json
@@ -57,6 +59,7 @@ class BoardOwner {
         'profilePictureData': profilePictureData?.toMap(),
         'isDeleted': isDeleted,
         'isActive': isActive,
+        'isLiveEnabled': isLiveEnabled,
       };
 
   // Json to Model
@@ -74,6 +77,7 @@ class BoardOwner {
         joinDate: json['joinDate'],
         isDeleted: json['isDeleted'] as bool,
         isActive: json['isActive'] as bool,
+        isLiveEnabled: (json['isLiveEnabled'] as bool?) ?? false,
       );
 
   BoardOwner copyWith({
@@ -88,6 +92,7 @@ class BoardOwner {
     UploadedFileData? profilePictureData,
     bool? isDeleted,
     bool? isActive,
+    bool? isLiveEnabled,
   }) {
     return BoardOwner(
       uid: uid ?? this.uid,
@@ -101,6 +106,7 @@ class BoardOwner {
       profilePictureData: profilePictureData ?? this.profilePictureData,
       isDeleted: isDeleted ?? this.isDeleted,
       isActive: isActive ?? this.isActive,
+      isLiveEnabled: isLiveEnabled ?? this.isLiveEnabled,
     );
   }
 }
