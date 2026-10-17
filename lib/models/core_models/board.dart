@@ -17,8 +17,8 @@ class Board {
   String description;
   bool isDeleted;
   List<UploadedFileData>? imagesData;
-  int widthInCm;
-  int heightInCm;
+  int widthInM;
+  int heightInM;
   bool isDigitalAd;
   double dailyPriceAfterDiscount;
   double dailyPriceBeforeDiscount;
@@ -56,8 +56,8 @@ class Board {
       required this.description,
       this.imagesData,
       this.weightedRating,
-      required this.widthInCm,
-      required this.heightInCm,
+      required this.widthInM,
+      required this.heightInM,
       required this.isDigitalAd,
       required this.dailyPriceAfterDiscount,
       required this.dailyPriceBeforeDiscount,
@@ -92,8 +92,8 @@ class Board {
       String? title,
       String? description,
       List<UploadedFileData>? imagesData,
-      int? widthInCm,
-      int? heightInCm,
+      int? widthInM,
+      int? heightInM,
       bool? isDigitalAd,
       double? dailyPriceAfterDiscount,
       double? dailyPriceBeforeDiscount,
@@ -129,8 +129,8 @@ class Board {
         title: title ?? this.title,
         description: description ?? this.description,
         imagesData: imagesData ?? this.imagesData,
-        widthInCm: widthInCm ?? this.widthInCm,
-        heightInCm: heightInCm ?? this.heightInCm,
+        widthInM: widthInM ?? this.widthInM,
+        heightInM: heightInM ?? this.heightInM,
         isDigitalAd: isDigitalAd ?? this.isDigitalAd,
         dailyPriceAfterDiscount:
             dailyPriceAfterDiscount ?? this.dailyPriceAfterDiscount,
@@ -173,8 +173,8 @@ class Board {
       'title': title,
       'description': description,
       'imagesData': imagesData?.map((x) => x.toMap()).toList(),
-      'widthInCm': widthInCm,
-      'heightInCm': heightInCm,
+      'widthInM': widthInM,
+      'heightInM': heightInM,
       'isDigitalAd': isDigitalAd,
       'dailyPriceAfterDiscount': dailyPriceAfterDiscount,
       'dailyPriceBeforeDiscount': dailyPriceBeforeDiscount,
@@ -221,8 +221,8 @@ class Board {
               .map((e) => UploadedFileData.fromMap(e))
               .toList()
           : [])),
-      widthInCm: map['widthInCm'] as int,
-      heightInCm: map['heightInCm'] as int,
+      widthInM: (map['widthInM'] ?? map['widthInCm'] ?? 0) as int,
+      heightInM: (map['heightInM'] ?? map['heightInCm'] ?? 0) as int,
       isDigitalAd: (map['isDigitalAd'] as bool?) ?? false,
       dailyPriceAfterDiscount:
           (map['dailyPriceAfterDiscount'] as num).toDouble(),
